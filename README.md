@@ -60,6 +60,20 @@ De bestaande URL's blijven behouden zodat de vindbaarheid in Google niet verlore
 | `scripts.js` | Gedeeld script (vanilla JS): sticky header, mobiel menu, smooth scroll, scroll-animaties, prijs-tabs, FAQ, mobiele CTA-balk |
 | `index.html` | Homepage |
 | `previews/` | Screenshots van het design (desktop, mobiel) |
+| `assets/patroon/` | Het giraffepatroon als losse achtergrond (PNG + SVG), zie hieronder |
+
+### Giraffepatroon als afbeelding
+
+| Bestand | Gebruik |
+|---|---|
+| `giraffe-patroon-donker-1920x1080.png` / `-2560x1440.png` | Donkere achtergrond zoals in de hero en faciliteiten (sectie-achtergrond, *cover*) |
+| `giraffe-patroon-donker-tegel.png` / `.svg` | Naadloze tegel van de donkere variant (achtergrond *herhalen*, 260 px) |
+| `giraffe-patroon-bruin-1920x1080.png` | Bruine variant zoals de bewegende faciliteitenband |
+| `giraffe-patroon-bruin-tegel.png` / `.svg` | Naadloze tegel van de bruine variant (220 px) |
+| `giraffe-patroon-transparant-tegel.png` / `.svg` | Enkel de gouden vlekken op transparant, voor eigen kleuren of lage dekking |
+
+In GoHighLevel: upload de PNG in *Media*, kies bij een sectie *Background → Image* en
+zet die op *Cover* (grote versies) of *Repeat* (tegels).
 
 Alle klassen beginnen met `amk-` en alle inhoud staat in `<div class="amk">`, zodat het
 design niet botst met de eigen CSS van GoHighLevel. Foto's en logo worden rechtstreeks
