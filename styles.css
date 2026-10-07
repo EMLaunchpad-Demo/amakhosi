@@ -1807,9 +1807,10 @@ em .amk-w__i {
 
 .amk-price__top {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px 12px;
 }
 
 .amk-price__time {
@@ -2750,6 +2751,25 @@ em .amk-w__i {
   box-shadow: 0 0 8px rgba(251, 178, 57, 0.7);
 }
 
+.amk-carte__price {
+  margin-left: auto;
+  padding-left: 12px;
+  font-family: var(--amk-font-display);
+  font-size: 1.05rem;
+  color: var(--amk-sun-2);
+  white-space: nowrap;
+}
+
+.amk-carte__head .amk-carte__price { font-size: 1.3rem; }
+
+.amk-pricetag {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--amk-font-display);
+  font-size: 1.6rem;
+  color: var(--amk-sun-2);
+}
+
 .amk-carte__list small {
   display: block;
   margin-top: 2px;
@@ -2946,7 +2966,7 @@ em .amk-w__i {
 }
 
 .amk-compare {
-  min-width: 720px;
+  min-width: 880px;
   font-size: 0.95rem;
 }
 
@@ -3074,6 +3094,35 @@ em .amk-w__i {
   border-radius: var(--amk-radius);
   background: #fff;
 }
+
+.amk-booking__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 4px 8px 12px;
+}
+
+.amk-booking__top .amk-booking__hint { padding: 0; }
+
+.amk-booking__full { flex: none; }
+
+.amk-booking__phone {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 8px 14px;
+  padding: 12px 14px;
+  border-radius: var(--amk-radius-sm);
+  border: 1px solid var(--amk-line);
+  background: rgba(251, 178, 57, 0.06);
+  font-size: 0.88rem;
+  color: var(--amk-muted);
+}
+
+.amk-booking__phone .amk-icon { margin-top: 2px; color: var(--amk-sun-2); }
+.amk-booking__phone strong { color: var(--amk-text); }
 
 .amk-booking__hint {
   display: flex;
@@ -3252,6 +3301,30 @@ em .amk-w__i {
 .amk-mobilebar .amk-btn { min-height: 50px; }
 
 
+/* Vaste reserveerknop rechtsonder (computer) */
+.amk-fab {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 85;
+  display: none;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.8), 0 10px 30px -14px rgba(251, 178, 57, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.92);
+  transition: opacity 0.4s var(--amk-ease), transform 0.5s var(--amk-ease), visibility 0s linear 0.5s;
+}
+
+.amk-fab.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.4s var(--amk-ease), transform 0.5s var(--amk-ease), visibility 0s;
+}
+
+.amk-fab.is-visible:hover { transform: translateY(-2px); }
+
+
 /* ==========================================================================
    23. KEYFRAMES
    ========================================================================== */
@@ -3351,6 +3424,7 @@ em .amk-w__i {
   .amk-nav__call { display: none; }
 
   .amk-prices { grid-template-columns: repeat(3, 1fr); }
+  .amk-prices--four { grid-template-columns: repeat(2, 1fr); }
   .amk-prices--two { grid-template-columns: repeat(2, 1fr); }
   .amk-steps { grid-template-columns: repeat(3, 1fr); }
   .amk-reviews { grid-template-columns: repeat(3, 1fr); }
@@ -3480,7 +3554,8 @@ em .amk-w__i {
 
   .amk-cards { grid-template-columns: repeat(3, 1fr); }
   .amk-checkgrid { grid-template-columns: repeat(3, 1fr); }
-  .amk-durations { grid-template-columns: repeat(5, 1fr); }
+  .amk-durations { grid-template-columns: repeat(3, 1fr); }
+  .amk-fab { display: inline-flex; }
   .amk-carte-grid--three { grid-template-columns: repeat(3, 1fr); }
   .amk-gallery { columns: 3 240px; column-gap: 16px; }
   .amk-gallery__item { margin-bottom: 16px; }
@@ -3520,6 +3595,9 @@ em .amk-w__i {
 /* ---- ≥ 1200px ---- */
 @media (min-width: 1200px) {
   .amk-hero__media { width: 500px; }
+  .amk-prices--four { grid-template-columns: repeat(4, 1fr); }
+  .amk-prices--four .amk-price { padding-inline: 22px; }
+  .amk-durations { grid-template-columns: repeat(6, 1fr); }
 }
 
 /* ---- Mobiel: ruimte voor de CTA-balk onderaan ---- */

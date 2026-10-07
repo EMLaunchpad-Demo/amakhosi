@@ -26,21 +26,22 @@
       <div class="amk-container amk-booking__grid">
         <div class="amk-booking__frame" data-amk-reveal>
           <h2 class="amk-sr-only" id="amk-agenda-title">Online agenda</h2>
-          <p class="amk-booking__hint">{{i:lock}}Uw wellness is tijdens uw arrangement volledig privé.</p>
+          <div class="amk-booking__top">
+            <p class="amk-booking__hint">{{i:lock}}Uw wellness is tijdens uw arrangement volledig privé.</p>
+            <a class="amk-btn amk-btn--ghost amk-btn--sm amk-booking__full" href="{{BOOKING_URL}}">{{i:calendar}}Agenda op volledig scherm</a>
+          </div>
+          <p class="amk-booking__phone">{{i:phone}}<span>Nederlands telefoonnummer? Typ het met <strong>+31</strong> ervoor, bv. +31 6 12345678.</span></p>
           <iframe src="https://api.leadconnectorhq.com/booking/amakhosi?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" scrolling="no" id="8mwRjKt9TFTVWGHrrl0R_1787159470849"></iframe>
         </div>
 
         <aside class="amk-booking__aside" data-amk-stagger="0.1" aria-label="Overzicht">
           <div class="amk-summary">
             <h3>Wellness</h3>
-            <div class="amk-summary__row"><span>Even ontsnappen · 3 uur</span><strong>€ 169</strong></div>
-            <div class="amk-summary__row"><span>Een dagdeel · 4 uur</span><strong>€ 199</strong></div>
-            <div class="amk-summary__row"><span>Ultieme verwennerij · 5 uur</span><strong>€ 239</strong></div>
+            {{SUMMARY:wellness}}
           </div>
           <div class="amk-summary">
             <h3>Overnachting</h3>
-            <div class="amk-summary__row"><span>20:00 – 10:00</span><strong>€ 335</strong></div>
-            <div class="amk-summary__row"><span>20:00 – 12:00</span><strong>€ 399</strong></div>
+            {{SUMMARY:nacht}}
           </div>
           <div class="amk-summary">
             <h3>Goed om te weten</h3>
@@ -48,6 +49,7 @@
               <li>{{i:check}}Volledig privé, zonder gedeelde ruimtes</li>
               <li>{{i:check}}Gratis frisdrank, koffie &amp; thee</li>
               <li>{{i:check}}Gratis privéparking met laadpaal</li>
+              <li>{{i:check}}Extra's kiest u mee in de agenda</li>
               <li>{{i:check}}Planken minstens 1 dag vooraf bestellen</li>
               <li>{{i:check}}Halal of vegetarisch mogelijk</li>
             </ul>

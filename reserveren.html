@@ -200,7 +200,11 @@
       <div class="amk-container amk-booking__grid">
         <div class="amk-booking__frame" data-amk-reveal>
           <h2 class="amk-sr-only" id="amk-agenda-title">Online agenda</h2>
-          <p class="amk-booking__hint"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-lock"/></svg>Uw wellness is tijdens uw arrangement volledig privé.</p>
+          <div class="amk-booking__top">
+            <p class="amk-booking__hint"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-lock"/></svg>Uw wellness is tijdens uw arrangement volledig privé.</p>
+            <a class="amk-btn amk-btn--ghost amk-btn--sm amk-booking__full" href="https://api.leadconnectorhq.com/booking/amakhosi?showHeader=true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Agenda op volledig scherm</a>
+          </div>
+          <p class="amk-booking__phone"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-phone"/></svg><span>Nederlands telefoonnummer? Typ het met <strong>+31</strong> ervoor, bv. +31 6 12345678.</span></p>
           <iframe src="https://api.leadconnectorhq.com/booking/amakhosi?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" scrolling="no" id="8mwRjKt9TFTVWGHrrl0R_1787159470849"></iframe>
         </div>
 
@@ -210,11 +214,12 @@
             <div class="amk-summary__row"><span>Even ontsnappen · 3 uur</span><strong>€ 169</strong></div>
             <div class="amk-summary__row"><span>Een dagdeel · 4 uur</span><strong>€ 199</strong></div>
             <div class="amk-summary__row"><span>Ultieme verwennerij · 5 uur</span><strong>€ 239</strong></div>
+            <div class="amk-summary__row"><span>Extra long stay · 6 uur</span><strong>€ 279</strong></div>
           </div>
           <div class="amk-summary">
             <h3>Overnachting</h3>
-            <div class="amk-summary__row"><span>20:00 – 10:00</span><strong>€ 335</strong></div>
-            <div class="amk-summary__row"><span>20:00 – 12:00</span><strong>€ 399</strong></div>
+            <div class="amk-summary__row"><span>Kom overnachten · 20:00 – 10:00 · 14 uur</span><strong>€ 335</strong></div>
+            <div class="amk-summary__row"><span>Slaap lekker uit · 20:00 – 12:00 · 16 uur</span><strong>€ 399</strong></div>
           </div>
           <div class="amk-summary">
             <h3>Goed om te weten</h3>
@@ -222,6 +227,7 @@
               <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Volledig privé, zonder gedeelde ruimtes</li>
               <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Gratis frisdrank, koffie &amp; thee</li>
               <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Gratis privéparking met laadpaal</li>
+              <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Extra's kiest u mee in de agenda</li>
               <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Planken minstens 1 dag vooraf bestellen</li>
               <li><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-check"/></svg>Halal of vegetarisch mogelijk</li>
             </ul>
@@ -254,7 +260,11 @@
         <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">
           <details class="amk-faq__item" open>
             <summary>Hoe werkt online reserveren?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
-            <div class="amk-faq__answer"><div><p>Kies in de agenda uw arrangement, datum en tijdstip en vul uw gegevens in. Wilt u een extra zoals een romantisch pakket of een plank? Vermeld het bij uw reservatie of bel ons.</p></div></div>
+            <div class="amk-faq__answer"><div><p>Kies in de agenda uw arrangement, eventuele extra's, de datum en het tijdstip, en vul uw gegevens in. Lukt het op uw telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons.</p></div></div>
+          </details>
+          <details class="amk-faq__item">
+            <summary>Ik heb een Nederlands telefoonnummer. Wat vul ik in?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>Typ uw nummer met landcode, bijvoorbeeld +31 6 12345678. Een Belgisch nummer mag gewoon zoals u het kent, bijvoorbeeld 0470 12 34 56.</p></div></div>
           </details>
           <details class="amk-faq__item">
             <summary>Kan ik ook telefonisch reserveren?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
@@ -328,8 +338,11 @@
   <!-- Mobiele CTA-balk -->
   <div class="amk-mobilebar" data-amk-mobilebar aria-hidden="true">
     <a class="amk-btn amk-btn--ghost" href="tel:+32469217550" aria-label="Bel Amakhosi"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-phone"/></svg>Bel</a>
-    <a class="amk-btn amk-btn--gold" href="/reserveren"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer uw moment</a>
+    <a class="amk-btn amk-btn--gold" href="#agenda"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer uw moment</a>
   </div>
+
+  <!-- Vaste reserveerknop rechtsonder (computer) -->
+  <a class="amk-fab amk-btn amk-btn--gold amk-btn--shine" href="#agenda" data-amk-fab aria-hidden="true" tabindex="-1"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer</a>
 
 
   <!-- Gestructureerde data voor Google -->
@@ -511,7 +524,20 @@
           },
           {
             "@type": "Offer",
-            "name": "Kom helemaal tot rust — overnachting 20:00-10:00",
+            "name": "Extra long stay — 6 uur privéwellness",
+            "price": "279",
+            "priceCurrency": "EUR",
+            "url": "https://amakhosi.be/prijslijst",
+            "availability": "https://schema.org/InStock",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Privésauna & wellness — 6 uur",
+              "description": "Uitgebreid genieten, zonder op de klok te kijken. Volledig privé: Finse sauna, stoombad, whirlpool, inloopdouche en lounge."
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Kom overnachten — overnachting 20:00-10:00 (14 uur)",
             "price": "335",
             "priceCurrency": "EUR",
             "url": "https://amakhosi.be/prijslijst",
@@ -524,7 +550,7 @@
           },
           {
             "@type": "Offer",
-            "name": "Kom tot rust en slaap lekker uit — overnachting 20:00-12:00",
+            "name": "Slaap lekker uit — overnachting 20:00-12:00 (16 uur)",
             "price": "399",
             "priceCurrency": "EUR",
             "url": "https://amakhosi.be/prijslijst",
@@ -532,7 +558,7 @@
             "itemOffered": {
               "@type": "Service",
               "name": "Wellness met overnachting (20:00 – 12:00)",
-              "description": "De ultieme verwennerij, zonder wekker. Met aparte slaapsuite en eigen inloopdouche."
+              "description": "Uitslapen en nagenieten tot 12:00, zonder wekker. Met aparte slaapsuite en eigen inloopdouche."
             }
           }
         ]
@@ -588,7 +614,15 @@
           "name": "Hoe werkt online reserveren?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Kies in de agenda uw arrangement, datum en tijdstip en vul uw gegevens in. Wilt u een extra zoals een romantisch pakket of een plank? Vermeld het bij uw reservatie of bel ons."
+            "text": "Kies in de agenda uw arrangement, eventuele extra's, de datum en het tijdstip, en vul uw gegevens in. Lukt het op uw telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Ik heb een Nederlands telefoonnummer. Wat vul ik in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Typ uw nummer met landcode, bijvoorbeeld +31 6 12345678. Een Belgisch nummer mag gewoon zoals u het kent, bijvoorbeeld 0470 12 34 56."
           }
         },
         {

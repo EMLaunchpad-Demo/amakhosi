@@ -16,7 +16,7 @@
    12. Tabs (arrangementen)
    13. FAQ: vloeiend openen/sluiten, één tegelijk
    14. Galerij-lightbox
-   15. Mobiele CTA-balk
+   15. Mobiele CTA-balk + vaste reserveerknop rechtsonder
    16. Terug naar boven + jaartal
    ========================================================================== */
 (function () {
@@ -634,17 +634,22 @@
     /* ------------------------------------------------------------------
        15. Mobiele CTA-balk: verschijnt zodra de hero uit beeld is
        ------------------------------------------------------------------ */
-    var bar = doc.querySelector('[data-amk-mobilebar]');
+    // Ook de vaste reserveerknop rechtsonder (computer) volgt deze regel
+    var stickies = $$('[data-amk-mobilebar], [data-amk-fab]');
     var hero = doc.querySelector('[data-amk-hero]');
-    if (bar && hero && 'IntersectionObserver' in window) {
+    function setSticky(visible) {
+      stickies.forEach(function (el) {
+        el.classList.toggle('is-visible', visible);
+        el.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        if (el.hasAttribute('data-amk-fab')) el.setAttribute('tabindex', visible ? '0' : '-1');
+      });
+    }
+    if (stickies.length && hero && 'IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
-        var visible = !entries[0].isIntersecting;
-        bar.classList.toggle('is-visible', visible);
-        bar.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        setSticky(!entries[0].isIntersecting);
       }, { threshold: 0 }).observe(hero);
-    } else if (bar) {
-      bar.classList.add('is-visible');
-      bar.setAttribute('aria-hidden', 'false');
+    } else if (stickies.length) {
+      setSticky(true);
     }
 
     /* ------------------------------------------------------------------

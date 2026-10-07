@@ -168,7 +168,28 @@ bestaande GHL-mediabibliotheek van Amakhosi.
 - **Google Business-profiel**: zorg dat naam, adres en telefoon exact gelijk zijn aan de site
   (`Amakhosi`, `Watertorenstraat 64, 3930 Hamont-Achel`, `+32 469 21 75 50`).
 
-## 7. Giraffepatroon als afbeelding
+## 7. Checklist GoHighLevel-agenda (feedback Patrick, oktober 2026)
+
+Deze punten zitten in de GHL-instellingen van de agenda en e-mails, niet in de websitecode:
+
+- [ ] **Overnachtingen tonen "4 hr"**: zet de duur van *Kom overnachten* op 14 uur en
+  *Slaap lekker uit* op 16 uur. Test meteen of er nog tijdsloten om 20:00 verschijnen.
+- [ ] **Telefoonnummer**: het veld neemt een Belgisch nummer aan; Nederlandse nummers werken
+  alleen met +31. Zet in de instellingen van het telefoonveld (boekingsformulier) een
+  landkeuze aan of schakel de strenge controle uit, als die optie er is.
+- [ ] **Voorwaarden**: de tekst "privacybeleid en algemene voorwaarden" heeft geen link. Voeg
+  links toe naar een privacy- en voorwaardenpagina (die pagina's bestaan nog niet).
+- [ ] **E-mails**: datum/tijd in 24-uursnotatie en in het Nederlands, het totaalbedrag na het
+  €-teken (het gebruikte veld is nu leeg), en de aparte "purchase"-mail uitzetten.
+- [ ] **Wellness-diensten**: beschrijvingen even uitgebreid maken als bij de overnachtingen en
+  de namen gelijk zetten, bv. *(5 uur)* en *(6 uur)* i.p.v. *(5 uurtjes)*.
+
+De website toont sinds deze versie dezelfde namen, prijzen (inclusief **Extra long stay, 6 uur,
+€ 279**) en extra's als de agenda, de juiste duur van de overnachtingen (14 en 16 uur), een
+vaste **Reserveer**-knop rechtsonder op de computer, een knop **Agenda op volledig scherm**
+(handig op telefoons, ook voor de betaalpagina) en een tip voor Nederlandse telefoonnummers.
+
+## 8. Giraffepatroon als afbeelding
 
 | Bestand | Gebruik |
 |---|---|

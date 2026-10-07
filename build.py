@@ -38,20 +38,27 @@ NAV = [
 # --------------------------------------------------------------------------
 # Prijzen (enige bron voor kaarten, tabellen en schema)
 # --------------------------------------------------------------------------
+# Namen, prijzen en duur zijn gelijk aan de online agenda (GHL-boekingswidget),
+# zodat klanten op de site en in de agenda hetzelfde zien.
 WELLNESS = [
     dict(name="Even ontsnappen", price=169, time="3 uur", hours=3,
          desc="Even weg uit de dagelijkse drukte."),
     dict(name="Een dagdeel", price=199, time="4 uur", hours=4,
          desc="Extra tijd om alles rustig te beleven."),
     dict(name="Ultieme verwennerij", price=239, time="5 uur", hours=5,
-         desc="Een oase van warmte, rust en comfort.", badge="Meeste tijd voor u"),
+         desc="Een oase van warmte, rust en comfort."),
+    dict(name="Extra long stay", price=279, time="6 uur", hours=6,
+         desc="Uitgebreid genieten, zonder op de klok te kijken.", badge="Meeste tijd voor u"),
 ]
 NACHT = [
-    dict(name="Kom helemaal tot rust", price=335, time="20:00 – 10:00",
+    dict(name="Kom overnachten", price=335, time="20:00 – 10:00", hours=14,
          desc="Overnachten met onbeperkt toegang tot de wellness."),
-    dict(name="Kom tot rust en slaap lekker uit", price=399, time="20:00 – 12:00",
-         desc="De ultieme verwennerij, zonder wekker.", badge="Uitslapen tot 12 u"),
+    dict(name="Slaap lekker uit", price=399, time="20:00 – 12:00", hours=16,
+         desc="Uitslapen en nagenieten tot 12:00, zonder wekker.", badge="Uitslapen tot 12 u"),
 ]
+
+# Directe link naar de online agenda (volledig scherm, handig op telefoons)
+BOOKING_URL = "https://api.leadconnectorhq.com/booking/amakhosi?showHeader=true"
 CHECKS_WELLNESS = [
     "Volledige privéwellness",
     "Finse sauna, stoombad &amp; whirlpool",
@@ -71,7 +78,7 @@ FAQ = {
         ("Is de wellness echt volledig privé?",
          "Ja. Tijdens uw arrangement heeft u de volledige wellness voor uzelf: de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de lounge. Er zijn geen gedeelde ruimtes en geen andere gasten."),
         ("Hoe lang kan ik blijven?",
-         'U kiest voor 3, 4 of 5 uur wellness, of voor een overnachting van 20:00 tot 10:00 of van 20:00 tot 12:00. Bekijk alle prijzen op de <a href="/prijslijst">prijslijst</a>.'),
+         'U kiest voor 3, 4, 5 of 6 uur wellness, of voor een overnachting van 20:00 tot 10:00 (14 uur) of van 20:00 tot 12:00 (16 uur). Bekijk alle prijzen op de <a href="/prijslijst">prijslijst</a>.'),
         ("Kan ik eten en drinken bijboeken?",
          'Zeker. Denk aan een luxe tapas-, kaas- of fruitplank, snacks, champagne, prosecco of Afrikaanse wijn, en bij een overnachting een ontbijt voor twee. Alle gerechten kunnen halal of vegetarisch bereid worden. Bekijk alle <a href="/arrangementen">extra\'s</a>.'),
         ("Wat is inbegrepen?",
@@ -83,7 +90,7 @@ FAQ = {
     ],
     "prijslijst": [
         ("Wat kost een privésauna bij Amakhosi?",
-         "Een wellnessarrangement kost €169 voor 3 uur, €199 voor 4 uur of €239 voor 5 uur. Een overnachting met aparte slaapsuite kost €335 (20:00 tot 10:00) of €399 (20:00 tot 12:00)."),
+         "Een wellnessarrangement kost €169 voor 3 uur, €199 voor 4 uur, €239 voor 5 uur of €279 voor 6 uur. Een overnachting met aparte slaapsuite kost €335 (20:00 tot 10:00, 14 uur) of €399 (20:00 tot 12:00, 16 uur)."),
         ("Wat is inbegrepen in de prijs?",
          "Het volledig privégebruik van de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de lounge, gratis frisdrank, koffie en thee, smart-tv met sfeerhaard, airco en een gratis privéparkeerplaats met laadpaal. Bij een overnachting hoort daar een aparte slaapsuite met inloopdouche bij."),
         ("Kan ik extra's bijboeken?",
@@ -97,13 +104,15 @@ FAQ = {
         ("Zijn er halal of vegetarische opties?",
          "Ja. Alle gerechten kunnen halal of vegetarisch bereid worden. Geef het gewoon door bij uw reservatie."),
         ("Kan ik ontbijt bijboeken?",
-         "Het ontbijt voor twee personen is extra te boeken bij een overnachting: verse broodjes, croissants, een eitje naar keuze, vleeswaren, kaas en zoet beleg, vers fruit, yoghurt, een Afrikaanse muffin en verse jus d'orange."),
+         "Het ontbijt voor twee personen (€ 38) is extra te boeken bij een overnachting: verse broodjes, croissants, een eitje naar keuze, vleeswaren, kaas en zoet beleg, vers fruit, yoghurt, een Afrikaanse muffin en verse jus d'orange."),
         ("Kan de champagne koud klaarstaan bij aankomst?",
          "Ja. De gekoelde fles champagne kan op verzoek koud geserveerd worden wanneer u aankomt."),
     ],
     "reserveren": [
         ("Hoe werkt online reserveren?",
-         "Kies in de agenda uw arrangement, datum en tijdstip en vul uw gegevens in. Wilt u een extra zoals een romantisch pakket of een plank? Vermeld het bij uw reservatie of bel ons."),
+         "Kies in de agenda uw arrangement, eventuele extra's, de datum en het tijdstip, en vul uw gegevens in. Lukt het op uw telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons."),
+        ("Ik heb een Nederlands telefoonnummer. Wat vul ik in?",
+         "Typ uw nummer met landcode, bijvoorbeeld +31 6 12345678. Een Belgisch nummer mag gewoon zoals u het kent, bijvoorbeeld 0470 12 34 56."),
         ("Kan ik ook telefonisch reserveren?",
          "Natuurlijk. Bel ons op " + PHONE_DISPLAY + " of mail naar " + EMAIL + "."),
         ("Wanneer is Amakhosi open?",
@@ -147,7 +156,7 @@ PAGES = [
         key="prijslijst", src="prijslijst.html", out="prijslijst.html",
         path="/prijslijst", crumb="Prijslijst",
         title="Prijzen privésauna & overnachting | Amakhosi Hamont-Achel",
-        description="Prijslijst Amakhosi: privéwellness vanaf €169 (3 uur), €199 (4 uur) of €239 (5 uur). Overnachting met slaapsuite vanaf €335. Helemaal privé in Hamont-Achel.",
+        description="Prijslijst Amakhosi: privéwellness van €169 (3 uur) tot €279 (6 uur). Overnachting met aparte slaapsuite vanaf €335. Helemaal privé in Hamont-Achel.",
         image=("6a84993bd1abe28fc98f8e6d.jpg", 2560, 1707),
         image_alt="Whirlpool met warm oranje verlichting",
         faq="prijslijst",
@@ -208,6 +217,27 @@ def strip_tags(s):
     return html.unescape(re.sub(r"<[^>]+>", "", s))
 
 
+def time_label(p):
+    """'3 uur' of '20:00 – 10:00 · 14 uur'."""
+    return f"{p['time']} · {p['hours']} uur" if ":" in p["time"] else p["time"]
+
+
+def euro(amount):
+    """Belgische notatie: € 32,50 of € 35."""
+    if float(amount).is_integer():
+        return f"€ {int(amount)}"
+    return "€ " + f"{amount:.2f}".replace(".", ",")
+
+
+def summary_rows(kind):
+    items = NACHT if kind == "nacht" else WELLNESS
+    out = []
+    for p in items:
+        left = f"{p['name']} · {time_label(p)}"
+        out.append(f'<div class="amk-summary__row"><span>{left}</span><strong>{euro(p["price"])}</strong></div>')
+    return "\n            ".join(out)
+
+
 def price_card(p, checks, kind):
     featured = bool(p.get("badge"))
     badge = (f'<span class="amk-price__badge">{icon("crown")}{p["badge"]}</span>' if featured else "")
@@ -218,7 +248,7 @@ def price_card(p, checks, kind):
     return f"""
           <article class="amk-price amk-spot{' amk-price--featured' if featured else ''}" data-amk-tilt="5">
             <div class="amk-price__top">
-              <span class="amk-price__time">{icon("clock")}{p["time"]}</span>
+              <span class="amk-price__time">{icon("clock")}{time_label(p)}</span>
               {badge}
             </div>
             <h3 class="amk-price__name">{p["name"]}</h3>
@@ -258,7 +288,7 @@ def durations():
     for p in NACHT:
         out.append(f"""
           <a class="amk-duration amk-duration--night" href="/prijslijst">
-            <span class="amk-duration__time">{p["time"]}</span>
+            <span class="amk-duration__time">{p["time"]} · {p["hours"]} uur</span>
             <span class="amk-duration__name">{p["name"]}</span>
             <span class="amk-duration__price">€ {p["price"]}</span>
           </a>""")
@@ -267,19 +297,20 @@ def durations():
 
 def compare_table():
     cols = WELLNESS + NACHT
-    head = "".join(f'<th scope="col">{p["name"]}<small>{p["time"]}</small></th>' for p in cols)
+    head = "".join(f'<th scope="col">{p["name"]}<small>{time_label(p)}</small></th>' for p in cols)
     ok = icon("check")
     no = '<span class="amk-dash" aria-hidden="true">—</span><span class="amk-sr-only">niet inbegrepen</span>'
+    n_well, n_night = len(WELLNESS), len(NACHT)
     rows = [
-        ("Prijs", [f"€ {p['price']}" for p in cols]),
-        ("Volledige privéwellness", [ok] * 5),
-        ("Finse sauna, stoombad &amp; whirlpool", [ok] * 5),
-        ("Inloopdouche &amp; loungebed", [ok] * 5),
-        ("Gratis frisdrank, koffie &amp; thee", [ok] * 5),
-        ("Smart-tv met sfeerhaard", [ok] * 5),
-        ("Aparte slaapsuite met inloopdouche", [no, no, no, ok, ok]),
-        ("Ontbijt voor twee bij te boeken", [no, no, no, ok, ok]),
-        ("Gratis privéparking met laadpaal", [ok] * 5),
+        ("Prijs", [euro(p["price"]) for p in cols]),
+        ("Volledige privéwellness", [ok] * len(cols)),
+        ("Finse sauna, stoombad &amp; whirlpool", [ok] * len(cols)),
+        ("Inloopdouche &amp; loungebed", [ok] * len(cols)),
+        ("Gratis frisdrank, koffie &amp; thee", [ok] * len(cols)),
+        ("Smart-tv met sfeerhaard", [ok] * len(cols)),
+        ("Aparte slaapsuite met inloopdouche", [no] * n_well + [ok] * n_night),
+        ("Ontbijt voor twee bij te boeken (€ 38)", [no] * n_well + [ok] * n_night),
+        ("Gratis privéparking met laadpaal", [ok] * len(cols)),
     ]
     body = ""
     for label, cells in rows:
@@ -360,7 +391,7 @@ def offers():
     for p in NACHT:
         out.append({
             "@type": "Offer",
-            "name": f"{p['name']} — overnachting {p['time'].replace(' – ', '-')}",
+            "name": f"{p['name']} — overnachting {p['time'].replace(' – ', '-')} ({p['hours']} uur)",
             "price": str(p["price"]),
             "priceCurrency": "EUR",
             "url": SITE + "/prijslijst",
@@ -563,6 +594,14 @@ def render(text, page):
             return faq_list(token.split(":")[1])
         if token == "DURATIONS":
             return durations()
+        if token == "SUMMARY:wellness":
+            return summary_rows("wellness")
+        if token == "SUMMARY:nacht":
+            return summary_rows("nacht")
+        if token == "BOOKING_URL":
+            return html.escape(BOOKING_URL)
+        if token == "RESERVE_HREF":
+            return "#agenda" if page.get("booking") else "/reserveren"
         if token == "COMPARE":
             return compare_table()
         if token == "GALLERY":
