@@ -1,0 +1,83 @@
+    <!-- =================================================================
+         PAGINAHERO
+         ================================================================= -->
+    <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
+      <div class="amk-pagehero__bg" aria-hidden="true">
+        <img src="{{M}}6a8435f545dbba232fa5362a.jpg" alt="" width="2048" height="1365" fetchpriority="high" decoding="async" style="object-position: 60% 50%;">
+      </div>
+      <div class="amk-container">
+        <div class="amk-pagehero__inner">
+          {{BREADCRUMBS}}
+          <p class="amk-eyebrow">Reserveren</p>
+          <h1 class="amk-pagehero__title" id="amk-page-title" data-amk-split>Reserveer uw <em>koninklijk moment</em></h1>
+          <p class="amk-pagehero__lead">Kies hieronder uw arrangement, datum en tijdstip. Liever persoonlijk? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a>.</p>
+          <div class="amk-btn-row">
+            <a class="amk-btn amk-btn--gold amk-btn--shine" href="#agenda" data-amk-magnetic>{{i:calendar}}Naar de agenda</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         AGENDA + OVERZICHT
+         De agenda is de bestaande GHL-kalender van Amakhosi.
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="agenda" aria-labelledby="amk-agenda-title">
+      <div class="amk-container amk-booking__grid">
+        <div class="amk-booking__frame" data-amk-reveal>
+          <h2 class="amk-sr-only" id="amk-agenda-title">Online agenda</h2>
+          <p class="amk-booking__hint">{{i:lock}}Uw wellness is tijdens uw arrangement volledig privé.</p>
+          <iframe src="https://api.leadconnectorhq.com/booking/amakhosi?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" scrolling="no" id="8mwRjKt9TFTVWGHrrl0R_1787159470849"></iframe>
+        </div>
+
+        <aside class="amk-booking__aside" data-amk-stagger="0.1" aria-label="Overzicht">
+          <div class="amk-summary">
+            <h3>Wellness</h3>
+            <div class="amk-summary__row"><span>Even ontsnappen · 3 uur</span><strong>€ 169</strong></div>
+            <div class="amk-summary__row"><span>Een dagdeel · 4 uur</span><strong>€ 199</strong></div>
+            <div class="amk-summary__row"><span>Ultieme verwennerij · 5 uur</span><strong>€ 239</strong></div>
+          </div>
+          <div class="amk-summary">
+            <h3>Overnachting</h3>
+            <div class="amk-summary__row"><span>20:00 – 10:00</span><strong>€ 335</strong></div>
+            <div class="amk-summary__row"><span>20:00 – 12:00</span><strong>€ 399</strong></div>
+          </div>
+          <div class="amk-summary">
+            <h3>Goed om te weten</h3>
+            <ul class="amk-checks" style="margin: 0;">
+              <li>{{i:check}}Volledig privé, zonder gedeelde ruimtes</li>
+              <li>{{i:check}}Gratis frisdrank, koffie &amp; thee</li>
+              <li>{{i:check}}Gratis privéparking met laadpaal</li>
+              <li>{{i:check}}Planken minstens 1 dag vooraf bestellen</li>
+              <li>{{i:check}}Halal of vegetarisch mogelijk</li>
+            </ul>
+            <a class="amk-link" href="/arrangementen" style="margin-top: 18px;">Bekijk de extra's {{i:arrow}}</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FAQ
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="faq" aria-labelledby="amk-faq-title">
+      <div class="amk-container amk-faq__grid">
+        <div class="amk-faq__aside" data-amk-reveal>
+          <p class="amk-eyebrow">Veelgestelde vragen</p>
+          <h2 class="amk-title" id="amk-faq-title">Over <em>reserveren</em></h2>
+          <p>Lukt het niet online of heeft u een speciale wens? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+          <ul class="amk-contact__info">
+            <li>
+              <span class="amk-icon-wrap">{{i:pin}}</span>
+              <div><small>Adres</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Watertorenstraat+64+3930+Hamont-Achel" target="_blank" rel="noopener">Watertorenstraat 64, 3930 Hamont-Achel</a></div>
+            </li>
+            <li>
+              <span class="amk-icon-wrap">{{i:clock}}</span>
+              <div><small>Openingstijden</small><span>Op afspraak</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">{{FAQ:reserveren}}
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,56 @@
+  <!-- =================================================================
+       HEADER — voortgangsbalk, deals-topbalk en zwevende navigatie
+       ================================================================= -->
+  <div class="amk-progress" aria-hidden="true"></div>
+
+  <header class="amk-header" data-amk-header>
+    <div class="amk-topbar">
+      <div class="amk-topbar__inner">
+        <a href="/koninklijke-deals">
+          {{i:crown}}
+          <span><strong>Koninklijke deals</strong> — ontdek onze actuele acties</span>
+          {{i:arrow:amk-topbar__arrow}}
+        </a>
+      </div>
+    </div>
+
+    <div class="amk-navwrap">
+      <nav class="amk-nav" aria-label="Hoofdnavigatie">
+        <a class="amk-logo" href="/" aria-label="Amakhosi — naar de homepage">
+          <img src="{{LOGO}}" alt="Amakhosi — privésauna &amp; wellness" width="1096" height="766">
+        </a>
+
+        <ul class="amk-nav__links" data-amk-navlinks>
+            {{NAV}}
+        </ul>
+
+        <div class="amk-nav__actions">
+          <a class="amk-nav__phone" href="tel:{{TEL}}" aria-label="Bel Amakhosi: {{PHONE}}">
+            {{i:phone}}<span class="amk-nav__phone-num">{{PHONE}}</span>
+          </a>
+          <a class="amk-icon-btn amk-nav__call" href="tel:{{TEL}}" aria-label="Bel Amakhosi: {{PHONE}}">{{i:phone}}</a>
+          <a class="amk-btn amk-btn--gold amk-btn--sm amk-nav__cta" href="/reserveren" data-amk-magnetic>
+            {{i:calendar}}Reserveer
+          </a>
+          <button class="amk-menu-btn" type="button" aria-expanded="false" aria-controls="amk-menu" aria-label="Menu openen" data-amk-menu-btn>
+            <span class="amk-menu-btn__label">Menu</span>
+            <span class="amk-menu-btn__lines" aria-hidden="true"><span></span><span></span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobiel menu -->
+  <div class="amk-menu" id="amk-menu" aria-hidden="true">
+    <nav aria-label="Mobiele navigatie">
+      <ul class="amk-menu__links">
+        {{MENU}}
+      </ul>
+    </nav>
+    <div class="amk-menu__footer">
+      <a class="amk-btn amk-btn--gold amk-btn--block" href="/reserveren">{{i:calendar}}Reserveer uw moment</a>
+      <a class="amk-btn amk-btn--ghost amk-btn--block" href="tel:{{TEL}}">{{i:phone}}{{PHONE}}</a>
+      <p class="amk-menu__meta">Watertorenstraat 64, 3930 Hamont-Achel · Op afspraak</p>
+    </div>
+  </div>

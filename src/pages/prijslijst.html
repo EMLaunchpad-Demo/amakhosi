@@ -1,0 +1,101 @@
+    <!-- =================================================================
+         PAGINAHERO
+         ================================================================= -->
+    <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
+      <div class="amk-pagehero__bg" aria-hidden="true">
+        <img src="{{M}}6a84993bd1abe28fc98f8e6d.jpg" alt="" width="2560" height="1707" fetchpriority="high" decoding="async">
+      </div>
+      <div class="amk-container">
+        <div class="amk-pagehero__inner">
+          {{BREADCRUMBS}}
+          <p class="amk-eyebrow">Prijslijst</p>
+          <h1 class="amk-pagehero__title" id="amk-page-title" data-amk-split>Heldere prijzen, <em>koninklijk genieten</em></h1>
+          <p class="amk-pagehero__lead">Kies zelf hoeveel tijd u neemt om volledig tot rust te komen. Bij elk arrangement geniet u in alle privacy van onze luxe faciliteiten.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         WELLNESS
+         ================================================================= -->
+    <section class="amk-section amk-section--prices" id="wellness" aria-labelledby="amk-well-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" data-amk-reveal>
+          <p class="amk-eyebrow">Wellness</p>
+          <h2 class="amk-title" id="amk-well-title" data-amk-split>Kies uw <em>wellnessbeleving</em></h2>
+          <p class="amk-lead">Of u nu een paar uurtjes ontspanning zoekt of een uitgebreide wellnessbeleving: de volledige wellness is van u alleen.</p>
+        </div>
+        <div class="amk-prices" data-amk-stagger="0.1">{{PRICES:wellness}}
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         OVERNACHTING
+         ================================================================= -->
+    <section class="amk-section amk-section--deep amk-section--line" id="overnachting" aria-labelledby="amk-nacht-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" data-amk-reveal>
+          <p class="amk-eyebrow">Overnachting</p>
+          <h2 class="amk-title" id="amk-nacht-title" data-amk-split>Of kies voor een <em>overnachting</em></h2>
+          <p class="amk-lead">Neem de tijd om volledig tot rust te komen en lekker uit te slapen. U krijgt een aparte slaapkamer en kunt onbeperkt gebruikmaken van de wellnessfaciliteiten.</p>
+        </div>
+        <div class="amk-prices amk-prices--two" data-amk-stagger="0.1">{{PRICES:nacht}}
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         VERGELIJKING
+         ================================================================= -->
+    <section class="amk-section amk-section--textured" id="vergelijk" aria-labelledby="amk-comp-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" data-amk-reveal>
+          <p class="amk-eyebrow">In één oogopslag</p>
+          <h2 class="amk-title" id="amk-comp-title" data-amk-split>Vergelijk de <em>arrangementen</em></h2>
+        </div>
+        {{COMPARE}}
+        <div class="amk-prices__note" data-amk-reveal>
+          <span>Alle arrangementen zijn volledig privé.</span>
+          <a class="amk-link" href="/reserveren">Reserveer online {{i:arrow}}</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         EXTRA'S
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="extras" aria-labelledby="amk-extra-title">
+      <div class="amk-container">
+        <article class="amk-spotlight" data-amk-reveal="zoom">
+          <div class="amk-spotlight__media">
+            <img src="{{M}}6a84993996d2b224d38ad40e.jpg" alt="Champagne met twee glazen bij de sfeerhaard" width="2560" height="1677" loading="lazy" decoding="async">
+          </div>
+          <div class="amk-spotlight__body">
+            <p class="amk-eyebrow">Maak het compleet</p>
+            <h2 class="amk-title" id="amk-extra-title" data-amk-split>Bubbels, planken &amp; <em>romantiek</em></h2>
+            <p>Vul uw arrangement aan met een romantisch pakket, een ontbijt voor twee bij een overnachting, een gekoelde fles champagne of een luxe tapas-, kaas- of fruitplank.</p>
+            <div class="amk-btn-row" style="margin-top: 28px;">
+              <a class="amk-btn amk-btn--gold" href="/arrangementen">Bekijk alle extra's{{i:arrow:amk-icon--arrow}}</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FAQ
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="faq" aria-labelledby="amk-faq-title">
+      <div class="amk-container amk-faq__grid">
+        <div class="amk-faq__aside" data-amk-reveal>
+          <p class="amk-eyebrow">Veelgestelde vragen</p>
+          <h2 class="amk-title" id="amk-faq-title">Vragen over <em>de prijzen</em></h2>
+          <p>Twijfelt u welk arrangement het best bij u past? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a>, we helpen u graag.</p>
+        </div>
+        <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">{{FAQ:prijslijst}}
+        </div>
+      </div>
+    </section>
+
+    {{PARTIAL:cta}}

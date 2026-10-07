@@ -1,121 +1,179 @@
-# Amakhosi — nieuw websitedesign (amakhosi.be)
+# Amakhosi — nieuwe website (amakhosi.be)
 
-Nieuw design voor **Amakhosi, privésauna & wellness in Hamont-Achel**, gebouwd als
-paste-ready code voor GoHighLevel. We starten met de **homepage**; de andere pagina's
-volgen in hetzelfde systeem (zelfde `styles.css` en `scripts.js`).
+Volledige redesign van **Amakhosi, privésauna & wellness in Hamont-Achel**, als
+paste-ready code voor GoHighLevel. De site houdt de **donkere stijl van de huidige
+amakhosi.be** en de eigen huisstijl, en voegt een nieuwe navigatie, rijke animaties en
+grondige SEO toe.
 
-![Homepage — hero](previews/homepage-hero.jpg)
+![Homepage — hero](previews/hero.jpg)
 
-Volledige previews: [desktop](previews/homepage-desktop.jpg) · [mobiel](previews/homepage-mobile.jpg)
+Previews: [home](previews/home-desktop.jpg) · [home mobiel](previews/home-mobile.jpg) ·
+[mobiel menu](previews/mobile-menu.jpg) · [impressie](previews/impressie-desktop.jpg) ·
+[arrangementen](previews/arrangementen-desktop.jpg) · [prijslijst](previews/prijslijst-desktop.jpg) ·
+[deals](previews/deals-desktop.jpg) · [reserveren](previews/reserveren-desktop.jpg)
 
 ---
 
-## 1. Designbrief
+## 1. Design
 
-De huisstijl van Amakhosi blijft het vertrekpunt: het **logo** (giraffe met kroon voor
-een opkomende zon), de **donkere, warme basis** van de huidige site (ebbenhout `#1d0000`
-en cacao `#331802`), **goud** (`#e0bb02` / logo-goud `#d6a833`), het **zon-verloop** uit
-het logo (`#ffec03` → `#fbb239`), **roest** `#913e00` en **crème** `#fefaf0` / **perzik**
-`#ffeedd`. Typografie blijft **Playfair Display** (titels, verwant aan het logo) met
-**Manrope** (tekst en knoppen). Nieuw is dat de merkmotieven echt terugkomen in de
-vormgeving: de **halve zon** als boogvormige fotokaders en als teken bij elke sectietitel,
-de **kroon** bij de belangrijkste accenten en het **giraffepatroon** als subtiele textuur
-en als bewegende band met de faciliteiten. Het geheel voelt als een warme, kaarslicht-achtige
-avond in een Afrikaanse lodge: luxueus, intiem en helemaal privé.
+- **Altijd donker**, net als de huidige site: ebbenhout `#1d0000`, diep `#140000` en
+  cacao `#331802`, met warme gloed en de giraffetextuur voor ritme tussen de secties.
+- **Huisstijl van Amakhosi**: het logo, goud (`#e0bb02` / `#d6a833`), het zonverloop uit het
+  logo (`#ffec03` → `#fbb239`), roest `#913e00` en crème tekst. Lettertypes
+  **Playfair Display** (titels) + **Manrope** (tekst).
+- **Merkmotieven**: de halve zon (boogvormige foto's, zon-icoon bij elke titel, opkomende zon
+  in de slotsecties), de kroon en het giraffepatroon (textuur + schuine bewegende band, zoals
+  het lint uit de huisstijl).
+
+### Nieuwe navigatie
+
+- Bovenaan transparant over de hero; na scrollen wordt het een **zwevende capsule** met
+  glas-effect en gouden rand, en het logo krimpt mee.
+- **Glijdende markering** die je muis volgt over de menu-items; de actieve pagina krijgt een
+  gloeiend puntje.
+- Verdwijnt bij naar beneden scrollen en **komt terug bij naar boven scrollen**.
+- **Gouden voortgangsbalk** bovenaan het scherm.
+- Mobiel: knop *Menu* opent een volledig scherm-menu dat **als cirkel uit de knop openvouwt**,
+  met genummerde links die één voor één inschuiven.
+
+### Animaties
+
+Alle animaties zijn vanilla JS/CSS, draaien soepel (enkel `transform`/`opacity`) en worden
+uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
+
+| Animatie | Waar |
+|---|---|
+| Titels die **woord voor woord** opkomen | alle grote titels |
+| **Boog-onthulling** + langzame zoom van de hero-foto | hero |
+| **Gloeiende sintels** die opstijgen | hero en slotsecties |
+| **Warm licht dat de cursor volgt** | hero |
+| Draaiende **tekstring met kroon**, zwevend badge | hero |
+| **Parallax** op foto's | hero, welkom, faciliteiten, features |
+| **Wipe-onthulling** van foto's (van onder naar boven) | bento, features, galerij |
+| **3D-tilt + gouden spotlight** onder de cursor | prijs-, extra-, deal- en infokaarten |
+| **Magnetische** reserveerknoppen + **lichtschittering** | primaire knoppen |
+| **Tellers** die oplopen (€ 0 → € 239) | prijskaarten |
+| Lijn die zich **tekent** tussen de stappen | "zo werkt het" |
+| **Zon die opkomt** achter de slot-CTA | onderaan elke pagina |
+| Vloeiend open/dicht **FAQ** en glijdende **prijstabs** | FAQ, prijzen |
+| **Lightbox** met pijltjestoetsen en swipen | galerij op Impressie |
 
 ## 2. Pagina's
 
-| Pagina | URL (ongewijzigd) | Status | Doel |
+| Pagina | URL (ongewijzigd) | Bestand | Inhoud |
 |---|---|---|---|
-| Home | `/` | ✅ klaar (deze PR) | Eerste indruk, faciliteiten, prijzen, vertrouwen → reserveren |
-| Impressie | `/privesauna-wellness-impressie` | ⏳ volgende | Sfeerfoto's per ruimte + verhaal van Patrick & Connie |
-| Arrangementen | `/arrangementen` | ⏳ volgende | Faciliteiten, romantisch pakket, ontbijt, dranken, planken |
-| Prijslijst | `/prijslijst` | ⏳ volgende | Wellness 3/4/5 uur + overnachtingen, duidelijke CTA per prijs |
-| Koninklijke deals | `/koninklijke-deals` | ⏳ volgende | Tijdelijke en vaste acties |
-| Reserveren | `/reserveren` | ⏳ volgende | GHL-kalender in de nieuwe huisstijl |
+| Home | `/` | `index.html` | Hero, faciliteiten, prijzen (tabs), extra's, 3 stappen, reviews, FAQ, contact + kaart |
+| Impressie | `/privesauna-wellness-impressie` | `privesauna-wellness-impressie.html` | Verhaal van Patrick & Connie, 5 faciliteiten, comfort-extra's, fotogalerij met lightbox |
+| Arrangementen | `/arrangementen` | `arrangementen.html` | Tijdlijn 3 uur → overnachting, alle faciliteiten, romantisch pakket, ontbijt, dranken, planken, snacks, FAQ |
+| Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
+| Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
+| Reserveren | `/reserveren` | `reserveren.html` | De bestaande GHL-agenda in de nieuwe stijl, prijsoverzicht, goed om te weten, FAQ |
 
-De bestaande URL's blijven behouden zodat de vindbaarheid in Google niet verloren gaat.
+De bestaande URL's blijven behouden, zodat de opgebouwde vindbaarheid in Google niet verloren gaat.
 
-### Opbouw homepage
+## 3. SEO
 
-1. **Topbalk** met Koninklijke deals
-2. **Navigatie** (sticky) met telefoonnummer en knop *Reserveer*
-3. **Hero** — "Koninklijk genieten, helemaal privé." met boogfoto, sauna-inzet en de betekenis van *Amakhosi*
-4. **Giraffe-band** met alle faciliteiten
-5. **Welkom** — het verhaal, citaat van Patrick & Connie, kerncijfers
-6. **Faciliteiten** — bento-raster met whirlpool, sauna, stoombad, douche, lounge, slaapsuite
-7. **Arrangementen & prijzen** — tabs *Wellness* / *Overnachting* met de echte prijzen
-8. **Extra's** — romantisch pakket, bubbels, planken, ontbijt
-9. **Zo werkt het** — 3 stappen naar een reservering
-10. **Reviews** — plek voor de GHL-reviewswidget (zie *Nog aan te vullen*)
-11. **FAQ** — veelgestelde vragen (ook als FAQ-schema voor Google)
-12. **Reserveren & contact** — slot-CTA, gegevens en kaart
-13. **Footer** + **mobiele reserveerbalk** onderaan het scherm
+Per pagina:
 
-## 3. Bestanden
+- **Unieke title** (≤ 60 tekens) en **meta-beschrijving** (≤ 160 tekens) met de juiste
+  zoektermen (privésauna, wellness, Hamont-Achel, overnachting, prijzen…).
+- **Canonical**, `hreflang="nl-BE"`, robots-meta met grote beeldvoorbeelden.
+- **Open Graph & Twitter**-kaarten met eigen deelafbeelding (met afmetingen en alt).
+- **Lokale SEO**: geo-metatags met de exacte coördinaten, adres en telefoon (NAP) identiek op
+  elke pagina, en een lijst van omliggende plaatsen (Pelt, Lommel, Bree, Peer, Budel, Weert,
+  Eindhoven).
+- **Eén H1** per pagina, logische koppenstructuur, beschrijvende alt-teksten, kruimelpad.
+- **Snelheid**: hoofdbeeld wordt voorgeladen, `width`/`height` op elke afbeelding (geen
+  verspringende layout), lazy loading, één CSS- en één JS-bestand, script met `defer`.
 
-| Bestand | Inhoud |
+**Gestructureerde data (JSON-LD)** op elke pagina, automatisch uit dezelfde gegevens als de
+pagina zelf: `DaySpa` (adres, geo, kaart, voorzieningen, prijsklasse, alle 5 arrangementen
+als `Offer`), `WebSite`, `WebPage`, `BreadcrumbList`, plus `FAQPage` (home, arrangementen,
+prijslijst, reserveren), `OfferCatalog` (prijslijst) en `ImageGallery` (impressie).
+
+Ook meegeleverd: `sitemap.xml` (met afbeeldingen) en `robots.txt`.
+
+## 4. Bestanden & bouwen
+
+| Bestand / map | Inhoud |
 |---|---|
-| `styles.css` | Gedeelde stylesheet: kleuren, typografie, componenten, responsive, animaties |
-| `scripts.js` | Gedeeld script (vanilla JS): sticky header, mobiel menu, smooth scroll, scroll-animaties, prijs-tabs, FAQ, mobiele CTA-balk |
-| `index.html` | Homepage |
-| `previews/` | Screenshots van het design (desktop, mobiel) |
-| `assets/patroon/` | Het giraffepatroon als losse achtergrond (PNG + SVG), zie hieronder |
+| `styles.css` | Gedeelde stylesheet (alle pagina's) |
+| `scripts.js` | Gedeeld script met navigatie en alle animaties (vanilla JS) |
+| `*.html` | De 6 pagina's — **gegenereerd**, klaar om te plakken |
+| `src/partials/` | Gedeelde stukken: iconen, header, footer, slot-CTA, mobiele balk |
+| `src/pages/` | Inhoud per pagina |
+| `build.py` | Bouwt de pagina's en de sitemap; bevat ook prijzen, FAQ's en SEO per pagina |
+| `sitemap.xml`, `robots.txt` | SEO-bestanden |
+| `assets/patroon/` | Het giraffepatroon als losse afbeelding (PNG + SVG) |
+| `previews/` | Screenshots |
 
-### Giraffepatroon als afbeelding
+Iets aanpassen? Wijzig `src/` of de gegevens bovenaan `build.py` (prijzen, FAQ, titels) en
+bouw opnieuw — prijzen, tabellen en de gestructureerde data blijven zo altijd gelijk:
+
+```bash
+python3 build.py
+```
+
+Lokaal bekijken (met nette URL's zoals `/prijslijst`):
+
+```bash
+npx serve .
+```
+
+Alle klassen beginnen met `amk-` en alle inhoud staat in `<div class="amk">`, zodat het
+design niet botst met de eigen CSS van GoHighLevel. Foto's en logo komen rechtstreeks uit de
+bestaande GHL-mediabibliotheek van Amakhosi.
+
+## 5. In GoHighLevel plakken
+
+**Eenmalig, voor de hele website** (*Sites → Websites → Amakhosi → Settings*):
+
+1. **Head tracking code**: plak de lettertype-regels uit de `<head>` van `index.html`
+   (de `preconnect`-regels en de Google Fonts-`<link>`).
+2. **Custom CSS**: plak de volledige inhoud van `styles.css`.
+3. **Body (footer) tracking code**: plak de inhoud van `scripts.js` tussen
+   `<script>` en `</script>`.
+4. Zet bij **Typografie** koptekst op *Playfair Display*, content op *Manrope*,
+   tekstkleur `#FBEEE0` en linkkleur `#FBB239` (voor eventuele standaard GHL-elementen op
+   een donkere achtergrond).
+
+**Per pagina** (herhaal voor alle 6):
+
+5. Open de pagina in de builder en verwijder de oude secties.
+6. Voeg één **Section** toe → **Full width**, padding en marges op **0**, achtergrond
+   `#1D0000`. Zet ook in de row en kolom alle padding op 0.
+7. Voeg een element **Custom JS/HTML** toe en plak alles tussen
+   `START GHL-PLAKBLOK` en `EINDE GHL-PLAKBLOK` uit het bijhorende `.html`-bestand.
+8. Zet de GHL-animaties van die sectie **uit** (een animatie op de sectie laat de vaste
+   navigatie meescrollen).
+9. **Pagina-instellingen → SEO**: neem de `<title>`, meta-beschrijving en deelafbeelding
+   (`og:image`) over uit de `<head>` van het `.html`-bestand.
+10. **Preview** op desktop en mobiel, en **Publish**.
+
+> Op de pagina **Reserveren** staat de bestaande GHL-agenda (`booking/amakhosi`) al in de
+> code, inclusief het script dat de hoogte van de agenda automatisch aanpast.
+
+## 6. Nog aan te vullen
+
+- **Reviews** (home): plak de GHL-reviewswidget (*Reputation → Widgets*) in
+  `.amk-reviews__widget` en verwijder de 3 placeholder-kaarten. Gebruik enkel echte reviews.
+- **Koninklijke deals**: vervang de 2 voorbeeldkaarten door de echte acties (titel, uitleg,
+  geldigheid) en verwijder het lint *Voorbeeld*.
+- **Socials**: geef de echte Facebook/Instagram-links door, dan komen ze in de footer en in
+  de gestructureerde data (`sameAs`).
+- **Foto's**: enkele originele foto's zijn zeer groot (tot 34 MB) en worden niet gebruikt.
+  Voor nog snellere laadtijden: upload van de gebruikte foto's versies van max. 1920 px breed
+  (WebP/JPG ± 300 KB) en vervang de bestandsnamen in `src/` en `build.py`.
+- **Badges** op de prijskaarten (*Meeste tijd voor u*, *Uitslapen tot 12 u*) zijn voorstellen.
+- **Google Business-profiel**: zorg dat naam, adres en telefoon exact gelijk zijn aan de site
+  (`Amakhosi`, `Watertorenstraat 64, 3930 Hamont-Achel`, `+32 469 21 75 50`).
+
+## 7. Giraffepatroon als afbeelding
 
 | Bestand | Gebruik |
 |---|---|
-| `giraffe-patroon-donker-1920x1080.png` / `-2560x1440.png` | Donkere achtergrond zoals in de hero en faciliteiten (sectie-achtergrond, *cover*) |
-| `giraffe-patroon-donker-tegel.png` / `.svg` | Naadloze tegel van de donkere variant (achtergrond *herhalen*, 260 px) |
-| `giraffe-patroon-bruin-1920x1080.png` | Bruine variant zoals de bewegende faciliteitenband |
-| `giraffe-patroon-bruin-tegel.png` / `.svg` | Naadloze tegel van de bruine variant (220 px) |
-| `giraffe-patroon-transparant-tegel.png` / `.svg` | Enkel de gouden vlekken op transparant, voor eigen kleuren of lage dekking |
-
-In GoHighLevel: upload de PNG in *Media*, kies bij een sectie *Background → Image* en
-zet die op *Cover* (grote versies) of *Repeat* (tegels).
-
-Alle klassen beginnen met `amk-` en alle inhoud staat in `<div class="amk">`, zodat het
-design niet botst met de eigen CSS van GoHighLevel. Foto's en logo worden rechtstreeks
-geladen vanuit de bestaande GHL-mediabibliotheek van Amakhosi.
-
-## 4. In GoHighLevel plakken
-
-**Eenmalig (per website / funnel):**
-
-1. Ga naar **Sites → Websites → Amakhosi → Settings**.
-2. **Head tracking code**: plak de 3 regels voor de lettertypes uit `index.html`
-   (de twee `preconnect`-regels en de Google Fonts-`<link>`).
-3. **Custom CSS**: plak de volledige inhoud van `styles.css`.
-4. **Body (footer) tracking code**: plak de inhoud van `scripts.js` tussen
-   `<script>` en `</script>`.
-
-**Per pagina (hier: Home):**
-
-5. Open de pagina in de builder en verwijder de oude secties (of maak een nieuwe pagina aan
-   en zet die later als homepage).
-6. Voeg één **Section** toe → **Full width**, padding en marges op **0**, geen achtergrond.
-   Zet in de row/kolom ook alle padding op 0.
-7. Voeg een element **Custom JS/HTML** toe en plak alles tussen
-   `START GHL-PLAKBLOK` en `EINDE GHL-PLAKBLOK` uit `index.html`.
-8. Zet de GHL-animaties van die sectie **uit** (een animatie op de sectie kan de vaste
-   header laten meescrollen).
-9. **Pagina-instellingen → SEO**: titel *Privésauna & Wellness Hamont-Achel | Amakhosi*
-   en de meta-beschrijving uit `index.html` overnemen.
-10. **Preview** op desktop en mobiel, en **Publish**.
-
-> Tip: werk je liever zonder website-brede instellingen? Dan kun je `styles.css` ook binnen
-> `<style>…</style>` en `scripts.js` binnen `<script>…</script>` in hetzelfde Custom
-> JS/HTML-element plakken. Voor meerdere pagina's is de website-brede aanpak eenvoudiger.
-
-## 5. Nog aan te vullen
-
-- **Reviews**: plak de GHL-reviewswidget (*Reputation → Widgets*) in
-  `.amk-reviews__widget` en verwijder de 3 placeholder-kaarten. Gebruik enkel echte reviews.
-- **Socials**: de huidige site heeft nog placeholder-links voor Facebook/Instagram. Geef de
-  echte URL's door, dan voegen we ze toe in de footer.
-- **Foto's**: enkele originele foto's in de mediabibliotheek zijn zeer groot (tot 34 MB).
-  Deze worden in het design niet gebruikt; upload bij voorkeur ook van de gebruikte foto's
-  een versie van max. 1920 px breed (WebP/JPG ± 300 KB) voor een snellere laadtijd.
-- **Badges** op de prijskaarten (*Meeste tijd voor u*, *Uitslapen tot 12 u*) zijn
-  voorstellen en kunnen vrij aangepast worden.
+| `giraffe-patroon-donker-1920x1080.png` / `-2560x1440.png` | Donkere sectie-achtergrond (*Cover*) |
+| `giraffe-patroon-donker-tegel.png` / `.svg` | Naadloze tegel, donker (*Repeat*, 260 px) |
+| `giraffe-patroon-bruin-1920x1080.png` | Bruine variant zoals de faciliteitenband |
+| `giraffe-patroon-bruin-tegel.png` / `.svg` | Naadloze tegel, bruin (220 px) |
+| `giraffe-patroon-transparant-tegel.png` / `.svg` | Enkel de gouden vlekken, transparant |
