@@ -290,7 +290,15 @@
        ------------------------------------------------------------------ */
     if (!reduceMotion) {
       var parallaxEls = $$('[data-amk-parallax]').map(function (el) {
-        return { el: el, speed: parseFloat(el.getAttribute('data-amk-parallax')) || 0.1, active: true };
+        return {
+          el: el,
+          speed: parseFloat(el.getAttribute('data-amk-parallax')) || 0.1,
+          // Foto's binnen een kader hebben maar een kleine reserve-rand:
+          // daar blijft de verschuiving binnen 5% van de hoogte (geen lege randen)
+          framed: el.tagName === 'IMG' || el.classList.contains('amk-tile__img'),
+          shift: 0,
+          active: true
+        };
       });
 
       if (parallaxEls.length) {
@@ -301,6 +309,7 @@
                 if (p.el === entry.target) p.active = entry.isIntersecting;
               });
             });
+            requestScroll();
           }, { rootMargin: '20% 0px 20% 0px' });
           parallaxEls.forEach(function (p) { pio.observe(p.el); });
         }
@@ -310,9 +319,11 @@
           parallaxEls.forEach(function (p) {
             if (!p.active) return;
             var r = p.el.getBoundingClientRect();
-            var center = r.top + r.height / 2 - vh / 2;
-            var shift = clamp(-center * p.speed, -160, 160);
-            p.el.style.translate = '0 ' + shift.toFixed(1) + 'px';
+            // Positie zonder de huidige verschuiving, anders stapelt het effect op
+            var center = r.top - p.shift + r.height / 2 - vh / 2;
+            var max = p.framed ? r.height * 0.05 : 160;
+            p.shift = clamp(-center * p.speed, -max, max);
+            p.el.style.translate = '0 ' + p.shift.toFixed(1) + 'px';
           });
         });
       }
