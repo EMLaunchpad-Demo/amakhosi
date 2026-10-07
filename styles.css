@@ -2851,6 +2851,175 @@ em .amk-w__i {
   object-fit: cover;
 }
 
+/* --- Juridische pagina's (algemene voorwaarden, privacybeleid) --- */
+.amk-pagehero--legal { min-height: clamp(380px, 48vh, 500px); }
+
+.amk-legal {
+  display: grid;
+  gap: 40px;
+  align-items: start;
+}
+
+.amk-legal__toc {
+  padding: 22px 22px 18px;
+  border-radius: var(--amk-radius);
+  border: 1px solid var(--amk-line);
+  background: var(--amk-surface);
+}
+
+.amk-legal__toc ol {
+  display: grid;
+  gap: 2px;
+  counter-reset: none;
+}
+
+.amk-legal__toc a {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--amk-muted);
+  transition: color var(--amk-speed), background-color var(--amk-speed);
+}
+
+.amk-legal__toc a:hover {
+  color: var(--amk-sun-2);
+  background: rgba(251, 178, 57, 0.08);
+}
+
+.amk-legal__body {
+  max-width: 760px;
+  color: var(--amk-muted);
+  font-size: 1.02rem;
+}
+
+.amk-legal__body h2 {
+  margin: 48px 0 14px;
+  font-size: clamp(1.4rem, 2.4vw, 1.75rem);
+  scroll-margin-top: 110px;
+}
+
+.amk-legal__body h2:first-of-type { margin-top: 8px; }
+
+.amk-legal__body > p + p { margin-top: 0.8em; }
+
+.amk-legal__body ul {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.amk-legal__body ul li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.amk-legal__body ul li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amk-sun-2);
+  box-shadow: 0 0 8px rgba(251, 178, 57, 0.6);
+}
+
+.amk-legal__body strong { color: var(--amk-text); }
+
+.amk-legal__body a:not(.amk-btn) {
+  font-weight: 700;
+  color: var(--amk-sun-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.amk-legal__card {
+  display: grid;
+  gap: 4px;
+  margin: 18px 0 8px;
+  padding: 20px 22px;
+  border-radius: var(--amk-radius);
+  border: 1px solid var(--amk-line);
+  background: linear-gradient(150deg, rgba(251, 178, 57, 0.07), rgba(251, 238, 224, 0.02));
+}
+
+.amk-legal__card strong {
+  font-family: var(--amk-font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--amk-white);
+}
+
+.amk-legal__table {
+  overflow-x: auto;
+  margin: 14px 0;
+  border-radius: var(--amk-radius);
+  border: 1px solid var(--amk-line);
+}
+
+.amk-legal__table table { min-width: 520px; font-size: 0.95rem; }
+
+.amk-legal__table th,
+.amk-legal__table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--amk-line);
+}
+
+.amk-legal__table th {
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amk-gold-logo);
+}
+
+.amk-legal__table tbody tr:last-child td { border-bottom: 0; }
+.amk-legal__table td:first-child { color: var(--amk-text); }
+
+.amk-legal__updated {
+  margin-top: 40px !important;
+  padding-top: 20px;
+  border-top: 1px solid var(--amk-line);
+  font-size: 0.88rem;
+  color: var(--amk-faint);
+}
+
+/* Ontwerp-markering: nog in te vullen door de eigenaar */
+.amk-legal__draft {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  padding: 14px 16px;
+  border-radius: var(--amk-radius-sm);
+  border: 1px dashed rgba(251, 178, 57, 0.6);
+  background: rgba(251, 178, 57, 0.08);
+  font-size: 0.92rem;
+}
+
+.amk-legal__draft .amk-icon { margin-top: 2px; color: var(--amk-sun-2); }
+
+.amk-todo {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: rgba(251, 178, 57, 0.16);
+  outline: 1px dashed rgba(251, 178, 57, 0.7);
+  color: var(--amk-sun-1);
+}
+
+.amk-summary__legal {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--amk-faint);
+}
+
+.amk-footer__legal a { color: var(--amk-muted) !important; }
+.amk-footer__legal a:hover { color: var(--amk-sun-2) !important; }
+
 /* --- Galerij met lightbox --- */
 .amk-gallery {
   columns: 2 160px;
@@ -3574,6 +3743,9 @@ em .amk-w__i {
   .amk-contact__grid { grid-template-columns: 1fr 1fr; gap: 72px; }
 
   .amk-booking__grid { grid-template-columns: 1.55fr 1fr; gap: 32px; }
+
+  .amk-legal { grid-template-columns: 260px 1fr; gap: 64px; }
+  .amk-legal__toc { position: sticky; top: 110px; }
   .amk-booking__aside { position: sticky; top: 110px; }
 
   .amk-mobilebar { display: none; }

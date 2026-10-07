@@ -182,6 +182,26 @@ PAGES = [
     ),
 ]
 
+LEGAL_PAGES = [
+    dict(
+        key="voorwaarden", src="algemene-voorwaarden.html", out="algemene-voorwaarden.html",
+        path="/algemene-voorwaarden", crumb="Algemene voorwaarden", legal=True,
+        title="Algemene voorwaarden | Amakhosi privésauna Hamont-Achel",
+        description="De algemene voorwaarden van Amakhosi: reservatie, betaling, annuleren, aankomst en vertrek, huisregels en aansprakelijkheid voor uw privésauna in Hamont-Achel.",
+        image=("6a8435f545dbba232fa5362a.jpg", 2048, 1365),
+        image_alt="Finse sauna van Amakhosi",
+    ),
+    dict(
+        key="privacy", src="privacybeleid.html", out="privacybeleid.html",
+        path="/privacybeleid", crumb="Privacybeleid", legal=True,
+        title="Privacybeleid | Amakhosi privésauna Hamont-Achel",
+        description="Hoe Amakhosi met uw persoonsgegevens omgaat: welke gegevens we verzamelen bij een reservatie, waarom, met wie we ze delen, hoe lang we ze bewaren en uw rechten.",
+        image=("6a84993a62d4d706d41100e9.jpg", 1620, 2560),
+        image_alt="Stoombad van Amakhosi met kaarslicht",
+    ),
+]
+PAGES += LEGAL_PAGES
+
 GALLERY = [
     ("6a84993662d4d706d4110075.jpg", 2048, 1292, "Wellnessruimte met whirlpool, zebramuur en doorkijk naar het stoombad"),
     ("6a84993dd1abe28fc98f8e85.jpg", 1707, 2560, "Finse sauna met houten banken en indirecte verlichting"),
@@ -634,8 +654,16 @@ def render(text, page):
     return text
 
 
+def toc(body):
+    """Inhoudsopgave uit de <h2 id="..."> koppen van een juridische pagina."""
+    items = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', body)
+    return "".join(f'\n            <li><a href="#{i}">{t}</a></li>' for i, t in items)
+
+
 def build_page(page):
     body = (SRC / "pages" / page["src"]).read_text(encoding="utf-8")
+    if "{{TOC}}" in body:
+        body = body.replace("{{TOC}}", toc(body))
     booking_script = ""
     if page.get("booking"):
         booking_script = '\n  <script src="https://link.msgsndr.com/js/form_embed.js"></script>'
@@ -691,8 +719,8 @@ def build_sitemap():
   <url>
     <loc>{SITE}{p["path"]}</loc>
     <lastmod>2026-10-07</lastmod>
-    <changefreq>{"weekly" if p["key"] in ("home", "deals") else "monthly"}</changefreq>
-    <priority>{"1.0" if p["key"] == "home" else "0.8"}</priority>
+    <changefreq>{"weekly" if p["key"] in ("home", "deals") else ("yearly" if p.get("legal") else "monthly")}</changefreq>
+    <priority>{"1.0" if p["key"] == "home" else ("0.3" if p.get("legal") else "0.8")}</priority>
     <image:image><image:loc>{MEDIA}{p["image"][0]}</image:loc></image:image>
   </url>"""
         for p in PAGES

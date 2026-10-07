@@ -68,6 +68,8 @@ uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
 | Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
 | Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
 | Reserveren | `/reserveren` | `reserveren.html` | De bestaande GHL-agenda in de nieuwe stijl, prijsoverzicht, goed om te weten, FAQ |
+| Algemene voorwaarden | `/algemene-voorwaarden` | `algemene-voorwaarden.html` | Ontwerp met inhoudsopgave; gemarkeerde stukken nog in te vullen |
+| Privacybeleid | `/privacybeleid` | `privacybeleid.html` | Ontwerp (AVG/GDPR) met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 
 De bestaande URL's blijven behouden, zodat de opgebouwde vindbaarheid in Google niet verloren gaat.
 
@@ -177,8 +179,10 @@ Deze punten zitten in de GHL-instellingen van de agenda en e-mails, niet in de w
 - [ ] **Telefoonnummer**: het veld neemt een Belgisch nummer aan; Nederlandse nummers werken
   alleen met +31. Zet in de instellingen van het telefoonveld (boekingsformulier) een
   landkeuze aan of schakel de strenge controle uit, als die optie er is.
-- [ ] **Voorwaarden**: de tekst "privacybeleid en algemene voorwaarden" heeft geen link. Voeg
-  links toe naar een privacy- en voorwaardenpagina (die pagina's bestaan nog niet).
+- [ ] **Voorwaarden**: de tekst "privacybeleid en algemene voorwaarden" heeft geen link. Gebruik
+  in het formulier het element *Algemene voorwaarden* en link naar `/algemene-voorwaarden` en
+  `/privacybeleid`. Vul eerst de gemarkeerde stukken op die pagina's in (ondernemingsnummer,
+  annuleringsregels, betaalprovider, bewaartermijn, datum) en verwijder het kader *Ontwerp*.
 - [ ] **E-mails**: datum/tijd in 24-uursnotatie en in het Nederlands, het totaalbedrag na het
   €-teken (het gebruikte veld is nu leeg), en de aparte "purchase"-mail uitzetten.
 - [ ] **Wellness-diensten**: beschrijvingen even uitgebreid maken als bij de overnachtingen en
