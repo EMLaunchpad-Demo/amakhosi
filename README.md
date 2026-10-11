@@ -106,6 +106,8 @@ Ook meegeleverd: `sitemap.xml` (met afbeeldingen) en `robots.txt`.
 | `src/pages/` | Inhoud per pagina |
 | `build.py` | Bouwt de pagina's en de sitemap; bevat ook prijzen, FAQ's en SEO per pagina |
 | `sitemap.xml`, `robots.txt` | SEO-bestanden |
+| `_redirects` | Gegenereerd door `build.py`: `/pagina/` → `/pagina` met een 301 (Cloudflare) |
+| `.assetsignore` | Houdt `.git`, `build.py`, `src/`, `previews/` en deze README uit de publieke site |
 | `assets/patroon/` | Het giraffepatroon als losse afbeelding (PNG + SVG) |
 | `previews/` | Screenshots |
 
@@ -159,8 +161,10 @@ bestaande GHL-mediabibliotheek van Amakhosi.
 
 - **Reviews** (home): plak de GHL-reviewswidget (*Reputation → Widgets*) in
   `.amk-reviews__widget` en verwijder de 3 placeholder-kaarten. Gebruik enkel echte reviews.
-- **Koninklijke deals**: vervang de 2 voorbeeldkaarten door de echte acties (titel, uitleg,
-  geldigheid) en verwijder het lint *Voorbeeld*.
+- **Koninklijke deals**: de sectie met de 2 voorbeeldkaarten is op 2026-10-11 uit
+  `src/pages/koninklijke-deals.html` gehaald, zodat bezoekers geen placeholders zien. Kiest
+  Patrick zijn deals, zet de sectie dan terug (staat in commit `e5646d0`) met de echte acties
+  (titel, uitleg, geldigheid), zonder het lint *Voorbeeld*.
 - **Socials**: geef de echte Facebook/Instagram-links door, dan komen ze in de footer en in
   de gestructureerde data (`sameAs`).
 - **Foto's**: enkele originele foto's zijn zeer groot (tot 34 MB) en worden niet gebruikt.

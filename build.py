@@ -733,9 +733,27 @@ def build_sitemap():
     (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
 
 
+def build_redirects():
+    """_redirects voor Cloudflare: /pagina/ -> /pagina met een permanente 301.
+
+    Zonder deze regels stuurt Cloudflare de slash-variant zelf door met een
+    tijdelijke 307.
+    """
+    lines = [
+        "# Gegenereerd door build.py: niet met de hand aanpassen.",
+        "# Adressen met een slash op het einde permanent (301) naar het adres zonder slash.",
+    ]
+    for p in PAGES:
+        if p["path"] != "/":
+            lines.append(f'{p["path"]}/ {p["path"]} 301')
+    (ROOT / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 if __name__ == "__main__":
     for p in PAGES:
         build_page(p)
         print("gebouwd:", p["out"])
     build_sitemap()
     print("gebouwd: sitemap.xml")
+    build_redirects()
+    print("gebouwd: _redirects")

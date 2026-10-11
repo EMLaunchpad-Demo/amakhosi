@@ -1,0 +1,13 @@
+# Deze bestanden horen niet publiek op de site (gitignore-syntax)
+.git
+.gitattributes
+.gitignore
+.assetsignore
+.claude
+build.py
+src
+previews
+README.md
+wrangler.json
+wrangler.jsonc
+wrangler.toml
