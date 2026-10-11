@@ -48,7 +48,7 @@ WELLNESS = [
     dict(name="Ultieme verwennerij", price=239, time="5 uur", hours=5,
          desc="Een oase van warmte, rust en comfort."),
     dict(name="Extra long stay", price=279, time="6 uur", hours=6,
-         desc="Uitgebreid genieten, zonder op de klok te kijken.", badge="Meeste tijd voor u"),
+         desc="Uitgebreid genieten, zonder op de klok te kijken.", badge="Meeste tijd voor jou"),
 ]
 NACHT = [
     dict(name="Kom overnachten", price=335, time="20:00 – 10:00", hours=14,
@@ -76,15 +76,15 @@ CHECKS_NACHT = [
 FAQ = {
     "home": [
         ("Is de wellness echt volledig privé?",
-         "Ja. Tijdens uw arrangement heeft u de volledige wellness voor uzelf: de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de lounge. Er zijn geen gedeelde ruimtes en geen andere gasten."),
+         "Ja. Tijdens je arrangement heb je de volledige wellness voor jezelf: de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de lounge. Er zijn geen gedeelde ruimtes en geen andere gasten."),
         ("Hoe lang kan ik blijven?",
-         'U kiest voor 3, 4, 5 of 6 uur wellness, of voor een overnachting van 20:00 tot 10:00 (14 uur) of van 20:00 tot 12:00 (16 uur). Bekijk alle prijzen op de <a href="/prijslijst">prijslijst</a>.'),
+         'Je kiest voor 3, 4, 5 of 6 uur wellness, of voor een overnachting van 20:00 tot 10:00 (14 uur) of van 20:00 tot 12:00 (16 uur). Bekijk alle prijzen op de <a href="/prijslijst">prijslijst</a>.'),
         ("Kan ik eten en drinken bijboeken?",
          'Zeker. Denk aan een luxe tapas-, kaas- of fruitplank, snacks, champagne, prosecco of Afrikaanse wijn, en bij een overnachting een ontbijt voor twee. Alle gerechten kunnen halal of vegetarisch bereid worden. Bekijk alle <a href="/arrangementen">extra\'s</a>.'),
         ("Wat is inbegrepen?",
-         "Gratis frisdrank, koffie en thee tijdens uw verblijf, een smart-tv met sfeerhaard, airconditioning en een gratis privéparkeerplaats met laadpaal. Bij een overnachting krijgt u een aparte slaapsuite met eigen inloopdouche."),
+         "Gratis frisdrank, koffie en thee tijdens je verblijf, een smart-tv met sfeerhaard, airconditioning en een gratis privéparkeerplaats met laadpaal. Bij een overnachting krijg je een aparte slaapsuite met eigen inloopdouche."),
         ("Wat zijn de openingstijden?",
-         'Amakhosi werkt op afspraak. Kies uw moment in de <a href="/reserveren">online agenda</a> of bel ons voor de mogelijkheden.'),
+         'Amakhosi werkt op afspraak. Kies je moment in de <a href="/reserveren">online agenda</a> of bel ons voor de mogelijkheden.'),
         ("Waar ligt Amakhosi?",
          "In de Watertorenstraat 64 in Hamont-Achel, op de grens van Belgisch en Nederlands Limburg. Vlot bereikbaar vanuit Pelt, Lommel, Bree, Peer, Budel, Weert en Eindhoven."),
     ],
@@ -96,29 +96,29 @@ FAQ = {
         ("Kan ik extra's bijboeken?",
          'Ja: een romantisch pakket, een ontbijt voor twee (bij overnachting), champagne of wijn en luxe tapas-, kaas- of fruitplanken. Alles staat op de pagina <a href="/arrangementen">arrangementen</a>.'),
         ("Hoe reserveer ik?",
-         'Kies uw arrangement, datum en tijdstip in de <a href="/reserveren">online agenda</a>. Liever persoonlijk? Bel ons op ' + PHONE_DISPLAY + "."),
+         'Kies je arrangement, datum en tijdstip in de <a href="/reserveren">online agenda</a>. Liever persoonlijk? Bel ons op ' + PHONE_DISPLAY + "."),
     ],
     "arrangementen": [
         ("Moet ik planken vooraf bestellen?",
-         "De luxe tapasplank en de fruitplank bestelt u minstens één dag vooraf. Toch last minute zin in iets lekkers? Bel ons even, dan bekijken we wat mogelijk is."),
+         "De luxe tapasplank en de fruitplank bestel je minstens één dag vooraf. Toch last minute zin in iets lekkers? Bel ons even, dan bekijken we wat mogelijk is."),
         ("Zijn er halal of vegetarische opties?",
-         "Ja. Alle gerechten kunnen halal of vegetarisch bereid worden. Geef het gewoon door bij uw reservatie."),
+         "Ja. Alle gerechten kunnen halal of vegetarisch bereid worden. Geef het gewoon door bij je reservatie."),
         ("Kan ik ontbijt bijboeken?",
          "Het ontbijt voor twee personen (€ 38) is extra te boeken bij een overnachting: verse broodjes, croissants, een eitje naar keuze, vleeswaren, kaas en zoet beleg, vers fruit, yoghurt, een Afrikaanse muffin en verse jus d'orange."),
         ("Kan de champagne koud klaarstaan bij aankomst?",
-         "Ja. De gekoelde fles champagne kan op verzoek koud geserveerd worden wanneer u aankomt."),
+         "Ja. De gekoelde fles champagne kan op verzoek koud geserveerd worden wanneer je aankomt."),
     ],
     "reserveren": [
         ("Hoe werkt online reserveren?",
-         "Kies in de agenda uw arrangement, eventuele extra's, de datum en het tijdstip, en vul uw gegevens in. Lukt het op uw telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons."),
+         "Kies in de agenda je arrangement, eventuele extra's, de datum en het tijdstip, en vul je gegevens in. Lukt het op je telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons."),
         ("Ik heb een Nederlands telefoonnummer. Wat vul ik in?",
-         "Typ uw nummer met landcode, bijvoorbeeld +31 6 12345678. Een Belgisch nummer mag gewoon zoals u het kent, bijvoorbeeld 0470 12 34 56."),
+         "Typ je nummer met landcode, bijvoorbeeld +31 6 12345678. Een Belgisch nummer mag gewoon zoals je het kent, bijvoorbeeld 0470 12 34 56."),
         ("Kan ik ook telefonisch reserveren?",
          "Natuurlijk. Bel ons op " + PHONE_DISPLAY + " of mail naar " + EMAIL + "."),
         ("Wanneer is Amakhosi open?",
-         "Amakhosi werkt op afspraak. In de online agenda ziet u welke momenten nog vrij zijn."),
+         "Amakhosi werkt op afspraak. In de online agenda zie je welke momenten nog vrij zijn."),
         ("Waar kan ik parkeren?",
-         "U parkeert gratis op uw eigen privéparkeerplaats, direct bij de ingang. Er is ook een laadpaal voor elektrische wagens."),
+         "Je parkeert gratis op je eigen privéparkeerplaats, direct bij de ingang. Er is ook een laadpaal voor elektrische wagens."),
     ],
 }
 
@@ -147,7 +147,7 @@ PAGES = [
         key="arrangementen", src="arrangementen.html", out="arrangementen.html",
         path="/arrangementen", crumb="Arrangementen",
         title="Wellness arrangementen & extra's | Amakhosi Hamont-Achel",
-        description="Stel uw wellnessmoment samen: 3, 4 of 5 uur privéwellness of een overnachting, aan te vullen met een romantisch pakket, ontbijt, champagne of luxe tapasplanken.",
+        description="Stel je wellnessmoment samen: 3, 4 of 5 uur privéwellness of een overnachting, aan te vullen met een romantisch pakket, ontbijt, champagne of luxe tapasplanken.",
         image=("6a84993996d2b224d38ad40e.jpg", 2560, 1677),
         image_alt="Fles champagne met twee glazen bij de sfeerhaard",
         faq="arrangementen",
@@ -166,15 +166,15 @@ PAGES = [
         key="deals", src="koninklijke-deals.html", out="koninklijke-deals.html",
         path="/koninklijke-deals", crumb="Koninklijke deals",
         title="Koninklijke deals & acties | Amakhosi Hamont-Achel",
-        description="Ontdek de Koninklijke deals van Amakhosi: tijdelijke promoties en acties die u het hele jaar door kunt benutten voor uw privésauna en wellness in Hamont-Achel.",
+        description="Ontdek de Koninklijke deals van Amakhosi: tijdelijke promoties en acties die je het hele jaar door kunt benutten voor je privésauna en wellness in Hamont-Achel.",
         image=("6a846eb24aaffc55cd792746.jpg", 1024, 784),
         image_alt="Loungebed versierd met een hart van rozenblaadjes",
     ),
     dict(
         key="reserveren", src="reserveren.html", out="reserveren.html",
         path="/reserveren", crumb="Reserveren",
-        title="Reserveer uw privésauna online | Amakhosi Hamont-Achel",
-        description="Reserveer online uw privésauna en wellness bij Amakhosi in Hamont-Achel. Kies uw arrangement, datum en tijdstip, of bel ons op +32 (0)469 217 550.",
+        title="Reserveer je privésauna online | Amakhosi Hamont-Achel",
+        description="Reserveer online je privésauna en wellness bij Amakhosi in Hamont-Achel. Kies je arrangement, datum en tijdstip, of bel ons op +32 (0)469 217 550.",
         image=("6a8435f545dbba232fa5362a.jpg", 2048, 1365),
         image_alt="Finse sauna met sfeerverlichting",
         faq="reserveren",
@@ -187,7 +187,7 @@ LEGAL_PAGES = [
         key="voorwaarden", src="algemene-voorwaarden.html", out="algemene-voorwaarden.html",
         path="/algemene-voorwaarden", crumb="Algemene voorwaarden", legal=True,
         title="Algemene voorwaarden | Amakhosi privésauna Hamont-Achel",
-        description="De algemene voorwaarden van Amakhosi: reservatie, betaling, annuleren, aankomst en vertrek, huisregels en aansprakelijkheid voor uw privésauna in Hamont-Achel.",
+        description="De algemene voorwaarden van Amakhosi: reservatie, betaling, annuleren, aankomst en vertrek, huisregels en aansprakelijkheid voor je privésauna in Hamont-Achel.",
         image=("6a8435f545dbba232fa5362a.jpg", 2048, 1365),
         image_alt="Finse sauna van Amakhosi",
     ),
@@ -195,7 +195,7 @@ LEGAL_PAGES = [
         key="privacy", src="privacybeleid.html", out="privacybeleid.html",
         path="/privacybeleid", crumb="Privacybeleid", legal=True,
         title="Privacybeleid | Amakhosi privésauna Hamont-Achel",
-        description="Hoe Amakhosi met uw persoonsgegevens omgaat: welke gegevens we verzamelen bij een reservatie, waarom, met wie we ze delen, hoe lang we ze bewaren en uw rechten.",
+        description="Hoe Amakhosi met je persoonsgegevens omgaat: welke gegevens we verzamelen bij een reservatie, waarom, met wie we ze delen, hoe lang we ze bewaren en je rechten.",
         image=("6a84993a62d4d706d41100e9.jpg", 1620, 2560),
         image_alt="Stoombad van Amakhosi met kaarslicht",
     ),
@@ -733,19 +733,61 @@ def build_sitemap():
     (ROOT / "sitemap.xml").write_text(xml, encoding="utf-8")
 
 
-def build_redirects():
-    """_redirects voor Cloudflare: /pagina/ -> /pagina met een permanente 301.
+# Oude adressen (WordPress- en GHL-site) die nu een 404 gaven, met de best
+# passende huidige pagina. Gevonden via de Wayback Machine (CDX-API voor
+# amakhosi.be/* en www.amakhosi.be/*) en de bekende adressen; elk adres op
+# 2026-10-11 live getest (404). Elk adres krijgt een regel met en zonder
+# slash op het einde. Doel is altijd een pagina uit de sitemap (geen ketens).
+OLD_REDIRECTS = [
+    ("/home", "/"),
+    ("/privesauna-hamont-achel", "/"),
+    ("/privesauna-lommel", "/"),
+    ("/privesauna-bocholt-belgie", "/"),
+    ("/hello-world", "/"),
+    ("/category/uncategorized", "/"),
+    ("/index.php", "/"),
+    ("/impressie", "/privesauna-wellness-impressie"),
+    ("/sfeer-impressie", "/privesauna-wellness-impressie"),
+    ("/index.php/arrangementen", "/arrangementen"),
+    ("/index.php/prijslijst", "/prijslijst"),
+    ("/cookiebeleid-eu", "/privacybeleid"),
+]
 
-    Zonder deze regels stuurt Cloudflare de slash-variant zelf door met een
-    tijdelijke 307.
+
+def build_redirects():
+    """_redirects voor Cloudflare, alles permanent (301) en zonder ketens.
+
+    1. /pagina/ -> /pagina. Zonder deze regels stuurt Cloudflare de
+       slash-variant zelf door met een tijdelijke 307.
+    2. /pagina.html (en /index, /index.html) -> het adres zonder .html.
+       Cloudflare doet dat anders zelf met een 307.
+    3. Oude adressen van de vorige sites -> de best passende pagina.
+
+    Alleen statische regels (limiet Cloudflare: 2.000 statische, 100
+    dynamische). Geen doel is zelf een bron, dus geen lussen of ketens.
     """
     lines = [
         "# Gegenereerd door build.py: niet met de hand aanpassen.",
-        "# Adressen met een slash op het einde permanent (301) naar het adres zonder slash.",
+        "# 1. Adressen met een slash op het einde permanent (301) naar het adres zonder slash.",
     ]
     for p in PAGES:
         if p["path"] != "/":
             lines.append(f'{p["path"]}/ {p["path"]} 301')
+    lines.append("# 2. Adressen met .html permanent (301) naar het adres zonder .html.")
+    lines.append("/index / 301")
+    for p in PAGES:
+        lines.append(f'/{p["out"]} {p["path"]} 301')
+    lines.append("# 3. Oude adressen (WordPress/GHL) naar de best passende huidige pagina.")
+    for old, new in OLD_REDIRECTS:
+        lines.append(f"{old} {new} 301")
+        lines.append(f"{old}/ {new} 301")
+
+    # Controle: geen doel mag zelf een bron zijn (ketens of lussen).
+    rules = [l.split() for l in lines if not l.startswith("#")]
+    sources = {r[0] for r in rules}
+    for src, dst, _ in rules:
+        assert dst not in sources, f"redirectketen: {src} -> {dst}"
+    assert len(sources) == len(rules), "dubbele bron in _redirects"
     (ROOT / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

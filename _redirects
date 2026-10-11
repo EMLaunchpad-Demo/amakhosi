@@ -1,5 +1,5 @@
 # Gegenereerd door build.py: niet met de hand aanpassen.
-# Adressen met een slash op het einde permanent (301) naar het adres zonder slash.
+# 1. Adressen met een slash op het einde permanent (301) naar het adres zonder slash.
 /privesauna-wellness-impressie/ /privesauna-wellness-impressie 301
 /arrangementen/ /arrangementen 301
 /prijslijst/ /prijslijst 301
@@ -7,3 +7,38 @@
 /reserveren/ /reserveren 301
 /algemene-voorwaarden/ /algemene-voorwaarden 301
 /privacybeleid/ /privacybeleid 301
+# 2. Adressen met .html permanent (301) naar het adres zonder .html.
+/index / 301
+/index.html / 301
+/privesauna-wellness-impressie.html /privesauna-wellness-impressie 301
+/arrangementen.html /arrangementen 301
+/prijslijst.html /prijslijst 301
+/koninklijke-deals.html /koninklijke-deals 301
+/reserveren.html /reserveren 301
+/algemene-voorwaarden.html /algemene-voorwaarden 301
+/privacybeleid.html /privacybeleid 301
+# 3. Oude adressen (WordPress/GHL) naar de best passende huidige pagina.
+/home / 301
+/home/ / 301
+/privesauna-hamont-achel / 301
+/privesauna-hamont-achel/ / 301
+/privesauna-lommel / 301
+/privesauna-lommel/ / 301
+/privesauna-bocholt-belgie / 301
+/privesauna-bocholt-belgie/ / 301
+/hello-world / 301
+/hello-world/ / 301
+/category/uncategorized / 301
+/category/uncategorized/ / 301
+/index.php / 301
+/index.php/ / 301
+/impressie /privesauna-wellness-impressie 301
+/impressie/ /privesauna-wellness-impressie 301
+/sfeer-impressie /privesauna-wellness-impressie 301
+/sfeer-impressie/ /privesauna-wellness-impressie 301
+/index.php/arrangementen /arrangementen 301
+/index.php/arrangementen/ /arrangementen 301
+/index.php/prijslijst /prijslijst 301
+/index.php/prijslijst/ /prijslijst 301
+/cookiebeleid-eu /privacybeleid 301
+/cookiebeleid-eu/ /privacybeleid 301
