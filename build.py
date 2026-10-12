@@ -65,7 +65,7 @@ NACHT = [
 # wordt /cadeaubon niet gebouwd en verschijnen er nergens links naar.
 # Let op: maak je in ons platform een nieuwe bon aan, dan werkt de oude niet
 # meer en moet het nieuwe ID hier komen.
-GIFTCARD_ID = ""
+GIFTCARD_ID = "6acc98faeb8d718348d77bc0"
 GIFTCARD_URL = "https://link.fastpaydirect.com/gift-card/" + GIFTCARD_ID
 
 # Directe link naar de online agenda (volledig scherm, handig op telefoons)

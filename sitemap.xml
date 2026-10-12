@@ -44,6 +44,13 @@
     <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8435f545dbba232fa5362a.jpg</image:loc></image:image>
   </url>
   <url>
+    <loc>https://amakhosi.be/cadeaubon</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993b96d2b224d38addc6.jpg</image:loc></image:image>
+  </url>
+  <url>
     <loc>https://amakhosi.be/algemene-voorwaarden</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>

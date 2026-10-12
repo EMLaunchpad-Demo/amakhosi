@@ -5,6 +5,7 @@
 /prijslijst/ /prijslijst 301
 /koninklijke-deals/ /koninklijke-deals 301
 /reserveren/ /reserveren 301
+/cadeaubon/ /cadeaubon 301
 /algemene-voorwaarden/ /algemene-voorwaarden 301
 /privacybeleid/ /privacybeleid 301
 # 2. Adressen met .html permanent (301) naar het adres zonder .html.
@@ -15,6 +16,7 @@
 /prijslijst.html /prijslijst 301
 /koninklijke-deals.html /koninklijke-deals 301
 /reserveren.html /reserveren 301
+/cadeaubon.html /cadeaubon 301
 /algemene-voorwaarden.html /algemene-voorwaarden 301
 /privacybeleid.html /privacybeleid 301
 # 3. Oude adressen (WordPress/GHL) naar de best passende huidige pagina.
