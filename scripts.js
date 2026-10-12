@@ -18,6 +18,7 @@
    14. Galerij-lightbox
    15. Mobiele CTA-balk + vaste reserveerknop rechtsonder
    16. Terug naar boven + jaartal
+   17. Cadeaubon: checkout laden als ze in beeld komt
    ========================================================================== */
 (function () {
   'use strict';
@@ -665,6 +666,47 @@
 
     $$('[data-amk-year]').forEach(function (el) {
       el.textContent = new Date().getFullYear();
+    });
+
+    /* ------------------------------------------------------------------
+       17. Cadeaubon: checkout van ons platform pas laden als ze in beeld
+           komt (het script moet vlak na de div met data-gc-id staan)
+       ------------------------------------------------------------------ */
+    $$('[data-amk-gc-src]').forEach(function (box) {
+      var target = box.querySelector('[data-gc-id]');
+      if (!target || !target.getAttribute('data-gc-id')) return;
+      var loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        var s = doc.createElement('script');
+        s.src = box.getAttribute('data-amk-gc-src');
+        s.async = true;
+        s.onload = function () {
+          var tries = 0;
+          (function watch() {
+            var frame = box.querySelector('iframe');
+            if (frame) {
+              frame.title = 'Cadeaubon van Amakhosi bestellen';
+              frame.addEventListener('load', function () { box.classList.add('is-geladen'); });
+              setTimeout(function () { box.classList.add('is-geladen'); }, 4000);
+            } else if (++tries < 40) {
+              setTimeout(watch, 150);
+            } else {
+              box.classList.add('is-geladen');
+            }
+          })();
+        };
+        target.parentNode.insertBefore(s, target.nextSibling);
+      }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) { io.disconnect(); load(); }
+        }, { rootMargin: '600px 0px' });
+        io.observe(box);
+      } else {
+        load();
+      }
     });
 
     // Start

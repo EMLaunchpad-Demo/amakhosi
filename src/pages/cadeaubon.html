@@ -1,0 +1,111 @@
+    <!-- =================================================================
+         PAGINAHERO
+         Cadeaubon: alleen wat zeker is. Geldigheid en voorwaarden van de bon
+         staan hier bewust NIET: [IN TE VULLEN DOOR PATRICK] (zie Notion-taak
+         "Cadeaubon op amakhosi.be"). Pas toevoegen na zijn akkoord.
+         ================================================================= -->
+    <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
+      <div class="amk-pagehero__bg" aria-hidden="true">
+        <img src="{{M}}6a84993b96d2b224d38addc6.jpg" alt="" width="2560" height="1707" fetchpriority="high" decoding="async">
+      </div>
+      <div class="amk-container">
+        <div class="amk-pagehero__inner">
+          {{BREADCRUMBS}}
+          <p class="amk-eyebrow">Cadeaubon</p>
+          <h1 class="amk-pagehero__title" id="amk-page-title" data-amk-split>Schenk een <em>koninklijk moment</em></h1>
+          <p class="amk-pagehero__lead">Geef iemand een arrangement bij Amakhosi cadeau: een paar uur privéwellness of een overnachting, helemaal voor twee. Je kiest de bon, betaalt online en de bon komt met een unieke code per mail.</p>
+          <div class="amk-btn-row">
+            <a class="amk-btn amk-btn--gold amk-btn--shine" href="#bestellen" data-amk-magnetic>{{i:gift}}Bestel een cadeaubon</a>
+            <a class="amk-btn amk-btn--ghost" href="#kiezen">Bekijk de bonnen{{i:arrow:amk-icon--arrow}}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         KEUZE VAN DE BON — bedragen = prijzen van de arrangementen
+         ================================================================= -->
+    <section class="amk-section amk-section--textured amk-section--line" id="kiezen" aria-labelledby="amk-kies-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" data-amk-reveal>
+          <p class="amk-eyebrow">Kies je cadeaubon</p>
+          <h2 class="amk-title" id="amk-kies-title" data-amk-split>Een bon voor <em>elk arrangement</em></h2>
+          <p class="amk-lead">De waarde van de bon is de prijs van het arrangement dat je cadeau doet, van drie uur wellness tot een overnachting met uitslapen.</p>
+        </div>
+        <div class="amk-durations amk-durations--gift" data-amk-stagger="0.06">{{GIFT_OPTIONS}}
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         BESTELLEN EN BETALEN — online checkout van ons platform
+         scripts.js laadt het script van de checkout pas als dit vak in beeld
+         komt; het moet vlak na de div met data-gc-id komen.
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="bestellen" aria-labelledby="amk-bestel-title">
+      <div class="amk-container amk-gift__grid">
+        <div class="amk-gift__intro" data-amk-reveal>
+          <p class="amk-eyebrow">Bestellen</p>
+          <h2 class="amk-title" id="amk-bestel-title" data-amk-split>Bestel en <em>betaal online</em></h2>
+          <ol class="amk-gift__steps">
+            <li><span>01</span><div><strong>Kies het bedrag</strong>Het bedrag van het arrangement dat je cadeau doet.</div></li>
+            <li><span>02</span><div><strong>Vul je gegevens in</strong>En betaal veilig online.</div></li>
+            <li><span>03</span><div><strong>De bon komt per mail</strong>Met een unieke code, klaar om cadeau te doen.</div></li>
+          </ol>
+          <p class="amk-gift__help">Lukt het hier niet? Open de <a class="amk-inline-link" href="{{GIFTCARD_URL}}" rel="noopener">bestelpagina in een nieuw venster</a> of bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a>.</p>
+        </div>
+
+        <div class="amk-booking__frame amk-gift__frame" data-amk-reveal>
+          <div class="amk-gift__embed" data-amk-gc-src="https://storage.googleapis.com/leadgen-payment-products-preview-nuxt-assets/js/iframe-resizer/gc-embed.parent.js">
+            <div data-gc-id="{{GIFTCARD_ID}}"></div>
+            <p class="amk-gift__loading">De online bestelling wordt geladen …</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         WAT DE ONTVANGER ERMEE KAN
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="ontvanger" aria-labelledby="amk-ontv-title">
+      <div class="amk-container">
+        <article class="amk-spotlight" data-amk-reveal="zoom">
+          <div class="amk-spotlight__media">
+            <img src="{{M}}6a846eb24aaffc55cd792746.jpg" alt="Loungebed versierd met een hart van rozenblaadjes" width="1024" height="784" loading="lazy" decoding="async">
+          </div>
+          <div class="amk-spotlight__body">
+            <p class="amk-eyebrow">Voor wie de bon krijgt</p>
+            <h2 class="amk-title" id="amk-ontv-title" data-amk-split>Koninklijk genieten, <em>helemaal privé</em></h2>
+            <p>Met de bon geniet de ontvanger van een arrangement bij Amakhosi in Hamont-Achel, ideaal voor twee. De volledige wellness is tijdens het arrangement van hen alleen.</p>
+            <ul class="amk-checks" style="margin-top: 22px;">
+              <li>{{i:check}}Finse sauna, stoombad &amp; whirlpool</li>
+              <li>{{i:check}}Inloopdouche en loungebed met sfeerhaard</li>
+              <li>{{i:check}}Gratis frisdrank, koffie &amp; thee</li>
+              <li>{{i:check}}Gratis privéparking met laadpaal</li>
+              <li>{{i:check}}Bij een overnachting: een aparte slaapsuite</li>
+            </ul>
+            <p style="margin-top: 22px;">Een moment kiezen met de bon? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a> met de code van de bon.</p>
+            <div class="amk-btn-row" style="margin-top: 28px;">
+              <a class="amk-btn amk-btn--ghost" href="/arrangementen">Bekijk de arrangementen{{i:arrow:amk-icon--arrow}}</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         VRAGEN — slot
+         ================================================================= -->
+    <section class="amk-cta" data-amk-rise aria-labelledby="amk-cta-title">
+      <div class="amk-cta__sun" aria-hidden="true"></div>
+      <div class="amk-embers" data-amk-embers="12" aria-hidden="true"></div>
+      <div class="amk-container amk-cta__inner">
+        <p class="amk-eyebrow" data-amk-reveal>Cadeaubon</p>
+        <h2 class="amk-cta__title" id="amk-cta-title" data-amk-split>Vragen over <em>een cadeaubon</em>?</h2>
+        <p class="amk-cta__lead" data-amk-reveal>Bel of mail ons gerust, we helpen je graag het juiste cadeau te kiezen.</p>
+        <div class="amk-btn-row" data-amk-reveal>
+          <a class="amk-btn amk-btn--gold amk-btn--shine amk-btn--lg" href="#bestellen" data-amk-magnetic>{{i:gift}}Bestel een cadeaubon</a>
+          <a class="amk-btn amk-btn--ghost amk-btn--lg" href="tel:{{TEL}}">{{i:phone}}{{PHONE}}</a>
+        </div>
+      </div>
+    </section>

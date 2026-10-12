@@ -57,6 +57,17 @@ NACHT = [
          desc="Uitslapen en nagenieten tot 12:00, zonder wekker.", badge="Uitslapen tot 12 u"),
 ]
 
+# --------------------------------------------------------------------------
+# Cadeaubon (digitale cadeaubon in ons platform, Payments -> Gift cards)
+# --------------------------------------------------------------------------
+# Zet hier het ID van de cadeaubon "Cadeaubon Amakhosi" (te vinden in de
+# deellink https://link.fastpaydirect.com/gift-card/<ID>). Zolang het leeg is,
+# wordt /cadeaubon niet gebouwd en verschijnen er nergens links naar.
+# Let op: maak je in ons platform een nieuwe bon aan, dan werkt de oude niet
+# meer en moet het nieuwe ID hier komen.
+GIFTCARD_ID = ""
+GIFTCARD_URL = "https://link.fastpaydirect.com/gift-card/" + GIFTCARD_ID
+
 # Directe link naar de online agenda (volledig scherm, handig op telefoons)
 BOOKING_URL = "https://api.leadconnectorhq.com/booking/amakhosi?showHeader=true"
 CHECKS_WELLNESS = [
@@ -200,6 +211,15 @@ LEGAL_PAGES = [
         image_alt="Stoombad van Amakhosi met kaarslicht",
     ),
 ]
+if GIFTCARD_ID:
+    PAGES.append(dict(
+        key="cadeaubon", src="cadeaubon.html", out="cadeaubon.html",
+        path="/cadeaubon", crumb="Cadeaubon", lastmod="2026-10-12",
+        title="Cadeaubon privésauna & wellness | Amakhosi Hamont-Achel",
+        description="Geef een cadeaubon van Amakhosi: een arrangement privéwellness of een overnachting voor twee in Hamont-Achel. Online bestellen en betalen, de bon komt per mail.",
+        image=("6a84993b96d2b224d38addc6.jpg", 2560, 1707),
+        image_alt="Lounge met loungebed, sfeerhaard en whirlpool bij Amakhosi",
+    ))
 PAGES += LEGAL_PAGES
 
 GALLERY = [
@@ -359,6 +379,35 @@ def gallery():
     return "".join(out)
 
 
+def gift_options():
+    """Keuze van de cadeaubon: de bedragen zijn de prijzen van de arrangementen."""
+    out = []
+    for p in WELLNESS + NACHT:
+        night = " amk-duration--night" if p in NACHT else ""
+        out.append(f"""
+          <a class="amk-duration{night}" href="#bestellen">
+            <span class="amk-duration__time">{time_label(p)}</span>
+            <span class="amk-duration__name">{p["name"]}</span>
+            <span class="amk-duration__price">{euro(p["price"])}</span>
+          </a>""")
+    return "".join(out)
+
+
+def gift_link(kind):
+    """Links naar /cadeaubon, alleen als de cadeaubon in ons platform bestaat."""
+    if not GIFTCARD_ID:
+        return ""
+    if kind == "footer":
+        return '<li><a href="/cadeaubon">Cadeaubon</a></li>'
+    if kind == "inline":
+        return f'<a class="amk-link" href="/cadeaubon">Geef een cadeaubon {icon("arrow")}</a>'
+    if kind == "block":
+        return (f'<p class="amk-gift__note" data-amk-reveal>{icon("gift")}'
+                f'<span>Een arrangement cadeau doen? Geef een '
+                f'<a class="amk-inline-link" href="/cadeaubon">cadeaubon van Amakhosi</a>.</span></p>')
+    raise KeyError(kind)
+
+
 def nav_links(current):
     items = ['<li class="amk-nav__glider" aria-hidden="true"></li>']
     for key, url, label in NAV:
@@ -369,7 +418,8 @@ def nav_links(current):
 
 def menu_links(current):
     items = []
-    all_links = NAV + [("reserveren", "/reserveren", "Reserveren")]
+    gift = [("cadeaubon", "/cadeaubon", "Cadeaubon")] if GIFTCARD_ID else []
+    all_links = NAV + gift + [("reserveren", "/reserveren", "Reserveren")]
     for i, (key, url, label) in enumerate(all_links, start=1):
         cur = ' aria-current="page"' if key == current else ""
         items.append(
@@ -618,6 +668,14 @@ def render(text, page):
             return summary_rows("wellness")
         if token == "SUMMARY:nacht":
             return summary_rows("nacht")
+        if token == "GIFT_OPTIONS":
+            return gift_options()
+        if token == "GIFTCARD_ID":
+            return GIFTCARD_ID
+        if token == "GIFTCARD_URL":
+            return GIFTCARD_URL
+        if token.startswith("GIFT_LINK:"):
+            return gift_link(token.split(":")[1])
         if token == "BOOKING_URL":
             return html.escape(BOOKING_URL)
         if token == "RESERVE_HREF":
@@ -718,7 +776,7 @@ def build_sitemap():
         f"""
   <url>
     <loc>{SITE}{p["path"]}</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>{p.get("lastmod", "2026-10-07")}</lastmod>
     <changefreq>{"weekly" if p["key"] in ("home", "deals") else ("yearly" if p.get("legal") else "monthly")}</changefreq>
     <priority>{"1.0" if p["key"] == "home" else ("0.3" if p.get("legal") else "0.8")}</priority>
     <image:image><image:loc>{MEDIA}{p["image"][0]}</image:loc></image:image>

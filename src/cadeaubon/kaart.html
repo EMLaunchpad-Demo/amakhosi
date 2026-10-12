@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl-BE"><head><meta charset="utf-8">
+<!-- Bron van de kaartafbeelding van de cadeaubon in ons platform (800 x 400, max. 800 x 400 px).
+     Opnieuw maken: headless Edge, venster 800 x 400, schermafbeelding -> kaart.png.
+     #rustig = zonder tekst (ons platform zet zelf tekst over de afbeelding). -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #140000; }
+  .kaart {
+    position: relative; width: 800px; height: 400px; overflow: hidden;
+    background:
+      radial-gradient(420px 380px at 76% 52%, rgba(251,178,57,.22), rgba(251,178,57,0) 70%),
+      radial-gradient(700px 420px at 10% 120%, #331802 0%, rgba(51,24,2,0) 65%),
+      linear-gradient(135deg, #2a0c04 0%, #1d0000 55%, #140000 100%);
+    color: #fbeee0; font-family: "Manrope", sans-serif;
+  }
+  .kader { position: absolute; inset: 16px; border: 1px solid rgba(214,168,51,.55); }
+  .kader::after { content: ""; position: absolute; inset: 5px; border: 1px solid rgba(214,168,51,.18); }
+  .logo { position: absolute; right: 62px; top: 50%; width: 260px; transform: translateY(-50%); }
+  .tekst { position: absolute; left: 58px; bottom: 64px; }
+  .label { display: flex; align-items: center; gap: 12px; margin: 0 0 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: #fbb239; }
+  .label::before { content: ""; width: 26px; height: 1px; background: #fbb239; }
+  h1 { margin: 0; font-family: "Playfair Display", serif; font-weight: 400; font-size: 72px; line-height: .95; color: #fff; }
+  h1 em { font-style: italic; background: linear-gradient(100deg,#ffec03,#fdd21c 40%,#fbb239 75%,#ef8f25); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { margin: 18px 0 0; font-size: 13px; letter-spacing: .06em; color: rgba(251,238,224,.78); }
+  .rustig .tekst { display: none; }
+  .rustig .logo { right: 50%; transform: translate(50%, -50%); width: 300px; }
+</style></head>
+<body>
+<div class="kaart" id="kaart">
+  <div class="kader"></div>
+  <img class="logo" src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png" alt="">
+  <div class="tekst">
+    <p class="label">Koninklijk genieten</p>
+    <h1>Cadeau<em>bon</em></h1>
+    <p class="sub">Privésauna &amp; wellness · Hamont-Achel</p>
+  </div>
+</div>
+<script>if (location.hash === "#rustig") document.getElementById("kaart").classList.add("rustig");</script>
+</body></html>
