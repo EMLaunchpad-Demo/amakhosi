@@ -635,7 +635,8 @@
        15. Mobiele CTA-balk: verschijnt zodra de hero uit beeld is
        ------------------------------------------------------------------ */
     // Ook de vaste reserveerknop rechtsonder (computer) volgt deze regel
-    var stickies = $$('[data-amk-mobilebar], [data-amk-fab]');
+    // Niet op de reserveerpagina: de balk schuift over de onderkant van de agenda
+    var stickies = doc.querySelector('.amk-booking__frame') ? [] : $$('[data-amk-mobilebar], [data-amk-fab]');
     var hero = doc.querySelector('[data-amk-hero]');
     function setSticky(visible) {
       stickies.forEach(function (el) {

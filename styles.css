@@ -3264,6 +3264,23 @@ em .amk-w__i {
   background: #fff;
 }
 
+/* Gsm: de agenda past precies op het scherm. Het betaalvenster van de agenda
+   staat vast binnen de iframe; is de iframe hoger dan het scherm, dan valt de
+   knop "Betalen" buiten beeld en kan je er niet naartoe scrollen. */
+@media (max-width: 767.98px) {
+  .amk-booking__frame { padding: 6px; }
+  .amk-booking__frame iframe {
+    min-height: 0;
+    height: calc(100vh - 12px) !important;
+    height: calc(100svh - 12px) !important;
+  }
+}
+
+/* Op de reserveerpagina geen vaste reserveerbalk of -knop: die schoof over
+   de onderkant van de agenda (voorwaarden, betalen). */
+.amk:has(.amk-booking__frame) .amk-mobilebar,
+.amk:has(.amk-booking__frame) .amk-fab { display: none !important; }
+
 .amk-booking__top {
   display: flex;
   flex-wrap: wrap;
