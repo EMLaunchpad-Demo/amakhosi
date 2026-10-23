@@ -3239,6 +3239,25 @@ em .amk-w__i {
 
 .amk-deal--placeholder { border-style: dashed; }
 
+.amk-deal__prijs {
+  margin-top: 18px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--amk-text);
+}
+.amk-deal__prijs del { color: var(--amk-muted); font-size: 1.05rem; }
+.amk-deal__prijs strong { font-family: var(--amk-font-display, "Playfair Display", serif); font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--amk-sun-2); }
+.amk-deal__prijs span { color: var(--amk-muted); font-size: 0.95rem; }
+.amk-deal__voorwaarden { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.amk-deal__voorwaarden li { position: relative; padding-left: 18px; color: var(--amk-muted); font-size: 0.95rem; }
+.amk-deal__voorwaarden li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--amk-sun-2); }
+.amk-deal .amk-btn { margin-top: auto; }
+.amk-deal__voorwaarden + .amk-btn { margin-top: 26px; }
+.amk-deals__noot { margin-top: 18px; color: var(--amk-muted); font-size: 0.9rem; text-align: center; }
+
+
 /* --- Reserveren --- */
 .amk-booking__grid {
   display: grid;
