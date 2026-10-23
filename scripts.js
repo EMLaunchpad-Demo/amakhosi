@@ -19,6 +19,7 @@
    15. Mobiele CTA-balk + vaste reserveerknop rechtsonder
    16. Terug naar boven + jaartal
    17. Cadeaubon: checkout laden als ze in beeld komt
+   18. Reserveren: agenda meteen op een deal (?deal=...)
    ========================================================================== */
 (function () {
   'use strict';
@@ -708,6 +709,19 @@
         load();
       }
     });
+
+    /* ------------------------------------------------------------------
+       18. Reserveren: met ?deal=... opent de agenda meteen op die deal
+       ------------------------------------------------------------------ */
+    var deals = { winterdagen: 'koninklijke-winterdagen', uitslapen: 'koninklijk-uitslapen' };
+    var deal = deals[new URLSearchParams(window.location.search).get('deal')];
+    var agenda = doc.querySelector('.amk-booking__frame iframe');
+    if (deal && agenda) {
+      var dealUrl = 'https://api.leadconnectorhq.com/booking/amakhosi/sv/' + deal;
+      agenda.src = dealUrl + '?heightMode=fixed&showHeader=true';
+      var full = doc.querySelector('.amk-booking__full');
+      if (full) full.href = dealUrl + '?showHeader=true';
+    }
 
     // Start
     window.addEventListener('scroll', requestScroll, { passive: true });
