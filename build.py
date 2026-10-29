@@ -69,7 +69,9 @@ GIFTCARD_ID = "6acc98faeb8d718348d77bc0"
 GIFTCARD_URL = "https://link.fastpaydirect.com/gift-card/" + GIFTCARD_ID
 
 # Directe link naar de online agenda (volledig scherm, handig op telefoons)
-BOOKING_URL = "https://api.leadconnectorhq.com/booking/amakhosi?showHeader=true"
+# Boekingspagina "Amakhosi Reserveren" (29/10/2026): alleen de 6 gewone diensten,
+# zonder de koninklijke deals. De deal-knoppen hebben een eigen link (scripts.js, deel 18).
+BOOKING_URL = "https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?showHeader=true"
 CHECKS_WELLNESS = [
     "Volledige privéwellness",
     "Finse sauna, stoombad &amp; whirlpool",

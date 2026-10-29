@@ -154,8 +154,12 @@ bestaande GHL-mediabibliotheek van Amakhosi.
    (`og:image`) over uit de `<head>` van het `.html`-bestand.
 10. **Preview** op desktop en mobiel, en **Publish**.
 
-> Op de pagina **Reserveren** staat de bestaande GHL-agenda (`booking/amakhosi`) al in de
-> code, inclusief het script dat de hoogte van de agenda automatisch aanpast.
+> Op de pagina **Reserveren** staat de GHL-boekingspagina *Amakhosi Reserveren*
+> (`booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L`, alleen de 6 gewone diensten, sinds 29/10/2026)
+> al in de code, inclusief het script dat de hoogte van de agenda automatisch aanpast.
+> De deal-knoppen (`/reserveren?deal=...`) openen via `scripts.js` deel 18 de deal-dienst
+> rechtstreeks (`booking/amakhosi/sv/<slug>`). De hoofdboekingspagina `booking/amakhosi`
+> toont alle openbare diensten, ook de deals: link er niet meer naar.
 
 ## 6. Nog aan te vullen
 
