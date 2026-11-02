@@ -3,17 +3,26 @@
 Bouwt de Amakhosi-pagina's uit src/ naar de hoofdmap.
 
     python3 build.py
+    python3 build.py --voorbeeld          alle blogartikels, ook met een datum in de toekomst
+    python3 build.py --datum=2026-11-09   bouwen alsof het die dag is
 
 - src/partials/   gedeelde stukken (iconen, header, footer, mobiele balk)
 - src/pages/      inhoud per pagina (alles binnen <main>)
+- src/blog/       tekst per blogartikel (HTML-fragment, zie BLOG hieronder)
 
 Hier staan ook de gedeelde gegevens (navigatie, prijzen, FAQ's, SEO per
 pagina), zodat HTML, prijzen en gestructureerde data (JSON-LD) altijd
 overeenkomen. Alleen de standaardbibliotheek van Python is nodig.
+
+Let op: een build met --voorbeeld of --datum is alleen om lokaal na te
+kijken. Bouw daarna opnieuw zonder optie voor je publiceert.
 """
 import html
 import json
+import math
 import re
+import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -136,6 +145,149 @@ FAQ = {
 }
 
 # --------------------------------------------------------------------------
+# Blog (/blog en /blog/<slug>)
+# --------------------------------------------------------------------------
+# De teksten worden geschreven in Websites/Amakhosi/blog/teksten/<slug>.md
+# (buiten deze map) en na akkoord letterlijk overgezet naar src/blog/<slug>.html.
+# Per artikel: een regel in BLOG, de FAQ in FAQ["blog:<slug>"] en het fragment.
+# - date/modified: publicatiedatum en laatste wijziging (JJJJ-MM-DD). Een
+#   artikel met een datum na vandaag wordt niet gebouwd en staat nergens (niet
+#   op /blog, de home, "Lees ook" of in de sitemap). Links ernaar worden gewone
+#   tekst en zinnen tussen <!--ALS:slug--> en <!--/ALS--> vallen weg. Op de
+#   publicatiedatum opnieuw bouwen en publiceren.
+# - related: artikels voor "Lees ook" (alleen gepubliceerde worden getoond).
+# - slot: slotblok onderaan. None = reserveren ({{PARTIAL:cta}}), anders
+#   src/partials/cta-<slot>.html.
+# - reserve_href: doel van de mobiele balk en de vaste knop. Een deal kan je
+#   alleen boeken via de knop op /koninklijke-deals: een artikel over de deals
+#   linkt daarom daarheen, nooit naar /reserveren?deal=...
+# Auteur van alle artikels (meeting 31/10/2026): de gastvrouw, Connie. Patrick
+# wil niet vermeld worden.
+BLOG_AUTHOR_NAME = "Connie"
+BLOG_AUTHOR_LABEL = "je gastvrouw Connie"
+BLOG = [
+    dict(
+        slug="wellness-cadeaubon-voor-2",
+        title="Wellness cadeaubon voor 2: privésauna als cadeau | Amakhosi",
+        description="Op zoek naar een wellness cadeaubon voor 2? Geef privéwellness vanaf €169 of een overnachting in Hamont-Achel. Tips voor Sinterklaas en kerst.",
+        h1="Een wellness cadeaubon voor 2: zo kies en geef je het juiste cadeau",
+        crumb="Cadeaubon voor twee", eyebrow="Cadeau",
+        date="2026-11-02", modified="2026-11-02",
+        image=("6a84993996d2b224d38ad40e.jpg", 2560, 1677),
+        image_alt="Gekoelde champagne met twee glazen bij de sfeerhaard van Amakhosi",
+        excerpt="Tijd samen cadeau doen: zo kies, bestel en geef je een wellness cadeaubon van Amakhosi, van 3 uur privéwellness tot een overnachting.",
+        related=["privesauna-in-de-winter", "privesauna-met-overnachting-limburg", "privesauna-met-jacuzzi"],
+        slot="cadeaubon",
+    ),
+    dict(
+        slug="privesauna-in-de-winter",
+        title="Sauna in de winter: opwarmen in je privésauna | Amakhosi",
+        description="Sauna in de winter in Hamont-Achel: van maandag tot donderdag 5 uur privéwellness voor €199, of uitslapen tot 12:00. Bekijk de winterdeals.",
+        h1="Sauna in de winter: opwarmen in je eigen privéwellness",
+        crumb="Sauna in de winter", eyebrow="Winter",
+        date="2026-11-02", modified="2026-11-02",
+        image=("6a84993bd1abe28fc98f8e6d.jpg", 2560, 1707),
+        image_alt="Whirlpool met warme oranje verlichting en de sfeerhaard van Amakhosi",
+        excerpt="Koude dagen, warme sauna. Waarom een privésauna in de winter zo goed voelt, en hoe je van maandag tot donderdag 5 uur wellness krijgt voor € 199.",
+        related=["wellness-cadeaubon-voor-2", "privesauna-met-overnachting-limburg", "privesauna-met-jacuzzi"],
+        slot="deals", reserve_href="/koninklijke-deals",
+    ),
+    dict(
+        slug="privesauna-met-overnachting-limburg",
+        title="Privésauna met overnachting in Limburg | Amakhosi",
+        description="Privésauna met overnachting in Limburg: sauna, stoombad en whirlpool tot de volgende ochtend, met een aparte slaapsuite. Vanaf €335 in Hamont-Achel.",
+        h1="Privésauna met overnachting in Limburg: zo verloopt jullie nacht bij Amakhosi",
+        crumb="Privésauna met overnachting", eyebrow="Overnachten",
+        date="2026-11-09", modified="2026-11-09",
+        image=("6a849936b71315ed5245054d.jpg", 2048, 1365),
+        image_alt="Slaapsuite van Amakhosi met tweepersoonsbed en Afrikaans beddengoed",
+        excerpt="Sauna, stoombad en whirlpool de hele avond, slapen in je eigen suite en 's ochtends nog nagenieten. Zo verloopt een overnachting bij Amakhosi in Hamont-Achel.",
+        related=["privesauna-in-de-winter", "privesauna-met-jacuzzi", "wellness-cadeaubon-voor-2"],
+    ),
+    dict(
+        slug="privesauna-met-jacuzzi",
+        title="Privésauna met jacuzzi voor twee | Amakhosi Hamont-Achel",
+        description="Finse sauna, stoombad en een zeer ruime whirlpool voor jullie twee. Zo combineer je alles in je privésauna met jacuzzi in Hamont-Achel, vanaf €169.",
+        h1="Privésauna met jacuzzi voor twee: sauna, stoombad en whirlpool combineren",
+        crumb="Privésauna met jacuzzi", eyebrow="Wellness",
+        date="2026-11-16", modified="2026-11-16",
+        image=("6a84993662d4d706d4110075.jpg", 2048, 1292),
+        image_alt="Privé-wellnessruimte van Amakhosi met ronde whirlpool, zebramuur en doorkijk naar het stoombad",
+        excerpt="Een privésauna met jacuzzi, alleen voor jullie twee: zo combineer je Finse sauna, stoombad en whirlpool en kies je hoeveel tijd je neemt.",
+        related=["privesauna-met-overnachting-limburg", "privesauna-in-de-winter"],
+    ),
+]
+
+# Veelgestelde vragen per artikel: letterlijk uit het .md-bestand (HTML + FAQPage-schema)
+FAQ["blog:wellness-cadeaubon-voor-2"] = [
+    ("Voor welke bedragen bestaat de cadeaubon van Amakhosi?",
+     "De waarde van de bon is de prijs van het arrangement dat je cadeau doet: € 169 (3 uur), € 199 (4 uur), € 239 (5 uur), € 279 (6 uur), € 335 (overnachting van 20:00 tot 10:00) of € 399 (overnachting van 20:00 tot 12:00)."),
+    ("Hoe krijg ik de cadeaubon?",
+     "Je kiest de bon op de pagina cadeaubon van Amakhosi, vult je gegevens in en betaalt veilig online. De bon komt per mail, met een unieke code."),
+    ("Hoe wisselt de ontvanger de cadeaubon in?",
+     "De ontvanger belt naar +32 (0)469 217 550 of mailt naar info@amakhosi.be en geeft de code van de bon door. Amakhosi werkt op afspraak: de dag en het uur worden in overleg vastgelegd."),
+    ("Waar kan je de cadeaubon besteden?",
+     "De cadeaubon besteed je bij Amakhosi zelf, in de Watertorenstraat 64 in Hamont-Achel, voor een arrangement privéwellness of een overnachting."),
+    ("Kan ik ook een overnachting cadeau doen?",
+     "Ja. Je kiest Kom overnachten (van 20:00 tot 10:00, € 335) of Slaap lekker uit (van 20:00 tot 12:00, € 399). De ontvangers hebben dan onbeperkt gebruik van alle faciliteiten en een aparte slaapsuite met eigen inloopdouche."),
+]
+FAQ["blog:privesauna-in-de-winter"] = [
+    ("Waarom is een sauna in de winter zo fijn?",
+     "Veel mensen ervaren de warmte van een sauna als extra fijn wanneer het buiten koud en donker is. In Finland, het land van de sauna, draait de sauna van oudsher vooral om plezier en ontspanning (Laukkanen e.a.)."),
+    ("Tot wanneer lopen de winterdeals?",
+     "Koninklijke Winterdagen loopt van 1 november 2026 tot en met 28 februari 2027, van maandag tot en met donderdag. Koninklijk Uitslapen loopt van 1 november 2026 tot en met 31 maart 2027, bij aankomst op maandag, dinsdag of woensdag."),
+    ("Hoe boek ik een winterdeal?",
+     "Alleen via de knop bij de deal op de pagina Koninklijke deals. Die knop opent de online agenda meteen bij de juiste deal. In de gewone agenda staan de deals niet."),
+    ("Is ontbijt inbegrepen bij Koninklijk Uitslapen?",
+     "Nee, bij deze deal is het ontbijt niet inbegrepen."),
+    ("Kan ik een deal combineren met een andere actie?",
+     "Nee. De deals gelden volgens beschikbaarheid en zijn niet combineerbaar met andere acties."),
+]
+FAQ["blog:privesauna-met-overnachting-limburg"] = [
+    ("Hoe laat kom ik aan en vertrek ik bij een overnachting?",
+     "Je komt om 20:00 aan. Bij Kom overnachten vertrek je om 10:00, bij Slaap lekker uit om 12:00."),
+    ("Is het ontbijt inbegrepen bij een overnachting?",
+     "Nee. Het ontbijt voor twee boek je extra bij een overnachting, voor € 38."),
+    ("Kan ik tijdens mijn overnachting de sauna en de whirlpool blijven gebruiken?",
+     "Ja. Tijdens je overnachting gebruik je alle faciliteiten onbeperkt."),
+    ("Wat kost een privésauna met overnachting bij Amakhosi?",
+     "Kom overnachten (van 20:00 tot 10:00) kost € 335 en Slaap lekker uit (van 20:00 tot 12:00) kost € 399. Van 1 november 2026 tot en met 31 maart 2027 blijf je bij aankomst op maandag, dinsdag of woensdag, volgens beschikbaarheid, tot 12:00 voor € 335. Die winterdeal boek je alleen via de knop op de pagina <a href=\"/koninklijke-deals\">Koninklijke deals</a>."),
+    ("Ik woon in Nederland. Kan ik online reserveren?",
+     "Ja. Vul in de online agenda je gsm-nummer (mobiel nummer) in met landcode, bijvoorbeeld +31 6 12345678. Telefonisch reserveren kan ook, op +32 (0)469 217 550."),
+]
+FAQ["blog:privesauna-met-jacuzzi"] = [
+    ("Heeft Amakhosi een jacuzzi?",
+     "Amakhosi heeft een zeer ruime whirlpool, wat veel mensen een jacuzzi of bubbelbad noemen. De whirlpool staat binnen, naast een Finse sauna en een stoombad, en tijdens je arrangement is alles volledig privé."),
+    ("Wat doe je eerst: sauna, stoombad of whirlpool?",
+     "Er is geen vaste volgorde. Begin met een douche, wissel warmte af met afkoelen en rust, en luister naar je lichaam."),
+    ("Hoe lang blijf je best in de sauna?",
+     "Volgens de Cleveland Clinic hou je een saunaronde best rond 15 tot 20 minuten, en begin je korter als je het niet gewoon bent. Voel je je duizelig of niet goed, ga dan meteen uit de sauna."),
+    ("Wat kost een privésauna met jacuzzi bij Amakhosi?",
+     "Een arrangement met Finse sauna, stoombad en whirlpool kost € 169 voor 3 uur, € 199 voor 4 uur, € 239 voor 5 uur of € 279 voor 6 uur. Een overnachting kost € 335 (van 20:00 tot 10:00) of € 399 (van 20:00 tot 12:00)."),
+    ("Is de wellness geschikt voor een koppel?",
+     "Zeker. Er is een whirlpool voor twee, een ruime inloopdouche voor twee personen en een loungebed om samen na te genieten."),
+]
+
+
+def _publish_date():
+    """Tot en met welke datum artikels gepubliceerd worden (standaard vandaag)."""
+    for arg in sys.argv[1:]:
+        if arg == "--voorbeeld":
+            return date.max
+        if arg.startswith("--datum="):
+            return date.fromisoformat(arg.split("=", 1)[1])
+    return date.today()
+
+
+PUBLISH_DATE = _publish_date()
+# Gepubliceerde artikels, nieuwste eerst
+BLOG_LIVE = sorted((a for a in BLOG if date.fromisoformat(a["date"]) <= PUBLISH_DATE),
+                   key=lambda a: a["date"], reverse=True)
+BLOG_SLUGS_LIVE = {a["slug"] for a in BLOG_LIVE}
+BLOG_BY_SLUG = {a["slug"]: a for a in BLOG}
+
+
+# --------------------------------------------------------------------------
 # Pagina's + SEO
 # --------------------------------------------------------------------------
 PAGES = [
@@ -222,6 +374,27 @@ if GIFTCARD_ID:
         image=("6a84993b96d2b224d38addc6.jpg", 2560, 1707),
         image_alt="Lounge met loungebed, sfeerhaard en whirlpool bij Amakhosi",
     ))
+# Blog: alleen als er al een artikel gepubliceerd is (anders geen /blog en
+# nergens een link naar de blog).
+if BLOG_LIVE:
+    PAGES.append(dict(
+        key="blog", src="blog.html", out="blog.html", path="/blog", crumb="Blog",
+        title="Blog over privésauna en wellness | Amakhosi Hamont-Achel",
+        description="Tips en ideeën over privésauna en wellness in Hamont-Achel: van een cadeaubon voor twee tot overnachten in je eigen wellness. Lees de blog van Amakhosi.",
+        image=("6a846a7cd07034adc2cd9d9f.jpg", 2048, 1365),
+        image_alt="Afrikaanse muurschildering met doorkijk naar de slaapsuite",
+        lastmod=max(a["modified"] for a in BLOG_LIVE), changefreq="weekly", priority="0.7",
+        blog_index=True,
+    ))
+    for _a in BLOG_LIVE:
+        PAGES.append(dict(
+            key="blog:" + _a["slug"], src="blog-artikel.html", out=f"blog/{_a['slug']}.html",
+            path=f"/blog/{_a['slug']}", crumb=_a["crumb"], crumbs=[("Blog", "/blog")],
+            title=_a["title"], description=_a["description"],
+            image=_a["image"], image_alt=_a["image_alt"],
+            faq="blog:" + _a["slug"], lastmod=_a["modified"], changefreq="monthly", priority="0.6",
+            article=_a, reserve_href=_a.get("reserve_href"),
+        ))
 PAGES += LEGAL_PAGES
 
 GALLERY = [
@@ -410,6 +583,164 @@ def gift_link(kind):
     raise KeyError(kind)
 
 
+# --------------------------------------------------------------------------
+# Blog: hulpfuncties
+# --------------------------------------------------------------------------
+MAANDEN = ["januari", "februari", "maart", "april", "mei", "juni", "juli",
+           "augustus", "september", "oktober", "november", "december"]
+
+
+def nl_date(d):
+    """'2026-11-02' -> '2 november 2026'."""
+    y, m, dd = map(int, d.split("-"))
+    return f"{dd} {MAANDEN[m - 1]} {y}"
+
+
+def iso_time(d):
+    """Datum als ISO 8601 om 09:00, met de tijdzone van Brussel (zomer- of wintertijd)."""
+    y, m, dd = map(int, d.split("-"))
+
+    def last_sunday(month):
+        return 31 - (date(y, month, 31).weekday() + 1) % 7
+
+    summer = (3, last_sunday(3)) <= (m, dd) < (10, last_sunday(10))
+    return f"{d}T09:00:00{'+02:00' if summer else '+01:00'}"
+
+
+def article_html(a):
+    """Tekst van een artikel (src/blog/<slug>.html), zonder de opmerking bovenaan."""
+    text = (SRC / "blog" / f"{a['slug']}.html").read_text(encoding="utf-8")
+    return re.sub(r"\A\s*<!--.*?-->\s*", "", text, flags=re.S)
+
+
+def word_count(a):
+    text = article_html(a) + " " + " ".join(q + " " + ans for q, ans in FAQ["blog:" + a["slug"]])
+    text = re.sub(r"\{\{[^}]+\}\}", " ", strip_tags(text))
+    return len(re.findall(r"\w+", text))
+
+
+def reading_time(a):
+    """Leestijd in minuten: woorden / 200, naar boven afgerond."""
+    return max(1, math.ceil(word_count(a) / 200))
+
+
+def h1_html(text):
+    """Het deel na de dubbele punt in goud cursief, zoals bij de andere titels."""
+    head_, sep, tail = text.partition(": ")
+    return f"{esc(head_)}: <em>{esc(tail)}</em>" if sep else esc(text)
+
+
+def only_published(text):
+    """Verwijzingen naar artikels die nog niet gepubliceerd zijn, weghalen:
+    zinnen tussen <!--ALS:slug--> en <!--/ALS--> vallen weg, een gewone link
+    wordt gewone tekst. Zo geeft geen enkele link een 404."""
+    text = re.sub(r"<!--ALS:([a-z0-9-]+)-->(.*?)<!--/ALS-->",
+                  lambda m: m.group(2) if m.group(1) in BLOG_SLUGS_LIVE else "", text, flags=re.S)
+    return re.sub(r'<a [^>]*href="/blog/([a-z0-9-]+)"[^>]*>(.*?)</a>',
+                  lambda m: m.group(0) if m.group(1) in BLOG_SLUGS_LIVE else m.group(2), text, flags=re.S)
+
+
+def post_card(a, level=3):
+    img, w, h = a["image"]
+    return f"""
+          <article class="amk-post amk-spot" data-amk-tilt="3">
+            <div class="amk-post__img"><img src="{MEDIA}{img}" alt="" width="{w}" height="{h}" loading="lazy" decoding="async"></div>
+            <div class="amk-post__body">
+              <p class="amk-post__tag">{esc(a["eyebrow"])}</p>
+              <h{level} class="amk-post__title"><a class="amk-post__link" href="/blog/{a["slug"]}">{esc(a["h1"])}</a></h{level}>
+              <p class="amk-post__excerpt">{esc(a["excerpt"])}</p>
+              <p class="amk-post__meta"><time datetime="{a["date"]}">{nl_date(a["date"])}</time><span aria-hidden="true">·</span>{reading_time(a)} min leestijd</p>
+            </div>
+          </article>"""
+
+
+def post_list(items, extra=""):
+    single = " amk-posts--single" if len(items) == 1 else ""
+    cards = "".join(post_card(a) for a in items)
+    return f'<div class="amk-posts{extra}{single}" data-amk-stagger="0.1">{cards}\n        </div>'
+
+
+def blog_teaser():
+    """Home: de 3 nieuwste artikels (niets zolang er geen artikel gepubliceerd is)."""
+    if not BLOG_LIVE:
+        return ""
+    return f"""
+    <!-- =================================================================
+         UIT ONZE BLOG (3 nieuwste artikels, uit BLOG in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="blog" aria-labelledby="amk-blog-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--split">
+          <div data-amk-reveal>
+            <p class="amk-eyebrow">Uit onze blog</p>
+            <h2 class="amk-title" id="amk-blog-title" data-amk-split>Ideeën voor <em>jouw volgende bezoek</em></h2>
+          </div>
+          <div class="amk-posts__intro" data-amk-reveal>
+            <p class="amk-lead">Tips en inspiratie rond privésauna en wellness, van een cadeau voor twee tot een nacht in je eigen wellness.</p>
+            <a class="amk-link" href="/blog">Alle artikels {icon("arrow")}</a>
+          </div>
+        </div>
+        {post_list(BLOG_LIVE[:3], " amk-posts--scroll")}
+      </div>
+    </section>
+"""
+
+
+def blog_related(a):
+    """'Lees ook' onder een artikel: alleen artikels die al gepubliceerd zijn."""
+    items = [BLOG_BY_SLUG[s] for s in a["related"] if s in BLOG_SLUGS_LIVE and s != a["slug"]][:3]
+    if not items:
+        return ""
+    return f"""
+    <!-- =================================================================
+         LEES OOK
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="lees-ook" aria-labelledby="amk-related-title">
+      <div class="amk-container">
+        <div class="amk-head" data-amk-reveal>
+          <p class="amk-eyebrow">Lees ook</p>
+          <h2 class="amk-title" id="amk-related-title" data-amk-split>Meer uit <em>onze blog</em></h2>
+        </div>
+        {post_list(items, " amk-posts--scroll")}
+      </div>
+    </section>
+"""
+
+
+def blog_link(kind):
+    """Link naar /blog, alleen als er al een artikel gepubliceerd is."""
+    if not BLOG_LIVE:
+        return ""
+    if kind == "footer":
+        return '\n          <li><a href="/blog">Blog</a></li>'
+    raise KeyError(kind)
+
+
+def article_part(part, page):
+    """Stukken van de artikelpagina (src/pages/blog-artikel.html)."""
+    a = page["article"]
+    if part == "hero":
+        img, w, h = a["image"]
+        return f'<img src="{MEDIA}{img}" alt="" width="{w}" height="{h}" fetchpriority="high" decoding="async">'
+    if part == "eyebrow":
+        return esc(a["eyebrow"])
+    if part == "h1":
+        return h1_html(a["h1"])
+    if part == "meta":
+        items = [f'{icon("calendar")}<time datetime="{a["date"]}">{nl_date(a["date"])}</time>']
+        if a["modified"] != a["date"]:
+            items.append(f'Bijgewerkt op <time datetime="{a["modified"]}">{nl_date(a["modified"])}</time>')
+        items.append(f'{icon("clock")}{reading_time(a)} min leestijd')
+        items.append(f'{icon("crown")}Door {BLOG_AUTHOR_LABEL}')
+        lis = "".join(f"<li>{i}</li>" for i in items)
+        return f'<ul class="amk-postmeta" aria-label="Over dit artikel">{lis}</ul>'
+    if part == "body":
+        return article_html(a)
+    if part == "slot":
+        return "{{PARTIAL:" + ("cta-" + a["slot"] if a.get("slot") else "cta") + "}}"
+    raise KeyError(part)
+
+
 def nav_links(current):
     items = ['<li class="amk-nav__glider" aria-hidden="true"></li>']
     for key, url, label in NAV:
@@ -421,9 +752,11 @@ def nav_links(current):
 def menu_links(current):
     items = []
     gift = [("cadeaubon", "/cadeaubon", "Cadeaubon")] if GIFTCARD_ID else []
-    all_links = NAV + gift + [("reserveren", "/reserveren", "Reserveren")]
+    blog = [("blog", "/blog", "Blog")] if BLOG_LIVE else []
+    all_links = NAV + gift + blog + [("reserveren", "/reserveren", "Reserveren")]
     for i, (key, url, label) in enumerate(all_links, start=1):
-        cur = ' aria-current="page"' if key == current else ""
+        is_cur = key == current or (key == "blog" and current.startswith("blog"))
+        cur = ' aria-current="page"' if is_cur else ""
         items.append(
             f'<li><a href="{url}"{cur}><span class="amk-menu__num">{i:02d}</span>{label}{icon("arrow")}</a></li>'
         )
@@ -433,9 +766,10 @@ def menu_links(current):
 def breadcrumbs(page):
     if page["key"] == "home":
         return ""
+    between = "".join(f'\n              <li><a href="{url}">{name}</a></li>' for name, url in page.get("crumbs", []))
     return f"""<nav class="amk-breadcrumbs" aria-label="Kruimelpad">
             <ol>
-              <li><a href="/">Home</a></li>
+              <li><a href="/">Home</a></li>{between}
               <li><span aria-current="page">{page["crumb"]}</span></li>
             </ol>
           </nav>"""
@@ -534,7 +868,7 @@ def jsonld(page):
         business_node(),
     ]
     webpage = {
-        "@type": "WebPage",
+        "@type": "CollectionPage" if page.get("blog_index") else "WebPage",
         "@id": url + "#webpage",
         "url": url,
         "name": page["title"],
@@ -549,15 +883,52 @@ def jsonld(page):
     }
     if page["key"] != "home":
         webpage["breadcrumb"] = {"@id": url + "#breadcrumb"}
+        trail = [("Home", SITE + "/")] + [(n, SITE + u) for n, u in page.get("crumbs", [])] + [(page["crumb"], url)]
         graph.append({
             "@type": "BreadcrumbList",
             "@id": url + "#breadcrumb",
             "itemListElement": [
-                {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
-                {"@type": "ListItem", "position": 2, "name": page["crumb"], "item": url},
+                {"@type": "ListItem", "position": i, "name": n, "item": u}
+                for i, (n, u) in enumerate(trail, start=1)
             ],
         })
     graph.append(webpage)
+    if page.get("blog_index"):
+        webpage["mainEntity"] = {"@id": SITE + "/blog#blog"}
+        graph.append({
+            "@type": "Blog",
+            "@id": SITE + "/blog#blog",
+            "url": SITE + "/blog",
+            "name": "Blog van Amakhosi",
+            "inLanguage": "nl-BE",
+            "publisher": {"@id": SITE + "/#business"},
+            "blogPost": [
+                {"@type": "BlogPosting", "@id": f"{SITE}/blog/{a['slug']}#artikel",
+                 "headline": a["h1"], "url": f"{SITE}/blog/{a['slug']}",
+                 "datePublished": iso_time(a["date"]), "image": MEDIA + a["image"][0]}
+                for a in BLOG_LIVE
+            ],
+        })
+    if page.get("article"):
+        a = page["article"]
+        graph.append({
+            "@type": "BlogPosting",
+            "@id": url + "#artikel",
+            "headline": a["h1"],
+            "description": page["description"],
+            "image": {"@type": "ImageObject", "url": img,
+                      "width": page["image"][1], "height": page["image"][2]},
+            "datePublished": iso_time(a["date"]),
+            "dateModified": iso_time(a["modified"]),
+            "inLanguage": "nl-BE",
+            "mainEntityOfPage": {"@id": url + "#webpage"},
+            "isPartOf": {"@id": SITE + "/blog#blog"},
+            "articleSection": a["eyebrow"],
+            "wordCount": word_count(a),
+            "author": {"@type": "Person", "name": BLOG_AUTHOR_NAME, "jobTitle": "Gastvrouw",
+                       "worksFor": {"@id": SITE + "/#business"}},
+            "publisher": {"@id": SITE + "/#business"},
+        })
     if page.get("faq"):
         graph.append({
             "@type": "FAQPage",
@@ -599,6 +970,13 @@ def head(page):
     extra = ""
     if page.get("booking"):
         extra += '\n  <link rel="preconnect" href="https://api.leadconnectorhq.com">'
+    og_type = "article" if page.get("article") else "website"
+    og_article = ""
+    if page.get("article"):
+        a = page["article"]
+        og_article = (f'\n  <meta property="article:published_time" content="{iso_time(a["date"])}">'
+                      f'\n  <meta property="article:modified_time" content="{iso_time(a["modified"])}">'
+                      f'\n  <meta property="article:section" content="{esc(a["eyebrow"])}">')
     return f"""<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -610,7 +988,7 @@ def head(page):
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="nl-BE" href="{url}">
   <link rel="alternate" hreflang="x-default" href="{url}">
-  <meta name="author" content="Amakhosi">
+  <meta name="author" content="{BLOG_AUTHOR_NAME + ', gastvrouw van Amakhosi' if page.get('article') else 'Amakhosi'}">
   <meta name="theme-color" content="#1d0000">
   <meta name="format-detection" content="telephone=yes">
 
@@ -621,7 +999,7 @@ def head(page):
   <meta name="ICBM" content="51.242986, 5.533069">
 
   <!-- ===== Open Graph / sociale media ===== -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{og_type}">
   <meta property="og:locale" content="nl_BE">
   <meta property="og:site_name" content="Amakhosi">
   <meta property="og:title" content="{esc(page["title"])}">
@@ -630,7 +1008,7 @@ def head(page):
   <meta property="og:image" content="{img_url}">
   <meta property="og:image:width" content="{w}">
   <meta property="og:image:height" content="{h}">
-  <meta property="og:image:alt" content="{esc(page["image_alt"])}">
+  <meta property="og:image:alt" content="{esc(page["image_alt"])}">{og_article}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{esc(page["title"])}">
   <meta name="twitter:description" content="{esc(page["description"])}">
@@ -643,8 +1021,8 @@ def head(page):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>{extra}
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-  <!-- ===== Gedeelde stijlen ===== -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- ===== Gedeelde stijlen (absoluut pad, ook voor /blog/<slug>) ===== -->
+  <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="{LOGO}">
 </head>"""
 
@@ -663,7 +1041,7 @@ def render(text, page):
         if token == "PRICES:nacht":
             return price_cards("nacht")
         if token.startswith("FAQ:"):
-            return faq_list(token.split(":")[1])
+            return faq_list(token.split(":", 1)[1])
         if token == "DURATIONS":
             return durations()
         if token == "SUMMARY:wellness":
@@ -681,7 +1059,19 @@ def render(text, page):
         if token == "BOOKING_URL":
             return html.escape(BOOKING_URL)
         if token == "RESERVE_HREF":
+            if page.get("reserve_href"):
+                return page["reserve_href"]
             return "#agenda" if page.get("booking") else "/reserveren"
+        if token.startswith("BLOG_LINK:"):
+            return blog_link(token.split(":")[1])
+        if token == "BLOG_LIST":
+            return post_list(BLOG_LIVE, " amk-posts--index")
+        if token == "BLOG_TEASER":
+            return blog_teaser()
+        if token == "BLOG_RELATED":
+            return blog_related(page["article"])
+        if token.startswith("ARTICLE:"):
+            return article_part(token.split(":", 1)[1], page)
         if token == "COMPARE":
             return compare_table()
         if token == "GALLERY":
@@ -764,13 +1154,23 @@ def build_page(page):
      EINDE GHL-PLAKBLOK
      ===================================================================== -->
 
-<script src="scripts.js" defer></script>
+<script src="/scripts.js" defer></script>
 </body>
 </html>
 """
-    out = render(doc, page)
-    (ROOT / page["out"]).write_text(out, encoding="utf-8")
+    out = only_published(render(doc, page))
+    target = ROOT / page["out"]
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(out, encoding="utf-8")
     return out
+
+
+def sitemap_lastmod(p):
+    lastmod = p.get("lastmod", "2026-10-07")
+    if p["key"] == "home" and BLOG_LIVE:
+        # De home toont de nieuwste artikels: wijzigt bij elk nieuw artikel.
+        lastmod = max(lastmod, BLOG_LIVE[0]["date"])
+    return lastmod
 
 
 def build_sitemap():
@@ -778,9 +1178,9 @@ def build_sitemap():
         f"""
   <url>
     <loc>{SITE}{p["path"]}</loc>
-    <lastmod>{p.get("lastmod", "2026-10-07")}</lastmod>
-    <changefreq>{"weekly" if p["key"] in ("home", "deals") else ("yearly" if p.get("legal") else "monthly")}</changefreq>
-    <priority>{"1.0" if p["key"] == "home" else ("0.3" if p.get("legal") else "0.8")}</priority>
+    <lastmod>{sitemap_lastmod(p)}</lastmod>
+    <changefreq>{p.get("changefreq") or ("weekly" if p["key"] in ("home", "deals") else ("yearly" if p.get("legal") else "monthly"))}</changefreq>
+    <priority>{p.get("priority") or ("1.0" if p["key"] == "home" else ("0.3" if p.get("legal") else "0.8"))}</priority>
     <image:image><image:loc>{MEDIA}{p["image"][0]}</image:loc></image:image>
   </url>"""
         for p in PAGES
@@ -851,11 +1251,39 @@ def build_redirects():
     (ROOT / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def clean_blog():
+    """Blogpagina's die (nog) niet gepubliceerd zijn weghalen, bv. na een
+    build met --voorbeeld, zodat ze niet per ongeluk online komen."""
+    for a in BLOG:
+        f = ROOT / "blog" / f"{a['slug']}.html"
+        if a["slug"] not in BLOG_SLUGS_LIVE and f.exists():
+            f.unlink()
+            print("verwijderd (nog niet gepubliceerd):", f.relative_to(ROOT).as_posix())
+    if not BLOG_LIVE and (ROOT / "blog.html").exists():
+        (ROOT / "blog.html").unlink()
+        print("verwijderd (nog geen artikels): blog.html")
+    if (ROOT / "blog").is_dir() and not any((ROOT / "blog").iterdir()):
+        # OneDrive zet een lege map soms op alleen-lezen: dan blijft de lege
+        # map staan (onschuldig) in plaats van dat de build hier stopt vóór
+        # sitemap.xml en _redirects opnieuw gebouwd zijn.
+        try:
+            (ROOT / "blog").rmdir()
+        except OSError as e:
+            print("let op: lege map blog/ niet verwijderd:", e)
+
+
 if __name__ == "__main__":
     for p in PAGES:
         build_page(p)
         print("gebouwd:", p["out"])
+    clean_blog()
     build_sitemap()
     print("gebouwd: sitemap.xml")
     build_redirects()
     print("gebouwd: _redirects")
+    later = [a for a in BLOG if a["slug"] not in BLOG_SLUGS_LIVE]
+    print(f"blog: {len(BLOG_LIVE)} gepubliceerd" + (", later: " + ", ".join(
+        f'{a["slug"]} ({a["date"]})' for a in later) if later else ""))
+    if PUBLISH_DATE != date.today():
+        print("LET OP: gebouwd met --voorbeeld of --datum, alleen om na te kijken. "
+              "Bouw opnieuw zonder optie voor je publiceert.")

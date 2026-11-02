@@ -1,0 +1,31 @@
+    <!-- =================================================================
+         BLOGARTIKEL (één sjabloon voor elk artikel)
+         Titel, datum, foto en FAQ staan in BLOG en FAQ in build.py,
+         de tekst in src/blog/<slug>.html.
+         ================================================================= -->
+    <section class="amk-pagehero amk-pagehero--compact amk-pagehero--article" data-amk-hero aria-labelledby="amk-page-title">
+      <div class="amk-pagehero__bg" aria-hidden="true">
+        {{ARTICLE:hero}}
+      </div>
+      <div class="amk-container">
+        <div class="amk-pagehero__inner">
+          {{BREADCRUMBS}}
+          <p class="amk-eyebrow">{{ARTICLE:eyebrow}}</p>
+          <h1 class="amk-pagehero__title amk-pagehero__title--article" id="amk-page-title" data-amk-split>{{ARTICLE:h1}}</h1>
+          {{ARTICLE:meta}}
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         TEKST
+         ================================================================= -->
+    <section class="amk-section amk-section--deep amk-article">
+      <div class="amk-container">
+        <article class="amk-prose">
+          {{ARTICLE:body}}
+        </article>
+      </div>
+    </section>
+{{BLOG_RELATED}}
+    {{ARTICLE:slot}}

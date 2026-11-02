@@ -44,8 +44,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-  <!-- ===== Gedeelde stijlen ===== -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- ===== Gedeelde stijlen (absoluut pad, ook voor /blog/<slug>) ===== -->
+  <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png">
 </head>
 <body>
@@ -107,7 +107,7 @@
       <div class="amk-topbar__inner">
         <a href="/koninklijke-deals">
           <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-crown"/></svg>
-          <span><strong>Koninklijke deals</strong> — ontdek onze actuele acties</span>
+          <span><strong>Koninklijke deals</strong>: ontdek onze actuele acties</span>
           <svg class="amk-icon amk-topbar__arrow" aria-hidden="true"><use href="#amk-i-arrow"/></svg>
         </a>
       </div>
@@ -115,8 +115,8 @@
 
     <div class="amk-navwrap">
       <nav class="amk-nav" aria-label="Hoofdnavigatie">
-        <a class="amk-logo" href="/" aria-label="Amakhosi — naar de homepage">
-          <img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png" alt="Amakhosi — privésauna &amp; wellness" width="1096" height="766">
+        <a class="amk-logo" href="/" aria-label="Amakhosi, naar de homepage">
+          <img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png" alt="Amakhosi, privésauna &amp; wellness" width="1096" height="766">
         </a>
 
         <ul class="amk-nav__links" data-amk-navlinks>
@@ -155,7 +155,8 @@
         <li><a href="/prijslijst"><span class="amk-menu__num">04</span>Prijslijst<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/koninklijke-deals"><span class="amk-menu__num">05</span>Koninklijke deals<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/cadeaubon"><span class="amk-menu__num">06</span>Cadeaubon<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
-        <li><a href="/reserveren"><span class="amk-menu__num">07</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+        <li><a href="/blog"><span class="amk-menu__num">07</span>Blog<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+        <li><a href="/reserveren"><span class="amk-menu__num">08</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
       </ul>
     </nav>
     <div class="amk-menu__footer">
@@ -182,7 +183,7 @@
               <span class="amk-eyebrow amk-hero__kicker"><span>Privésauna &amp; wellness in <span class="amk-nowrap">Hamont-Achel</span></span></span>
               <span class="amk-hero__headline" data-amk-split>Koninklijk genieten, <em>helemaal privé.</em></span>
             </h1>
-            <p class="amk-hero__text">Jouw eigen wellness-oase in warme Afrikaanse sferen. Finse sauna, stoombad en een ruime whirlpool voor twee — zonder drukte, zonder vreemden. Voor een paar uur of een hele nacht.</p>
+            <p class="amk-hero__text">Jouw eigen wellness-oase in warme Afrikaanse sferen. Finse sauna, stoombad en een ruime whirlpool voor twee, zonder drukte en zonder vreemden. Voor een paar uur of een hele nacht.</p>
             <div class="amk-btn-row">
               <a class="amk-btn amk-btn--gold amk-btn--shine amk-btn--lg" href="/reserveren" data-amk-magnetic>
                 <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer jouw moment
@@ -257,7 +258,7 @@
             <div class="amk-intro__small-img">
               <img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993dd1abe28fc98f8e9b.jpg" alt="Muur met Afrikaanse spreuken op kleurrijke bordjes" width="1084" height="2560" loading="lazy" decoding="async">
             </div>
-            <figcaption>“Oos wes, tuis bes” — Afrikaanse wijsheid aan onze muur</figcaption>
+            <figcaption>“Oos wes, tuis bes”: Afrikaanse wijsheid aan onze muur</figcaption>
           </figure>
         </div>
 
@@ -495,7 +496,7 @@
             <div class="amk-extra__img"><img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993996d2b224d38ad40e.jpg" alt="Fles champagne met twee glazen bij de sfeerhaard" width="2560" height="1677" loading="lazy" decoding="async"></div>
             <div class="amk-extra__body">
               <h3>Bubbels &amp; wijn</h3>
-              <p>Gekoelde champagne, prosecco of Afrikaanse wijn — op verzoek koud klaar bij aankomst.</p>
+              <p>Gekoelde champagne, prosecco of Afrikaanse wijn: op verzoek koud klaar bij aankomst.</p>
               <span class="amk-extra__tag">Vanaf € 13,50 · Om te klinken</span>
             </div>
           </article>
@@ -580,6 +581,44 @@
     </section>
 
     <!-- =================================================================
+         UIT ONZE BLOG (3 nieuwste artikels, uit BLOG in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--line" id="blog" aria-labelledby="amk-blog-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--split">
+          <div data-amk-reveal>
+            <p class="amk-eyebrow">Uit onze blog</p>
+            <h2 class="amk-title" id="amk-blog-title" data-amk-split>Ideeën voor <em>jouw volgende bezoek</em></h2>
+          </div>
+          <div class="amk-posts__intro" data-amk-reveal>
+            <p class="amk-lead">Tips en inspiratie rond privésauna en wellness, van een cadeau voor twee tot een nacht in je eigen wellness.</p>
+            <a class="amk-link" href="/blog">Alle artikels <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a>
+          </div>
+        </div>
+        <div class="amk-posts amk-posts--scroll" data-amk-stagger="0.1">
+          <article class="amk-post amk-spot" data-amk-tilt="3">
+            <div class="amk-post__img"><img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993996d2b224d38ad40e.jpg" alt="" width="2560" height="1677" loading="lazy" decoding="async"></div>
+            <div class="amk-post__body">
+              <p class="amk-post__tag">Cadeau</p>
+              <h3 class="amk-post__title"><a class="amk-post__link" href="/blog/wellness-cadeaubon-voor-2">Een wellness cadeaubon voor 2: zo kies en geef je het juiste cadeau</a></h3>
+              <p class="amk-post__excerpt">Tijd samen cadeau doen: zo kies, bestel en geef je een wellness cadeaubon van Amakhosi, van 3 uur privéwellness tot een overnachting.</p>
+              <p class="amk-post__meta"><time datetime="2026-11-02">2 november 2026</time><span aria-hidden="true">·</span>6 min leestijd</p>
+            </div>
+          </article>
+          <article class="amk-post amk-spot" data-amk-tilt="3">
+            <div class="amk-post__img"><img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993bd1abe28fc98f8e6d.jpg" alt="" width="2560" height="1707" loading="lazy" decoding="async"></div>
+            <div class="amk-post__body">
+              <p class="amk-post__tag">Winter</p>
+              <h3 class="amk-post__title"><a class="amk-post__link" href="/blog/privesauna-in-de-winter">Sauna in de winter: opwarmen in je eigen privéwellness</a></h3>
+              <p class="amk-post__excerpt">Koude dagen, warme sauna. Waarom een privésauna in de winter zo goed voelt, en hoe je van maandag tot donderdag 5 uur wellness krijgt voor € 199.</p>
+              <p class="amk-post__meta"><time datetime="2026-11-02">2 november 2026</time><span aria-hidden="true">·</span>7 min leestijd</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
          FAQ
          ================================================================= -->
     <section class="amk-section amk-section--deep" id="faq" aria-labelledby="amk-faq-title">
@@ -651,7 +690,7 @@
               <div><small>Openingstijden</small><span>Op afspraak</span></div>
             </li>
           </ul>
-          <p class="amk-areas">Op de grens van België en Nederland — vlot bereikbaar vanuit <strong>Pelt, Lommel, Bree, Peer, Budel, Weert en Eindhoven</strong>.</p>
+          <p class="amk-areas">Op de grens van België en Nederland, vlot bereikbaar vanuit <strong>Pelt, Lommel, Bree, Peer, Budel, Weert en Eindhoven</strong>.</p>
         </div>
 
         <div class="amk-map" data-amk-reveal="zoom">
@@ -682,6 +721,7 @@
           <li><a href="/arrangementen">Arrangementen &amp; extra's</a></li>
           <li><a href="/prijslijst">Prijslijst</a></li>
           <li><a href="/koninklijke-deals">Koninklijke deals</a></li><li><a href="/cadeaubon">Cadeaubon</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="/reserveren">Online reserveren</a></li>
         </ul>
       </div>
@@ -1030,6 +1070,6 @@
      EINDE GHL-PLAKBLOK
      ===================================================================== -->
 
-<script src="scripts.js" defer></script>
+<script src="/scripts.js" defer></script>
 </body>
 </html>

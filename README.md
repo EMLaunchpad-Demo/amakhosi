@@ -210,3 +210,34 @@ vaste **Reserveer**-knop rechtsonder op de computer, een knop **Agenda op volled
 | `giraffe-patroon-bruin-1920x1080.png` | Bruine variant zoals de faciliteitenband |
 | `giraffe-patroon-bruin-tegel.png` / `.svg` | Naadloze tegel, bruin (220 px) |
 | `giraffe-patroon-transparant-tegel.png` / `.svg` | Enkel de gouden vlekken, transparant |
+
+## 9. Blog
+
+| URL | Bestand | Bron |
+|---|---|---|
+| `/blog` | `blog.html` | `src/pages/blog.html` + `BLOG` in `build.py` |
+| `/blog/<slug>` | `blog/<slug>.html` | `src/pages/blog-artikel.html` (sjabloon) + `src/blog/<slug>.html` (tekst) |
+
+- **Teksten** worden geschreven en goedgekeurd in `Websites/Amakhosi/blog/teksten/<slug>.md`
+  (buiten deze map; plan en regels in `Websites/Amakhosi/blog/00-plan.md`). De tekst gaat
+  letterlijk over naar `src/blog/<slug>.html`.
+- **Artikel toevoegen**: tekstfragment in `src/blog/`, een regel in `BLOG` (titel, meta,
+  H1, kruimel, eyebrow, datum, foto, samenvatting, related, slotblok) en de FAQ in
+  `FAQ["blog:<slug>"]`. Kaarten, "Lees ook", sitemap, `_redirects`, schema (`BlogPosting`,
+  `BreadcrumbList`, `FAQPage`, `Blog`) en leestijd volgen vanzelf.
+- **Publiceren op datum**: een artikel met een datum na vandaag wordt niet gebouwd en staat
+  nergens. Links ernaar worden gewone tekst; zinnen tussen `<!--ALS:slug-->` en
+  `<!--/ALS-->` vallen weg. Zolang er geen artikel gepubliceerd is, bestaan `/blog`, de
+  blogteaser op de home en de link "Blog" in de footer en het mobiele menu niet.
+  Op elke publicatiedatum: `python build.py`, publiceren, IndexNow-ping en de sitemap
+  opnieuw indienen in Search Console.
+- **Nakijken vóór de datum**: `python build.py --voorbeeld` (alles) of
+  `python build.py --datum=2026-11-09`. Daarna altijd opnieuw `python build.py` zonder optie
+  voor je publiceert: die ruimt de blogpagina's op die nog niet gepubliceerd mogen worden.
+- **Auteur**: "Door je gastvrouw Connie" (`BLOG_AUTHOR_NAME` en `BLOG_AUTHOR_LABEL` in
+  `build.py`, ook in de meta author en in `BlogPosting.author`). Patrick wil niet vermeld
+  worden (meeting 31/10/2026).
+- **Deals**: een deal kan je alleen boeken via de knop op `/koninklijke-deals`. Artikels
+  linken voor deals altijd naar `/koninklijke-deals`, nooit naar `/reserveren?deal=...`.
+- CSS en JS staan met een absoluut pad in de pagina's (`/styles.css`, `/scripts.js`), zodat
+  ze ook op `/blog/<slug>` laden.

@@ -3964,3 +3964,334 @@ em .amk-w__i {
   .amk-gift__grid { grid-template-columns: 0.85fr 1.15fr; }
   .amk-gift__intro { position: sticky; top: 120px; }
 }
+
+
+/* ==========================================================================
+   27. BLOG (/blog, /blog/<artikel> en de blogteaser op de home)
+   ========================================================================== */
+
+/* --- Artikelkaarten --- */
+.amk-posts {
+  display: grid;
+  gap: 18px;
+}
+
+.amk-post {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--amk-radius-lg);
+  background: var(--amk-bark);
+  border: 1px solid var(--amk-line);
+  transition: border-color var(--amk-speed);
+}
+
+.amk-post:hover { border-color: rgba(251, 178, 57, 0.5); }
+
+.amk-post__img {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.amk-post__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 1.4s var(--amk-ease);
+}
+
+.amk-post:hover .amk-post__img img { scale: 1.06; }
+
+.amk-post__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 24px 26px;
+}
+
+.amk-post__tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amk-gold-logo);
+}
+
+.amk-post__title {
+  margin-top: 10px !important;
+  font-size: clamp(1.3rem, 2vw, 1.5rem);
+  line-height: 1.2;
+}
+
+/* De hele kaart is klikbaar via de titel */
+.amk-post__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.amk-post__link:focus-visible { outline: none; }
+.amk-post:has(.amk-post__link:focus-visible) {
+  outline: 2px solid var(--amk-sun-2);
+  outline-offset: 3px;
+}
+
+.amk-post__excerpt {
+  margin-top: 10px !important;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--amk-muted);
+}
+
+.amk-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-top: auto !important;
+  padding-top: 18px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--amk-faint);
+}
+
+.amk-posts__intro .amk-lead { margin-top: 0; }
+.amk-posts__intro .amk-link { margin-top: 16px; }
+
+/* --- Paginahero van een artikel --- */
+.amk-pagehero--article .amk-pagehero__inner { max-width: 880px; }
+
+.amk-pagehero__title--article {
+  font-size: clamp(2.05rem, 4.6vw, 3.5rem);
+  line-height: 1.1;
+}
+
+.amk-postmeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 22px;
+  margin-top: 26px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--amk-muted);
+  animation: amk-fade-up 1s var(--amk-ease) 0.55s both;
+}
+
+.amk-postmeta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.amk-postmeta .amk-icon {
+  width: 1.05em;
+  height: 1.05em;
+  color: var(--amk-sun-2);
+}
+
+/* --- Leesbare tekst (ongeveer 70 tekens per regel) --- */
+.amk-article { padding-top: clamp(48px, 7vw, 84px); }
+
+.amk-prose {
+  max-width: 720px;
+  margin-inline: auto;
+  font-size: 1.06rem;
+  line-height: 1.75;
+  color: var(--amk-muted);
+  overflow-wrap: break-word;
+}
+
+.amk-prose > * + * { margin-top: 1.15em; }
+
+.amk-prose__lead {
+  font-size: clamp(1.14rem, 1.7vw, 1.28rem);
+  line-height: 1.65;
+  color: var(--amk-text);
+}
+
+.amk-prose > h2 {
+  margin-top: 2.3em;
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  scroll-margin-top: 110px;
+}
+
+.amk-prose > h3 {
+  margin-top: 1.8em;
+  font-size: clamp(1.25rem, 2.2vw, 1.45rem);
+}
+
+.amk-prose > :is(h2, h3) + * { margin-top: 0.7em; }
+
+.amk-prose strong { color: var(--amk-text); }
+
+.amk-prose a:not(.amk-btn) {
+  font-weight: 700;
+  color: var(--amk-sun-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--amk-speed);
+}
+
+.amk-prose a:not(.amk-btn):hover { color: var(--amk-sun-1); }
+
+.amk-prose > ul,
+.amk-prose__note ul {
+  display: grid;
+  gap: 10px;
+}
+
+.amk-prose > ul > li,
+.amk-prose__note li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.amk-prose > ul > li::before,
+.amk-prose__note li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amk-sun-2);
+  box-shadow: 0 0 8px rgba(251, 178, 57, 0.6);
+}
+
+/* Foto's in de tekst */
+.amk-prose > .amk-prose__figure,
+.amk-prose > .amk-prose__pair { margin-top: 2em; }
+
+.amk-prose > .amk-prose__figure + *,
+.amk-prose > .amk-prose__pair + * { margin-top: 2em; }
+
+.amk-prose__figure img {
+  width: 100%;
+  border-radius: var(--amk-radius-lg);
+  border: 1px solid var(--amk-line);
+}
+
+.amk-prose__figure--portrait {
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.amk-prose__figure figcaption {
+  margin-top: 10px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--amk-faint);
+}
+
+.amk-prose__pair {
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0;
+}
+
+.amk-prose__pair figure { aspect-ratio: 4 / 5; }
+
+.amk-prose__pair img {
+  inset: 0;
+  height: 100%;
+}
+
+/* Knoppen in de tekst */
+.amk-prose > .amk-prose__cta { margin-top: 1.8em; }
+.amk-prose > .amk-prose__cta + * { margin-top: 2em; }
+
+/* Kader "Goed om te weten" */
+.amk-prose > .amk-prose__note { margin-top: 2em; }
+
+.amk-prose__note {
+  padding: 24px 24px 26px;
+  border-radius: var(--amk-radius);
+  border: 1px solid var(--amk-line-strong);
+  background: linear-gradient(150deg, rgba(251, 178, 57, 0.08), rgba(251, 238, 224, 0.02));
+  font-size: 0.98rem;
+}
+
+.amk-prose__note-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px !important;
+  font-family: var(--amk-font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--amk-white);
+}
+
+.amk-prose__note-title .amk-icon { color: var(--amk-sun-2); }
+
+/* Veelgestelde vragen en bronnen */
+.amk-prose > .amk-prose__faq { margin-top: 1.2em; }
+.amk-prose__faq .amk-faq__answer > div { font-size: 1rem; line-height: 1.65; }
+
+.amk-prose > .amk-prose__small {
+  margin-top: 2.6em;
+  font-size: 1.15rem;
+}
+
+.amk-prose > .amk-prose__sources {
+  gap: 8px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--amk-faint);
+}
+
+.amk-prose__sources a:not(.amk-btn) {
+  font-weight: 600;
+  color: var(--amk-muted);
+  text-decoration-color: rgba(251, 178, 57, 0.5);
+}
+
+/* Slotalinea na de bronnen */
+.amk-prose > .amk-prose__outro {
+  margin-top: 2.6em;
+  padding-top: 2em;
+  border-top: 1px solid var(--amk-line);
+  font-size: 1.12rem;
+  color: var(--amk-text);
+}
+
+/* --- Breakpoints blog --- */
+/* Gsm: kaarten op de home en bij "Lees ook" schuiven opzij, zoals de extra's */
+@media (max-width: 759.98px) {
+  .amk-posts--scroll:not(.amk-posts--single) {
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    margin-inline: calc(var(--amk-gutter) * -1);
+    padding: 4px var(--amk-gutter) 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--amk-gutter);
+    scrollbar-width: none;
+  }
+
+  .amk-posts--scroll::-webkit-scrollbar { display: none; }
+  .amk-posts--scroll > .amk-post { scroll-snap-align: start; }
+}
+
+@media (min-width: 760px) {
+  .amk-posts { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .amk-post__body { padding: 28px 28px 30px; }
+
+  /* Eén kaart: beeld links, tekst rechts */
+  .amk-posts--single { grid-template-columns: 1fr; max-width: 980px; }
+  .amk-posts--single .amk-post { flex-direction: row; }
+  .amk-posts--single .amk-post__img { flex: 0 0 46%; aspect-ratio: auto; min-height: 280px; }
+  .amk-posts--single .amk-post__body { justify-content: center; }
+  .amk-posts--single .amk-post__meta { margin-top: 0 !important; }
+}
+
+@media (min-width: 1000px) {
+  .amk-posts:not(.amk-posts--index):not(.amk-posts--single) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .amk-posts--index .amk-post__title { font-size: 1.65rem; }
+}

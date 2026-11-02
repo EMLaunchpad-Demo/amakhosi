@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://amakhosi.be/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993662d4d706d4110075.jpg</image:loc></image:image>
@@ -49,6 +49,27 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993b96d2b224d38addc6.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://amakhosi.be/blog</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a846a7cd07034adc2cd9d9f.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://amakhosi.be/blog/wellness-cadeaubon-voor-2</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993996d2b224d38ad40e.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://amakhosi.be/blog/privesauna-in-de-winter</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993bd1abe28fc98f8e6d.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/algemene-voorwaarden</loc>

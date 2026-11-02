@@ -44,8 +44,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
-  <!-- ===== Gedeelde stijlen ===== -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- ===== Gedeelde stijlen (absoluut pad, ook voor /blog/<slug>) ===== -->
+  <link rel="stylesheet" href="/styles.css">
   <link rel="icon" href="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png">
 </head>
 <body>
@@ -107,7 +107,7 @@
       <div class="amk-topbar__inner">
         <a href="/koninklijke-deals">
           <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-crown"/></svg>
-          <span><strong>Koninklijke deals</strong> — ontdek onze actuele acties</span>
+          <span><strong>Koninklijke deals</strong>: ontdek onze actuele acties</span>
           <svg class="amk-icon amk-topbar__arrow" aria-hidden="true"><use href="#amk-i-arrow"/></svg>
         </a>
       </div>
@@ -115,8 +115,8 @@
 
     <div class="amk-navwrap">
       <nav class="amk-nav" aria-label="Hoofdnavigatie">
-        <a class="amk-logo" href="/" aria-label="Amakhosi — naar de homepage">
-          <img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png" alt="Amakhosi — privésauna &amp; wellness" width="1096" height="766">
+        <a class="amk-logo" href="/" aria-label="Amakhosi, naar de homepage">
+          <img src="https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a8428d4acc26e1326c1092e.png" alt="Amakhosi, privésauna &amp; wellness" width="1096" height="766">
         </a>
 
         <ul class="amk-nav__links" data-amk-navlinks>
@@ -155,7 +155,8 @@
         <li><a href="/prijslijst"><span class="amk-menu__num">04</span>Prijslijst<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/koninklijke-deals"><span class="amk-menu__num">05</span>Koninklijke deals<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/cadeaubon"><span class="amk-menu__num">06</span>Cadeaubon<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
-        <li><a href="/reserveren"><span class="amk-menu__num">07</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+        <li><a href="/blog"><span class="amk-menu__num">07</span>Blog<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+        <li><a href="/reserveren"><span class="amk-menu__num">08</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
       </ul>
     </nav>
     <div class="amk-menu__footer">
@@ -208,7 +209,7 @@
           <p class="amk-eyebrow" data-amk-reveal>Over Amakhosi</p>
           <h2 class="amk-title" id="amk-over-title" data-amk-split>Jouw luxe privésauna, gerund met passie door <em>Patrick &amp; Connie</em></h2>
           <p data-amk-reveal>Bij Amakhosi stap je binnen in een volledige ontsnappingsplek waar lichaam en geest tot rust komen. Alles is van jou alleen: een privésauna en wellness zonder gedeelde ruimtes, zodat jij je in alle privacy kunt laten verwennen.</p>
-          <p data-amk-reveal>De naam Amakhosi betekent ‘koningen’ in het Zulu. Warm hout, Afrikaanse kunst en zorgvuldig gekozen details maken van elk bezoek een koninklijk moment — of je nu enkele uren blijft of een hele nacht.</p>
+          <p data-amk-reveal>De naam Amakhosi betekent ‘koningen’ in het Zulu. Warm hout, Afrikaanse kunst en zorgvuldig gekozen details maken van elk bezoek een koninklijk moment, of je nu enkele uren blijft of een hele nacht.</p>
           <div class="amk-facts" data-amk-stagger="0.1">
             <div class="amk-fact"><strong><span data-amk-count>100</span>%</strong><span>privé, zonder gedeelde ruimtes</span></div>
             <div class="amk-fact"><strong>5</strong><span>wellnessfaciliteiten</span></div>
@@ -429,6 +430,7 @@
           <li><a href="/arrangementen">Arrangementen &amp; extra's</a></li>
           <li><a href="/prijslijst">Prijslijst</a></li>
           <li><a href="/koninklijke-deals">Koninklijke deals</a></li><li><a href="/cadeaubon">Cadeaubon</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="/reserveren">Online reserveren</a></li>
         </ul>
       </div>
@@ -842,6 +844,6 @@
      EINDE GHL-PLAKBLOK
      ===================================================================== -->
 
-<script src="scripts.js" defer></script>
+<script src="/scripts.js" defer></script>
 </body>
 </html>

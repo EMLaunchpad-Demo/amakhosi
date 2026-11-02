@@ -1,0 +1,28 @@
+    <!-- =================================================================
+         PAGINAHERO
+         ================================================================= -->
+    <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
+      <div class="amk-pagehero__bg" aria-hidden="true">
+        <img src="{{M}}6a846a7cd07034adc2cd9d9f.jpg" alt="" width="2048" height="1365" fetchpriority="high" decoding="async">
+      </div>
+      <div class="amk-container">
+        <div class="amk-pagehero__inner">
+          {{BREADCRUMBS}}
+          <p class="amk-eyebrow">Blog</p>
+          <h1 class="amk-pagehero__title" id="amk-page-title" data-amk-split>Ideeën voor <em>jouw privémoment</em></h1>
+          <p class="amk-pagehero__lead">Tips en ideeën over privésauna en wellness bij Amakhosi in Hamont-Achel: van een cadeaubon voor twee tot overnachten in je eigen wellness.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         ARTIKELS, nieuwste eerst (BLOG in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="artikels" aria-labelledby="amk-posts-title">
+      <div class="amk-container">
+        <h2 class="amk-sr-only" id="amk-posts-title">Alle artikels</h2>
+        {{BLOG_LIST}}
+      </div>
+    </section>
+
+    {{PARTIAL:cta}}
