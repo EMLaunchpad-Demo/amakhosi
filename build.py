@@ -34,6 +34,9 @@ LOGO = MEDIA + "6a8428d4acc26e1326c1092e.png"
 PHONE_DISPLAY = "+32 (0)469 217 550"
 PHONE_TEL = "+32469217550"
 EMAIL = "info@amakhosi.be"
+# Sociale media (meeting Patrick 31/10/2026, pagina's nagekeken op 5/11/2026): footer en sameAs
+FACEBOOK = "https://www.facebook.com/people/Amakhosi/61553652565496/"
+INSTAGRAM = "https://www.instagram.com/amakhosiwellness/"
 
 # Navigatie: (sleutel, url, label)
 NAV = [
@@ -838,6 +841,7 @@ def business_node():
         },
         "geo": {"@type": "GeoCoordinates", "latitude": 51.242986, "longitude": 5.533069},
         "hasMap": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJqR5gKe8qx0cRj2TNlUwF8Rg",
+        "sameAs": [FACEBOOK, INSTAGRAM],
         "areaServed": [{"@type": "City", "name": c} for c in AREAS],
         "amenityFeature": [
             {"@type": "LocationFeatureSpecification", "name": n, "value": True}
@@ -1084,6 +1088,10 @@ def render(text, page):
             return PHONE_TEL
         if token == "EMAIL":
             return EMAIL
+        if token == "FACEBOOK":
+            return FACEBOOK
+        if token == "INSTAGRAM":
+            return INSTAGRAM
         if token == "AREAS":
             return ", ".join(AREAS[1:-1]) + " en " + AREAS[-1]
         if token.startswith("PARTIAL:"):
