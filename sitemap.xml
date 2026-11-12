@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://amakhosi.be/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a84993662d4d706d4110075.jpg</image:loc></image:image>
@@ -52,10 +52,17 @@
   </url>
   <url>
     <loc>https://amakhosi.be/blog</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a846a7cd07034adc2cd9d9f.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://amakhosi.be/blog/privesauna-met-overnachting-limburg</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/6a849936b71315ed5245054d.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/blog/wellness-cadeaubon-voor-2</loc>

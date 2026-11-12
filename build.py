@@ -201,7 +201,7 @@ BLOG = [
         description="Privésauna met overnachting in Limburg: sauna, stoombad en whirlpool tot de volgende ochtend, met een aparte slaapsuite. Vanaf €335 in Hamont-Achel.",
         h1="Privésauna met overnachting in Limburg: zo verloopt jullie nacht bij Amakhosi",
         crumb="Privésauna met overnachting", eyebrow="Overnachten",
-        date="2026-11-09", modified="2026-11-09",
+        date="2026-11-12", modified="2026-11-12",
         image=("6a849936b71315ed5245054d.jpg", 2048, 1365),
         image_alt="Slaapsuite van Amakhosi met tweepersoonsbed en Afrikaans beddengoed",
         excerpt="Sauna, stoombad en whirlpool de hele avond, slapen in je eigen suite en 's ochtends nog nagenieten. Zo verloopt een overnachting bij Amakhosi in Hamont-Achel.",
