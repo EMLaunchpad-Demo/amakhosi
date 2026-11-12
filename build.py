@@ -109,6 +109,9 @@ CHECKS_NACHT = [
 DEALS_HEAD = dict(
     eyebrow="Deze winter",
     lead="Doordeweeks krijg je deze winter net iets meer: {}.",
+    # Vaste link naar het winterartikel (SEO-plan A8). Valt mee weg met de deals.
+    more=('Waarom een privésauna in de winter zo fijn is, lees je in ons artikel over '
+          '<a class="amk-inline-link" href="/blog/privesauna-in-de-winter">sauna in de winter</a>.'),
 )
 DEALS = [
     dict(
@@ -147,6 +150,7 @@ FAQ = {
         ("Is de wellness echt volledig privé?",
          "Ja. Tijdens je arrangement heb je de volledige wellness voor jezelf: de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de lounge. Er zijn geen gedeelde ruimtes en geen andere gasten."),
         ("Hoe lang kan ik blijven?",
+         f"Het kortste arrangement duurt {WELLNESS[0]['time']} ({WELLNESS[0]['name']}, € {WELLNESS[0]['price']}). "
          'Je kiest voor 3, 4, 5 of 6 uur wellness, of voor een overnachting van 20:00 tot 10:00 (14 uur) of van 20:00 tot 12:00 (16 uur). Bekijk alle prijzen op de <a href="/prijslijst">prijslijst</a>.'),
         ("Kan ik eten en drinken bijboeken?",
          'Zeker. Denk aan een luxe tapas-, kaas- of fruitplank, snacks, champagne, prosecco of Afrikaanse wijn, en bij een overnachting een ontbijt voor twee. Alle gerechten kunnen halal of vegetarisch bereid worden. Bekijk alle <a href="/arrangementen">extra\'s</a>.'),
@@ -225,6 +229,48 @@ FAQ["cadeaubon"] = [
      "Frisdrank, koffie en thee en de privéparking met laadpaal zijn gratis."),
 ]
 
+# SEO-plan A8 (12/11/2026): extra vragen op de home en /reserveren, alleen met
+# bevestigde feiten. Meeting 31/10/2026: badjassen en badslippers liggen klaar,
+# douchegel en shampoo ook; last minute boeken mag. NIET vermelden zolang de
+# klant het niet bevestigt: handdoeken, het maximum aantal personen, openingsuren
+# en de geldigheid van de cadeaubon.
+FAQ_KLAAR = (
+    "Liggen er badjassen en badslippers klaar?",
+    "Ja. Badjassen en badslippers liggen voor je klaar, net als douchegel en shampoo.")
+
+
+def faq_last_minute(agenda):
+    return ("Kan ik last minute reserveren?",
+            f"Ja, last minute boeken kan. Kijk in de {agenda} welke momenten nog vrij zijn, of bel ons op "
+            + PHONE_DISPLAY + ". Een luxe tapasplank of fruitschaal bestel je wel minstens één dag vooraf.")
+
+
+FAQ_NEDERLAND = (
+    "Kan ik vanuit Nederland online reserveren?",
+    "Ja. Vul in de online agenda je gsm-nummer in met landcode, bijvoorbeeld +31 6 12345678. "
+    "Telefonisch reserveren kan ook, op " + PHONE_DISPLAY + ".")
+FAQ_KORTST = (
+    "Wat is het kortste arrangement?",
+    f"{WELLNESS[0]['name']}: {WELLNESS[0]['time']} privéwellness voor € {WELLNESS[0]['price']}. "
+    f"Je kan ook {_of([p['time'].split()[0] for p in WELLNESS[1:]])} uur blijven, of overnachten. "
+    'Alle prijzen staan op de <a href="/prijslijst">prijslijst</a>.')
+
+FAQ["home"][4:4] = [FAQ_KLAAR]
+FAQ["home"][-1:-1] = [faq_last_minute('<a href="/reserveren">online agenda</a>'), FAQ_NEDERLAND]
+FAQ["reserveren"][3:3] = [FAQ_KORTST, faq_last_minute("online agenda hierboven")]
+if GIFTCARD_ID:
+    FAQ["home"][-1:-1] = [(
+        "Kan ik een arrangement cadeau doen?",
+        f"Ja, met een cadeaubon. De waarde van de bon is de prijs van het arrangement, van € {WELLNESS[0]['price']} "
+        f"({WELLNESS[0]['time']}) tot € {NACHT[-1]['price']} (overnachting tot {NACHT[-1]['time'].split(' – ')[1]}). "
+        "Je bestelt en betaalt online en de bon komt met een unieke code per mail. "
+        'Bekijk de <a href="/cadeaubon">cadeaubon</a>.')]
+    FAQ["reserveren"][5:5] = [(
+        "Ik heb een cadeaubon. Hoe reserveer ik?",
+        "Bel ons op " + PHONE_DISPLAY + " of mail naar " + EMAIL + " en geef de code van de bon door. "
+        "Dan leggen we samen de dag en het uur vast.")]
+FAQ["reserveren"][-2:-2] = [FAQ_KLAAR]
+
 # --------------------------------------------------------------------------
 # Blog (/blog en /blog/<slug>)
 # --------------------------------------------------------------------------
@@ -242,6 +288,8 @@ FAQ["cadeaubon"] = [
 # - reserve_href: doel van de mobiele balk en de vaste knop. Een deal kan je
 #   alleen boeken via de knop op /koninklijke-deals: een artikel over de deals
 #   linkt daarom daarheen, nooit naar /reserveren?deal=...
+# - home_until: het artikel staat tot en met die datum zeker in de blogteaser
+#   op de home, ook als er nieuwere artikels zijn (anders: de nieuwste).
 # Auteur van alle artikels (meeting 31/10/2026): de gastvrouw, Connie. Patrick
 # wil niet vermeld worden.
 BLOG_AUTHOR_NAME = "Connie"
@@ -272,6 +320,8 @@ BLOG = [
         excerpt="Koude dagen, warme sauna. Waarom een privésauna in de winter zo goed voelt, en hoe je van maandag tot donderdag 5 uur wellness krijgt voor € 199.",
         related=["wellness-cadeaubon-voor-2", "privesauna-met-overnachting-limburg", "privesauna-met-jacuzzi"],
         slot="deals", reserve_href="/koninklijke-deals",
+        # Blijft op de home staan zolang de winterdeals lopen (SEO-plan A8)
+        home_until=max(d["end"] for d in DEALS),
     ),
     dict(
         slug="privesauna-met-overnachting-limburg",
@@ -681,6 +731,9 @@ def gift_link(kind):
         return '<li><a href="/cadeaubon">Cadeaubon</a></li>'
     if kind == "inline":
         return f'<a class="amk-link" href="/cadeaubon">Geef een cadeaubon {icon("arrow")}</a>'
+    if kind == "zin":
+        # Stukje zin in een lopende tekst (home, SEO-plan A8)
+        return ' of geef een arrangement cadeau met een <a class="amk-inline-link" href="/cadeaubon">cadeaubon</a>'
     if kind == "block":
         return (f'<p class="amk-gift__note" data-amk-reveal>{icon("gift")}'
                 f'<span>Een arrangement cadeau doen? Geef een '
@@ -724,6 +777,7 @@ def deals_section():
         <div class="amk-deals" data-amk-stagger="0.1">{cards}
         </div>
         <p class="amk-deals__noot" data-amk-reveal>Volgens beschikbaarheid en niet combineerbaar met andere acties.</p>
+        <p class="amk-deals__noot" data-amk-reveal>{DEALS_HEAD["more"]}</p>
       </div>
     </section>"""
 
@@ -805,13 +859,28 @@ def post_list(items, extra=""):
     return f'<div class="amk-posts{extra}{single}" data-amk-stagger="0.1">{cards}\n        </div>'
 
 
+HOME_POSTS = 4
+
+
+def home_posts():
+    """Artikels in de blogteaser op de home: eerst de vastgezette (home_until),
+    aangevuld met de nieuwste, tot HOME_POSTS; nieuwste eerst."""
+    pinned = [a for a in BLOG_LIVE
+              if a.get("home_until") and PUBLISH_DATE <= date.fromisoformat(a["home_until"])]
+    items = pinned[:HOME_POSTS]
+    items += [a for a in BLOG_LIVE if a not in items][:HOME_POSTS - len(items)]
+    return [a for a in BLOG_LIVE if a in items]
+
+
 def blog_teaser():
-    """Home: de 3 nieuwste artikels (niets zolang er geen artikel gepubliceerd is)."""
+    """Home: de nieuwste artikels (niets zolang er geen artikel gepubliceerd is)."""
     if not BLOG_LIVE:
         return ""
+    items = home_posts()
+    extra = " amk-posts--scroll" + (" amk-posts--four" if len(items) == 4 else "")
     return f"""
     <!-- =================================================================
-         UIT ONZE BLOG (3 nieuwste artikels, uit BLOG in build.py)
+         UIT ONZE BLOG (nieuwste artikels, uit BLOG in build.py)
          ================================================================= -->
     <section class="amk-section amk-section--line" id="blog" aria-labelledby="amk-blog-title">
       <div class="amk-container">
@@ -825,7 +894,7 @@ def blog_teaser():
             <a class="amk-link" href="/blog">Alle artikels {icon("arrow")}</a>
           </div>
         </div>
-        {post_list(BLOG_LIVE[:3], " amk-posts--scroll")}
+        {post_list(items, extra)}
       </div>
     </section>
 """
