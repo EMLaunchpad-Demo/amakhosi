@@ -96,6 +96,50 @@ CHECKS_NACHT = [
 ]
 
 # --------------------------------------------------------------------------
+# Koninklijke deals (enige bron voor de dealkaarten op /koninklijke-deals en
+# de meta description van die pagina)
+# --------------------------------------------------------------------------
+# Akkoord van de klant op 23/10/2026 (deal 1 en 2 van het voorstel). Een deal
+# staat online tot en met "end": bouw opnieuw na die datum (28/2 en 31/3/2027),
+# dan verdwijnt de kaart en past de meta description zich aan. Zonder lopende
+# deal valt de hele sectie weg.
+# - slug: de deal-knop opent /reserveren?deal=<slug> (scripts.js, deel 18)
+# - lead: stukje van de inleiding boven de kaarten
+# - meta: stukje van de meta description ({price} = de dealprijs)
+DEALS_HEAD = dict(
+    eyebrow="Deze winter",
+    lead="Doordeweeks krijg je deze winter net iets meer: {}.",
+)
+DEALS = [
+    dict(
+        slug="winterdagen", name="Koninklijke Winterdagen", icon="snow",
+        label="Vanaf 1 november &middot; maandag tot donderdag",
+        text="Kom je van november tot en met februari op een maandag, dinsdag, woensdag of donderdag? Dan krijg je bij &lsquo;Een dagdeel&rsquo; het vijfde uur cadeau. Je geniet 5 uur van de wellness voor de prijs van 4 uur.",
+        old_price=239, price=199, price_note="voor 5 uur",
+        terms=["Start om 10:00 of 14:30",
+               "Geldig van 1 november 2026 tot en met 28 februari 2027",
+               "Niet op 24 en 31 december"],
+        button="Reserveer je winterdag",
+        lead="een uur extra wellness",
+        meta="doordeweeks 5 uur privéwellness voor €{price}",
+        end="2027-02-28",
+    ),
+    dict(
+        slug="uitslapen", name="Koninklijk Uitslapen", icon="bed",
+        label="Vanaf 1 november &middot; overnachting",
+        text="Kom je van november tot en met maart overnachten, met aankomst op een maandag, dinsdag of woensdag? Dan slaap je zonder meerprijs uit tot 12:00. Je betaalt de prijs van &lsquo;Kom overnachten&rsquo; en blijft twee uur langer.",
+        old_price=399, price=335, price_note="van 20:00 tot 12:00",
+        terms=["Aankomst op maandag, dinsdag of woensdag",
+               "Geldig van 1 november 2026 tot en met 31 maart 2027",
+               "Ontbijt is niet inbegrepen"],
+        button="Reserveer je overnachting",
+        lead="uitslapen tot 12:00",
+        meta="overnachten met uitslapen tot 12:00 voor €{price}",
+        end="2027-03-31",
+    ),
+]
+
+# --------------------------------------------------------------------------
 # Veelgestelde vragen (HTML + FAQPage-schema uit dezelfde bron)
 # --------------------------------------------------------------------------
 FAQ = {
@@ -288,6 +332,30 @@ BLOG_LIVE = sorted((a for a in BLOG if date.fromisoformat(a["date"]) <= PUBLISH_
                    key=lambda a: a["date"], reverse=True)
 BLOG_SLUGS_LIVE = {a["slug"] for a in BLOG_LIVE}
 BLOG_BY_SLUG = {a["slug"]: a for a in BLOG}
+# Lopende deals (tot en met hun einddatum)
+DEALS_LIVE = [d for d in DEALS if PUBLISH_DATE <= date.fromisoformat(d["end"])]
+
+
+def deals_description():
+    """Meta description van /koninklijke-deals, uit DEALS (max. 160 tekens)."""
+    if not DEALS_LIVE:
+        return ("De Koninklijke deals van Amakhosi: tijdelijke acties voor je privésauna "
+                "en wellness in Hamont-Achel. Bel of mail ons gerust voor de mogelijkheden.")
+    parts = [d["meta"].format(price=d["price"]) for d in DEALS_LIVE]
+    text = ("Koninklijke deals in Hamont-Achel: " + " of ".join(parts)
+            + ". Bekijk de voorwaarden.")
+    assert len(text) <= 160, f"meta description deals te lang ({len(text)} tekens): {text}"
+    return text
+
+
+def arrangementen_description():
+    """Meta description van /arrangementen, met de prijzen uit WELLNESS en NACHT."""
+    text = (f"{WELLNESS[0]['hours']} tot {WELLNESS[-1]['hours']} uur privéwellness vanaf "
+            f"€{min(p['price'] for p in WELLNESS)} of een overnachting vanaf "
+            f"€{min(p['price'] for p in NACHT)} in Hamont-Achel. Vul aan met een romantisch "
+            "pakket, ontbijt, champagne of een tapasplank.")
+    assert len(text) <= 160, f"meta description arrangementen te lang ({len(text)} tekens): {text}"
+    return text
 
 
 # --------------------------------------------------------------------------
@@ -315,7 +383,7 @@ PAGES = [
         key="arrangementen", src="arrangementen.html", out="arrangementen.html",
         path="/arrangementen", crumb="Arrangementen",
         title="Wellness arrangementen & extra's | Amakhosi Hamont-Achel",
-        description="Stel je wellnessmoment samen: 3, 4 of 5 uur privéwellness of een overnachting, aan te vullen met een romantisch pakket, ontbijt, champagne of luxe tapasplanken.",
+        description=arrangementen_description(),
         image=("6a84993996d2b224d38ad40e.jpg", 2560, 1677),
         image_alt="Fles champagne met twee glazen bij de sfeerhaard",
         faq="arrangementen",
@@ -334,7 +402,7 @@ PAGES = [
         key="deals", src="koninklijke-deals.html", out="koninklijke-deals.html",
         path="/koninklijke-deals", crumb="Koninklijke deals",
         title="Koninklijke deals & acties | Amakhosi Hamont-Achel",
-        description="Ontdek de Koninklijke deals van Amakhosi: tijdelijke promoties en acties die je het hele jaar door kunt benutten voor je privésauna en wellness in Hamont-Achel.",
+        description=deals_description(),
         image=("6a846eb24aaffc55cd792746.jpg", 1024, 784),
         image_alt="Loungebed versierd met een hart van rozenblaadjes",
     ),
@@ -584,6 +652,46 @@ def gift_link(kind):
                 f'<span>Een arrangement cadeau doen? Geef een '
                 f'<a class="amk-inline-link" href="/cadeaubon">cadeaubon van Amakhosi</a>.</span></p>')
     raise KeyError(kind)
+
+
+def deal_card(d):
+    terms = "".join(f"\n              <li>{t}</li>" for t in d["terms"])
+    return f"""
+          <article class="amk-deal amk-spot" data-amk-tilt="4">
+            <span class="amk-deal__label">{icon(d["icon"])}{d["label"]}</span>
+            <h3>{d["name"]}</h3>
+            <p>{d["text"]}</p>
+            <p class="amk-deal__prijs"><del>&euro;{d["old_price"]}</del> <strong>&euro;{d["price"]}</strong> <span>{d["price_note"]}</span></p>
+            <ul class="amk-deal__voorwaarden">{terms}
+            </ul>
+            <a class="amk-btn amk-btn--gold" href="/reserveren?deal={d["slug"]}#agenda">{icon("calendar")}{d["button"]}</a>
+          </article>"""
+
+
+def deals_section():
+    """Sectie met de lopende deals op /koninklijke-deals (niets als er geen loopt)."""
+    if not DEALS_LIVE:
+        return ""
+    lead = DEALS_HEAD["lead"].format(" of ".join(d["lead"] for d in DEALS_LIVE))
+    cards = "".join(deal_card(d) for d in DEALS_LIVE)
+    return f"""    <!-- =================================================================
+         DEALS (uit DEALS in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="deals" aria-labelledby="amk-deals-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--split">
+          <div data-amk-reveal>
+            <p class="amk-eyebrow">{DEALS_HEAD["eyebrow"]}</p>
+            <h2 class="amk-title" id="amk-deals-title" data-amk-split>Onze <em>koninklijke deals</em></h2>
+          </div>
+          <p class="amk-lead" data-amk-reveal>{lead}</p>
+        </div>
+
+        <div class="amk-deals" data-amk-stagger="0.1">{cards}
+        </div>
+        <p class="amk-deals__noot" data-amk-reveal>Volgens beschikbaarheid en niet combineerbaar met andere acties.</p>
+      </div>
+    </section>"""
 
 
 # --------------------------------------------------------------------------
@@ -1060,6 +1168,8 @@ def render(text, page):
             return GIFTCARD_URL
         if token.startswith("GIFT_LINK:"):
             return gift_link(token.split(":")[1])
+        if token == "DEALS":
+            return deals_section()
         if token == "BOOKING_URL":
             return html.escape(BOOKING_URL)
         if token == "RESERVE_HREF":
@@ -1309,6 +1419,8 @@ if __name__ == "__main__":
     later = [a for a in BLOG if a["slug"] not in BLOG_SLUGS_LIVE]
     print(f"blog: {len(BLOG_LIVE)} gepubliceerd" + (", later: " + ", ".join(
         f'{a["slug"]} ({a["date"]})' for a in later) if later else ""))
+    if not DEALS_LIVE:
+        print("LET OP: geen lopende deals meer in DEALS: /koninklijke-deals toont geen dealkaarten.")
     if PUBLISH_DATE != date.today():
         print("LET OP: gebouwd met --voorbeeld of --datum, alleen om na te kijken. "
               "Bouw opnieuw zonder optie voor je publiceert.")
