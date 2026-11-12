@@ -32,6 +32,35 @@ SRC = ROOT / "src"
 SITE = "https://amakhosi.be"
 MEDIA = "https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/"
 LOGO = MEDIA + "6a8428d4acc26e1326c1092e.png"
+
+# Foto's (SEO-plan A15, 12/11/2026). De originelen in de mediabibliotheek
+# (MEDIA) wegen tot 2,1 MB. beelden.py maakt er verkleinde WebP-versies van in
+# assets/foto/ (<naam>-<breedte>.webp), plus één JPEG voor og:image. In src/
+# blijft gewoon <img src="{{M}}<bestand>" ...> staan: de build zet daar de
+# eigen versies met srcset en sizes in de plaats. Nieuwe foto: zet ze hier,
+# draai `python beelden.py` (Pillow nodig) en daarna `python build.py`.
+# Waarde: (naam van de verkleinde bestanden, breedte, hoogte van het origineel).
+FOTOS = {
+    "6a84993662d4d706d4110075.jpg": ("amakhosi-wellnessruimte-whirlpool", 2048, 1292),
+    "6a8435f545dbba232fa5362a.jpg": ("amakhosi-finse-sauna", 2048, 1365),
+    "6a84993dd1abe28fc98f8e85.jpg": ("amakhosi-finse-sauna-banken", 1707, 2560),
+    "6a84993a62d4d706d41100e9.jpg": ("amakhosi-stoombad-mozaiek", 1620, 2560),
+    "6a84993bd1abe28fc98f8e6d.jpg": ("amakhosi-whirlpool-sfeerhaard", 2560, 1707),
+    "6a84993b96d2b224d38addc6.jpg": ("amakhosi-lounge-loungebed", 2560, 1707),
+    "6a846eb2d1abe28fc956684b.jpg": ("amakhosi-inloopdouche", 660, 1024),
+    "6a849936b71315ed5245054d.jpg": ("amakhosi-slaapsuite", 2048, 1365),
+    "6a846eb24aaffc55cd792746.jpg": ("amakhosi-loungebed-rozenblaadjes", 1024, 784),
+    "6a84993996d2b224d38ad40e.jpg": ("amakhosi-champagne-sfeerhaard", 2560, 1677),
+    "6a84993dd1abe28fc98f8e9b.jpg": ("amakhosi-afrikaanse-spreuken", 1084, 2560),
+    "6a84993696d2b224d38ac965.jpg": ("amakhosi-fruitschaal", 2560, 1707),
+    "6a846a7cd07034adc2cd9d9f.jpg": ("amakhosi-muurschildering-slaapsuite", 2048, 1365),
+    "6a8428d4acc26e1326c1092e.png": ("amakhosi-logo", 1096, 766),
+}
+FOTO_DIR = ROOT / "assets" / "foto"
+FOTO_URL = "/assets/foto/"
+# Breedtes van de WebP-versies (nooit breder dan het origineel) en van de JPEG voor og:image
+FOTO_BREEDTES = (320, 480, 828, 1200, 1600, 1920)
+OG_BREEDTE = 1200
 PHONE_DISPLAY = "+32 (0)469 217 550"
 PHONE_TEL = "+32469217550"
 EMAIL = "info@amakhosi.be"
@@ -630,6 +659,168 @@ def strip_tags(s):
     return html.unescape(re.sub(r"<[^>]+>", "", s))
 
 
+# --------------------------------------------------------------------------
+# Foto's: eigen verkleinde versies met srcset en sizes (SEO-plan A15)
+# --------------------------------------------------------------------------
+# sizes per soort beeld: hoe breed de foto op het scherm nodig is, in CSS-pixels
+# (de browser rekent zelf met de pixeldichtheid van het scherm). Gemeten op
+# 12/11/2026 in de browser op 320 tot 1920 px breed. Bij object-fit: cover telt
+# ook de hoogte van het kader mee: een liggende foto in een hoog kader moet
+# breder zijn dan het kader. In src kies je de soort met sizes="@<soort>";
+# zonder sizes geldt "inhoud" (een foto in de tekst van een blogartikel).
+SIZES = {
+    # Home: de boog in de hero, het kleine rondje ernaast, het logo
+    "hero": "(max-width: 559px) 142vw, (max-width: 999px) 920px, 1000px",
+    "inzet": "(max-width: 559px) 38vw, (max-width: 999px) 260px, 290px",
+    "logo": "(max-width: 380px) 80px, (max-width: 999px) 92px, 110px",
+    "logo-voet": "190px",
+    # Achtergrond van de hero op de andere pagina's (en de blogartikels)
+    "paginahero": "(max-width: 999px) 1200px, 106vw",
+    # Boogfoto's naast tekst (home: welkom met de kleine foto, impressie: verhaal)
+    "boog": "(max-width: 559px) 150vw, (max-width: 999px) 800px, (max-width: 1279px) 66vw, 810px",
+    "klein": "(max-width: 559px) 38vw, 210px",
+    "verhaal": "(max-width: 999px) 170vw, (max-width: 1279px) 70vw, 900px",
+    # Faciliteiten op de home
+    "tegel-groot": "(max-width: 559px) 750px, (max-width: 999px) 860px, 920px",
+    "tegel-hoog": "(max-width: 559px) 180px, (max-width: 999px) 45vw, 410px",
+    "tegel": "(max-width: 559px) 180px, (max-width: 999px) 45vw, (max-width: 1279px) 225px, 290px",
+    "tegel-breed": "(max-width: 559px) 365px, (max-width: 999px) 90vw, (max-width: 1279px) 465px, 590px",
+    "extra": "(max-width: 559px) 81vw, (max-width: 999px) 48vw, (max-width: 1279px) 26vw, 330px",
+    # Impressie: faciliteiten (liggend en staand) en de galerij
+    "kenmerk": "(max-width: 759px) 125vw, (max-width: 999px) 62vw, (max-width: 1279px) 64vw, 830px",
+    "kenmerk-staand": "(max-width: 759px) 90vw, (max-width: 999px) 45vw, (max-width: 1279px) 46vw, 600px",
+    "galerij": "(max-width: 380px) 88vw, (max-width: 559px) 43vw, (max-width: 1279px) 30vw, 390px",
+    # Grote foto naast tekst (arrangementen, prijslijst, cadeaubon) en fotoparen
+    "spotlight": "(max-width: 559px) 460px, (max-width: 759px) 540px, (max-width: 999px) 146vw, 1060px",
+    "paar": "(max-width: 559px) 97vw, (max-width: 999px) 49vw, (max-width: 1279px) 51vw, 660px",
+    # Blogartikels: foto in de tekst en twee foto's naast elkaar
+    "inhoud": "(max-width: 799px) 90vw, 720px",
+    "inhoud-paar": "(max-width: 799px) 45vw, 360px",
+    # Blogkaarten (post_list kiest zelf)
+    "post-een": "(max-width: 759px) 90vw, 460px",
+    "post-index": "(max-width: 759px) 90vw, (max-width: 1279px) 46vw, 590px",
+    "post-vier": "(max-width: 759px) 76vw, (max-width: 1199px) 46vw, 290px",
+    "post-twee": "(max-width: 759px) 76vw, (max-width: 1279px) 46vw, 590px",
+    "post-drie": "(max-width: 759px) 76vw, (max-width: 999px) 46vw, 390px",
+}
+# Foto's waarvan (nog) niet alle versies in assets/foto/ staan: die komen
+# rechtstreeks uit de mediabibliotheek, en de build meldt het.
+FOTO_ONTBREEKT = set()
+
+
+def foto_breedtes(f):
+    """Breedtes waarin beelden.py een foto maakt: nooit breder dan het origineel
+    (een smaller origineel krijgt zijn eigen breedte als grootste versie)."""
+    w = FOTOS[f][1]
+    breedtes = [b for b in FOTO_BREEDTES if b < w]
+    if min(w, FOTO_BREEDTES[-1]) not in breedtes:
+        breedtes.append(min(w, FOTO_BREEDTES[-1]))
+    return breedtes
+
+
+def foto_hoogte(f, breedte):
+    _, w, h = FOTOS[f]
+    return round(h * breedte / w)
+
+
+def foto_bestand(f, breedte, ext="webp"):
+    return f"{FOTOS[f][0]}-{breedte}.{ext}"
+
+
+def og_breedte(f):
+    return min(FOTOS[f][1], OG_BREEDTE)
+
+
+def og_fotos():
+    """Foto's die als og:image dienen (hoofdbeeld van een pagina of artikel):
+    daarvan maakt beelden.py ook een JPEG."""
+    return {p["image"][0] for p in PAGES} | {a["image"][0] for a in BLOG}
+
+
+def foto_klaar(f, ext="webp"):
+    """True als alle verkleinde versies van de foto in assets/foto/ staan
+    (ext="jpg": de JPEG voor og:image)."""
+    if f in FOTOS:
+        if ext == "jpg":
+            files = [foto_bestand(f, og_breedte(f), "jpg")]
+        else:
+            files = [foto_bestand(f, b) for b in foto_breedtes(f)]
+        if all((FOTO_DIR / n).is_file() for n in files):
+            return True
+    FOTO_ONTBREEKT.add(f)
+    return False
+
+
+def absoluut(url):
+    """Volledige URL voor og:image, JSON-LD en de sitemap."""
+    return SITE + url if url.startswith("/") else url
+
+
+def foto_groot(f, w=None, h=None):
+    """(url, breedte, hoogte) van de grootste versie: lightbox, JSON-LD en
+    sitemap. Zonder eigen versies: het origineel."""
+    if foto_klaar(f):
+        b = foto_breedtes(f)[-1]
+        return FOTO_URL + foto_bestand(f, b), b, foto_hoogte(f, b)
+    return MEDIA + f, w, h
+
+
+def foto_og(f, w=None, h=None):
+    """(url, breedte, hoogte) van de JPEG voor og:image (± 1200 px breed)."""
+    if foto_klaar(f, "jpg"):
+        b = og_breedte(f)
+        return FOTO_URL + foto_bestand(f, b, "jpg"), b, foto_hoogte(f, b)
+    return MEDIA + f, w, h
+
+
+def responsive_img(tag):
+    """Eén <img> met een foto uit de mediabibliotheek: de eigen WebP-versies
+    met srcset en sizes in de plaats. width en height blijven die van het
+    origineel (zelfde verhouding, geen verspringende layout)."""
+    m = re.search(r'\ssrc="' + re.escape(MEDIA) + r'([^"]+)"', tag)
+    if not m:
+        return tag
+    f = m.group(1)
+    sm = re.search(r'\ssizes="@([a-z-]+)"', tag)
+    soort = sm.group(1) if sm else "inhoud"
+    if sm:
+        tag = tag.replace(sm.group(0), "")
+    if not foto_klaar(f):
+        return tag
+    _, w, h = FOTOS[f]
+    wm, hm = re.search(r'\swidth="(\d+)"', tag), re.search(r'\sheight="(\d+)"', tag)
+    assert wm and hm and (int(wm.group(1)), int(hm.group(1))) == (w, h), \
+        f"width/height van {f} wijkt af van FOTOS ({w}x{h}): {tag}"
+    breedtes = foto_breedtes(f)
+    srcset = ", ".join(f"{FOTO_URL}{foto_bestand(f, b)} {b}w" for b in breedtes)
+    terugval = max([b for b in breedtes if b <= 1200] or breedtes[:1])
+    return tag.replace(m.group(0), f' src="{FOTO_URL}{foto_bestand(f, terugval)}"'
+                                   f' srcset="{srcset}" sizes="{SIZES[soort]}"')
+
+
+def responsive_images(text):
+    """Alle foto's van een pagina naar de eigen versies, en de preload van het
+    hoofdbeeld met exact dezelfde srcset en sizes (anders laadt de browser het
+    beeld twee keer). Zonder href, zodat een browser die imagesrcset niet kent
+    niets dubbel laadt."""
+    text = re.sub(r"<img\b[^>]*>", lambda m: responsive_img(m.group(0)), text)
+    hero = re.search(r'<img\b[^>]*\sfetchpriority="high"[^>]*>', text)
+    srcset = hero and re.search(r'\ssrcset="([^"]+)"', hero.group(0))
+    if srcset:
+        sizes = re.search(r'\ssizes="([^"]+)"', hero.group(0)).group(1)
+        text, n = re.subn(r'<link rel="preload" as="image" href="[^"]*" fetchpriority="high">',
+                          f'<link rel="preload" as="image" imagesrcset="{srcset.group(1)}" '
+                          f'imagesizes="{sizes}" fetchpriority="high">', text)
+        assert n == 1, "preload van het hoofdbeeld niet gevonden"
+    # Komt er geen enkele foto meer uit de mediabibliotheek (JSON-LD telt niet
+    # mee, dat laadt de browser niet), dan is de preconnect overbodig.
+    zonder_ld = re.sub(r'<script type="application/ld\+json">.*?</script>', "", text, flags=re.S)
+    if MEDIA not in zonder_ld:
+        text = re.sub(r'\n[ \t]*<link rel="preconnect" href="https://assets\.cdn\.filesafe\.space"[^>]*>',
+                      "", text)
+    return text
+
+
 def time_label(p):
     """'3 uur' of '20:00 – 10:00 · 14 uur'."""
     return f"{p['time']} · {p['hours']} uur" if ":" in p["time"] else p["time"]
@@ -746,8 +937,8 @@ def gallery():
     out = []
     for f, w, h, alt in GALLERY:
         out.append(f"""
-          <a class="amk-gallery__item" href="{MEDIA}{f}" data-amk-gallery data-caption="{esc(alt)}">
-            <img src="{MEDIA}{f}" alt="{esc(alt)}" width="{w}" height="{h}" loading="lazy" decoding="async">
+          <a class="amk-gallery__item" href="{foto_groot(f)[0]}" data-amk-gallery data-caption="{esc(alt)}">
+            <img src="{MEDIA}{f}" sizes="@galerij" alt="{esc(alt)}" width="{w}" height="{h}" loading="lazy" decoding="async">
           </a>""")
     return "".join(out)
 
@@ -914,11 +1105,11 @@ def only_published(text):
                   lambda m: m.group(0) if m.group(1) in BLOG_SLUGS_LIVE else m.group(2), text, flags=re.S)
 
 
-def post_card(a, level=3):
+def post_card(a, level=3, soort="post-index"):
     img, w, h = a["image"]
     return f"""
           <article class="amk-post amk-spot" data-amk-tilt="3">
-            <div class="amk-post__img"><img src="{MEDIA}{img}" alt="" width="{w}" height="{h}" loading="lazy" decoding="async"></div>
+            <div class="amk-post__img"><img src="{MEDIA}{img}" sizes="@{soort}" alt="" width="{w}" height="{h}" loading="lazy" decoding="async"></div>
             <div class="amk-post__body">
               <p class="amk-post__tag">{esc(a["eyebrow"])}</p>
               <h{level} class="amk-post__title"><a class="amk-post__link" href="/blog/{a["slug"]}">{esc(a["h1"])}</a></h{level}>
@@ -930,7 +1121,17 @@ def post_card(a, level=3):
 
 def post_list(items, extra=""):
     single = " amk-posts--single" if len(items) == 1 else ""
-    cards = "".join(post_card(a) for a in items)
+    # Hoe breed de foto van een kaart is, hangt af van de schikking (CSS):
+    # één kaart, de blogpagina, de home (4) of "Lees ook" (2 of 3 naast elkaar)
+    if single:
+        soort = "post-een"
+    elif "amk-posts--index" in extra:
+        soort = "post-index"
+    elif "amk-posts--four" in extra:
+        soort = "post-vier"
+    else:
+        soort = "post-twee" if len(items) == 2 else "post-drie"
+    cards = "".join(post_card(a, soort=soort) for a in items)
     return f'<div class="amk-posts{extra}{single}" data-amk-stagger="0.1">{cards}\n        </div>'
 
 
@@ -1010,7 +1211,7 @@ def article_part(part, page):
     a = page["article"]
     if part == "hero":
         img, w, h = a["image"]
-        return f'<img src="{MEDIA}{img}" alt="" width="{w}" height="{h}" fetchpriority="high" decoding="async">'
+        return f'<img src="{MEDIA}{img}" sizes="@paginahero" alt="" width="{w}" height="{h}" fetchpriority="high" decoding="async">'
     if part == "eyebrow":
         return esc(a["eyebrow"])
     if part == "h1":
@@ -1112,7 +1313,7 @@ def business_node():
         "telephone": PHONE_TEL,
         "email": EMAIL,
         "logo": LOGO,
-        "image": [MEDIA + f for f in (
+        "image": [absoluut(foto_groot(f)[0]) for f in (
             "6a84993662d4d706d4110075.jpg", "6a84993b96d2b224d38addc6.jpg",
             "6a8435f545dbba232fa5362a.jpg", "6a849936b71315ed5245054d.jpg")],
         "priceRange": "€169 – €399",
@@ -1145,7 +1346,8 @@ def business_node():
 
 def jsonld(page):
     url = SITE + page["path"]
-    img = MEDIA + page["image"][0]
+    img, img_w, img_h = foto_groot(*page["image"])
+    img = absoluut(img)
     graph = [
         {
             "@type": "WebSite",
@@ -1167,8 +1369,7 @@ def jsonld(page):
         "isPartOf": {"@id": SITE + "/#website"},
         "about": {"@id": SITE + "/#business"},
         "primaryImageOfPage": {
-            "@type": "ImageObject", "url": img,
-            "width": page["image"][1], "height": page["image"][2],
+            "@type": "ImageObject", "url": img, "width": img_w, "height": img_h,
         },
     }
     if page["key"] != "home":
@@ -1195,7 +1396,7 @@ def jsonld(page):
             "blogPost": [
                 {"@type": "BlogPosting", "@id": f"{SITE}/blog/{a['slug']}#artikel",
                  "headline": a["h1"], "url": f"{SITE}/blog/{a['slug']}",
-                 "datePublished": iso_time(a["date"]), "image": MEDIA + a["image"][0]}
+                 "datePublished": iso_time(a["date"]), "image": absoluut(foto_groot(a["image"][0])[0])}
                 for a in BLOG_LIVE
             ],
         })
@@ -1206,8 +1407,7 @@ def jsonld(page):
             "@id": url + "#artikel",
             "headline": a["h1"],
             "description": page["description"],
-            "image": {"@type": "ImageObject", "url": img,
-                      "width": page["image"][1], "height": page["image"][2]},
+            "image": {"@type": "ImageObject", "url": img, "width": img_w, "height": img_h},
             "datePublished": iso_time(a["date"]),
             "dateModified": iso_time(a["modified"]),
             "inLanguage": "nl-BE",
@@ -1242,8 +1442,8 @@ def jsonld(page):
             "@id": url + "#galerij",
             "name": "Sfeerimpressie Amakhosi",
             "image": [
-                {"@type": "ImageObject", "contentUrl": MEDIA + f, "width": w, "height": h, "caption": alt}
-                for f, w, h, alt in GALLERY
+                {"@type": "ImageObject", "contentUrl": absoluut(g[0]), "width": g[1], "height": g[2], "caption": alt}
+                for g, alt in ((foto_groot(f, w, h), alt) for f, w, h, alt in GALLERY)
             ],
         })
     data = {"@context": "https://schema.org", "@graph": graph}
@@ -1255,8 +1455,9 @@ def jsonld(page):
 # --------------------------------------------------------------------------
 def head(page):
     url = SITE + page["path"]
-    img, w, h = page["image"]
-    img_url = MEDIA + img
+    img = page["image"][0]
+    og_url, w, h = foto_og(*page["image"])
+    og_url = absoluut(og_url)
     extra = ""
     if page.get("booking"):
         extra += '\n  <link rel="preconnect" href="https://api.leadconnectorhq.com">'
@@ -1295,17 +1496,19 @@ def head(page):
   <meta property="og:title" content="{esc(page["title"])}">
   <meta property="og:description" content="{esc(page["description"])}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="{img_url}">
+  <meta property="og:image" content="{og_url}">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="{w}">
   <meta property="og:image:height" content="{h}">
   <meta property="og:image:alt" content="{esc(page["image_alt"])}">{og_article}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{esc(page["title"])}">
   <meta name="twitter:description" content="{esc(page["description"])}">
-  <meta name="twitter:image" content="{img_url}">
+  <meta name="twitter:image" content="{og_url}">
 
-  <!-- ===== Snelheid: hoofdbeeld & lettertypes vroeg laden ===== -->
-  <link rel="preload" as="image" href="{img_url}" fetchpriority="high">
+  <!-- ===== Snelheid: hoofdbeeld & lettertypes vroeg laden =====
+       De preload krijgt in responsive_images() dezelfde srcset en sizes als het hoofdbeeld. -->
+  <link rel="preload" as="image" href="{MEDIA}{img}" fetchpriority="high">
   <link rel="preconnect" href="https://assets.cdn.filesafe.space" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>{extra}
@@ -1476,7 +1679,7 @@ def build_page(page):
 </body>
 </html>
 """
-    out = strip_comments(only_published(render(doc, page)))
+    out = strip_comments(responsive_images(only_published(render(doc, page))))
     target = ROOT / page["out"]
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(out, encoding="utf-8")
@@ -1529,7 +1732,7 @@ def build_sitemap():
     <lastmod>{sitemap_lastmod(p)}</lastmod>
     <changefreq>{p.get("changefreq") or ("weekly" if p["key"] in ("home", "deals") else ("yearly" if p.get("legal") else "monthly"))}</changefreq>
     <priority>{p.get("priority") or ("1.0" if p["key"] == "home" else ("0.3" if p.get("legal") else "0.8"))}</priority>
-    <image:image><image:loc>{MEDIA}{p["image"][0]}</image:loc></image:image>
+    <image:image><image:loc>{absoluut(foto_groot(p["image"][0])[0])}</image:loc></image:image>
   </url>"""
         for p in PAGES
     )
@@ -1650,6 +1853,9 @@ if __name__ == "__main__":
         f'{a["slug"]} ({a["date"]})' for a in later) if later else ""))
     if not DEALS_LIVE:
         print("LET OP: geen lopende deals meer in DEALS: /koninklijke-deals toont geen dealkaarten.")
+    if FOTO_ONTBREEKT:
+        print("LET OP: nog geen verkleinde versies (komen uit de mediabibliotheek): "
+              + ", ".join(sorted(FOTO_ONTBREEKT)) + ". Zet ze in FOTOS en draai python beelden.py.")
     if PUBLISH_DATE != date.today():
         print("LET OP: gebouwd met --voorbeeld of --datum, alleen om na te kijken. "
               "Bouw opnieuw zonder optie voor je publiceert.")

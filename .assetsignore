@@ -5,6 +5,7 @@
 .assetsignore
 .claude
 build.py
+beelden.py
 src
 previews
 README.md

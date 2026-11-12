@@ -88,6 +88,11 @@ Per pagina:
 - **Eén H1** per pagina, logische koppenstructuur, beschrijvende alt-teksten, kruimelpad.
 - **Snelheid**: hoofdbeeld wordt voorgeladen, `width`/`height` op elke afbeelding (geen
   verspringende layout), lazy loading, één CSS- en één JS-bestand, script met `defer`.
+- **Lichte foto's** (SEO-plan A15, 12/11/2026): elke foto staat in `assets/foto/` in
+  verkleinde WebP-versies (320 tot 1920 px breed) en de pagina's laden ze met `srcset` en
+  `sizes`, zodat een gsm geen foto van 2 MB meer binnenhaalt. De preload van het hoofdbeeld
+  heeft dezelfde `imagesrcset`/`imagesizes`. `og:image` is een JPEG van ongeveer 1200 px;
+  JSON-LD en de sitemap wijzen naar de grootste WebP. Zie "Foto's" hieronder.
 
 **Gestructureerde data (JSON-LD)** op elke pagina, automatisch uit dezelfde gegevens als de
 pagina zelf: `DaySpa` (adres, geo, kaart, voorzieningen, prijsklasse, alle 5 arrangementen
@@ -118,8 +123,10 @@ Ook meegeleverd: `sitemap.xml` (met afbeeldingen) en `robots.txt`.
 | `build.py` | Bouwt de pagina's en de sitemap; bevat ook prijzen, FAQ's en SEO per pagina |
 | `sitemap.xml`, `robots.txt` | SEO-bestanden |
 | `_redirects` | Gegenereerd door `build.py`: `/pagina/` → `/pagina` met een 301 (Cloudflare) |
-| `.assetsignore` | Houdt `.git`, `build.py`, `src/`, `previews/` en deze README uit de publieke site |
+| `.assetsignore` | Houdt `.git`, `build.py`, `beelden.py`, `src/`, `previews/` en deze README uit de publieke site |
 | `assets/patroon/` | Het giraffepatroon als losse afbeelding (PNG + SVG) |
+| `assets/foto/` | Verkleinde foto's (WebP per breedte, JPEG voor `og:image`), gemaakt door `beelden.py` |
+| `beelden.py` | Maakt `assets/foto/` uit de originelen in de mediabibliotheek (Pillow nodig) |
 | `previews/` | Screenshots |
 
 Iets aanpassen? Wijzig `src/` of de gegevens bovenaan `build.py` (prijzen, FAQ, titels) en
@@ -136,8 +143,24 @@ npx serve .
 ```
 
 Alle klassen beginnen met `amk-` en alle inhoud staat in `<div class="amk">`, zodat het
-design niet botst met de eigen CSS van GoHighLevel. Foto's en logo komen rechtstreeks uit de
-bestaande GHL-mediabibliotheek van Amakhosi.
+design niet botst met de eigen CSS van GoHighLevel.
+
+### Foto's
+
+De originele foto's en het logo staan in de GHL-mediabibliotheek van Amakhosi (`MEDIA` in
+`build.py`). In `src/` verwijs je er gewoon naar met `<img src="{{M}}<bestand>" ...>`;
+`build.py` zet daar de eigen versies uit `assets/foto/` in de plaats, met `srcset` en
+`sizes`. Zo werkt het:
+
+- **`FOTOS`** in `build.py`: per origineel de naam van de verkleinde bestanden en de
+  afmetingen. `width`/`height` in de HTML moeten die afmetingen hebben (de build controleert het).
+- **`sizes`**: kies in `src/` de soort met `sizes="@<soort>"` (bv. `@paginahero`, `@tegel`,
+  `@galerij`), zie `SIZES` in `build.py`. Zonder `sizes` geldt `inhoud` (foto in een
+  blogartikel). De waarden zijn op 12/11/2026 in de browser gemeten (320 tot 1920 px).
+- **Nieuwe foto**: zet ze in `FOTOS`, draai `python beelden.py` (maakt alleen wat ontbreekt;
+  `--opnieuw` maakt alles opnieuw) en daarna `python build.py`. Ontbreken de versies, dan
+  gebruikt de build het origineel en meldt ze `LET OP`.
+- Gebruik niet de beeldproxy van de mediabibliotheek: die is niet gedocumenteerd.
 
 ## 5. In GoHighLevel plakken
 
@@ -188,9 +211,6 @@ bestaande GHL-mediabibliotheek van Amakhosi.
   (titel, uitleg, geldigheid), zonder het lint *Voorbeeld*.
 - **Socials**: geef de echte Facebook/Instagram-links door, dan komen ze in de footer en in
   de gestructureerde data (`sameAs`).
-- **Foto's**: enkele originele foto's zijn zeer groot (tot 34 MB) en worden niet gebruikt.
-  Voor nog snellere laadtijden: upload van de gebruikte foto's versies van max. 1920 px breed
-  (WebP/JPG ± 300 KB) en vervang de bestandsnamen in `src/` en `build.py`.
 - **Badges** op de prijskaarten (*Meeste tijd voor u*, *Uitslapen tot 12 u*) zijn voorstellen.
 - **Google Business-profiel**: zorg dat naam, adres en telefoon exact gelijk zijn aan de site
   (`Amakhosi`, `Watertorenstraat 64, 3930 Hamont-Achel`, `+32 469 21 75 50`).
