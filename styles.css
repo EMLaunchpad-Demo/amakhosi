@@ -4321,3 +4321,21 @@ em .amk-w__i {
   .amk-posts--four .amk-post__body { padding: 22px 20px 24px; }
   .amk-posts--four .amk-post__title { font-size: 1.22rem; }
 }
+
+
+/* ==========================================================================
+   SEO-PLAN A13 (12/11/2026): plaatspagina /privesauna-pelt-lommel
+   ========================================================================== */
+/* 4 kaarten: 2 x 2, op een breed scherm 4 naast elkaar; 2 kaarten: gecentreerd */
+@media (min-width: 1000px) {
+  .amk-cards.amk-cards--four { grid-template-columns: repeat(2, 1fr); }
+  .amk-cards.amk-cards--two { grid-template-columns: repeat(2, 1fr); max-width: 820px; margin-inline: auto; }
+}
+
+@media (min-width: 1200px) {
+  .amk-cards.amk-cards--four { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 560px) {
+  .amk-cards.amk-cards--one { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+}

@@ -67,6 +67,7 @@ uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
 | Arrangementen | `/arrangementen` | `arrangementen.html` | Tijdlijn 3 uur → overnachting, alle faciliteiten, romantisch pakket, ontbijt, dranken, planken, snacks, FAQ |
 | Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
 | Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
+| Privésauna bij Pelt en Lommel | `/privesauna-pelt-lommel` | `privesauna-pelt-lommel.html` | Plaatspagina (SEO-plan A13): ligging en kaart, wat je krijgt, arrangementen en prijzen, lopende deals (link naar `/koninklijke-deals`), FAQ. Oude adressen over Lommel en Bocholt wijzen hierheen |
 | Reserveren | `/reserveren` | `reserveren.html` | De bestaande GHL-agenda in de nieuwe stijl, prijsoverzicht, goed om te weten, FAQ |
 | Algemene voorwaarden | `/algemene-voorwaarden` | `algemene-voorwaarden.html` | Ontwerp met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 | Privacybeleid | `/privacybeleid` | `privacybeleid.html` | Ontwerp (AVG/GDPR) met inhoudsopgave; gemarkeerde stukken nog in te vullen |

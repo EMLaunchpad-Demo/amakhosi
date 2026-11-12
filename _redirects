@@ -5,6 +5,7 @@
 /prijslijst/ /prijslijst 301
 /koninklijke-deals/ /koninklijke-deals 301
 /reserveren/ /reserveren 301
+/privesauna-pelt-lommel/ /privesauna-pelt-lommel 301
 /cadeaubon/ /cadeaubon 301
 /blog/ /blog 301
 /blog/privesauna-met-overnachting-limburg/ /blog/privesauna-met-overnachting-limburg 301
@@ -21,6 +22,7 @@
 /prijslijst.html /prijslijst 301
 /koninklijke-deals.html /koninklijke-deals 301
 /reserveren.html /reserveren 301
+/privesauna-pelt-lommel.html /privesauna-pelt-lommel 301
 /cadeaubon.html /cadeaubon 301
 /blog.html /blog 301
 /blog/privesauna-met-overnachting-limburg.html /blog/privesauna-met-overnachting-limburg 301
@@ -34,10 +36,10 @@
 /home/ / 301
 /privesauna-hamont-achel / 301
 /privesauna-hamont-achel/ / 301
-/privesauna-lommel / 301
-/privesauna-lommel/ / 301
-/privesauna-bocholt-belgie / 301
-/privesauna-bocholt-belgie/ / 301
+/privesauna-lommel /privesauna-pelt-lommel 301
+/privesauna-lommel/ /privesauna-pelt-lommel 301
+/privesauna-bocholt-belgie /privesauna-pelt-lommel 301
+/privesauna-bocholt-belgie/ /privesauna-pelt-lommel 301
 /hello-world / 301
 /hello-world/ / 301
 /category/uncategorized / 301
@@ -54,10 +56,10 @@
 /index.php/prijslijst/ /prijslijst 301
 /cookiebeleid-eu /privacybeleid 301
 /cookiebeleid-eu/ /privacybeleid 301
-/spa-lommel / 301
-/spa-lommel/ / 301
-/spa-bocholt-belgie / 301
-/spa-bocholt-belgie/ / 301
+/spa-lommel /privesauna-pelt-lommel 301
+/spa-lommel/ /privesauna-pelt-lommel 301
+/spa-bocholt-belgie /privesauna-pelt-lommel 301
+/spa-bocholt-belgie/ /privesauna-pelt-lommel 301
 /spa-hamont-achel / 301
 /spa-hamont-achel/ / 301
 /spa-belgie / 301

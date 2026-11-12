@@ -284,6 +284,23 @@ if GIFTCARD_ID:
         "Dan leggen we samen de dag en het uur vast.")]
 FAQ["reserveren"][-2:-2] = [FAQ_KLAAR]
 
+# Plaatspagina /privesauna-pelt-lommel (SEO-plan A13): geen reistijden of afstanden
+FAQ["pelt-lommel"] = [
+    ("Waar ligt Amakhosi?",
+     "In de Watertorenstraat 64 in 3930 Hamont-Achel, op de grens van Belgisch en Nederlands Limburg. "
+     "Je parkeert gratis op je eigen privéparkeerplaats, direct bij de ingang, met een laadpaal voor "
+     "elektrische wagens."),
+    ("Wat kost een privésauna bij Amakhosi?",
+     "Privéwellness kost " + _of([f"€ {p['price']} voor {p['time']}" for p in WELLNESS]) + ". Een overnachting kost "
+     + _of([f"€ {p['price']} ({_van_tot(p)})" for p in NACHT]) + "."),
+    ("Is de wellness echt alleen voor ons?",
+     "Ja. Tijdens je arrangement heb je de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de "
+     "lounge voor jezelf. Er zijn geen gedeelde ruimtes en geen andere gasten."),
+    ("Moet ik een badjas of badslippers meebrengen?",
+     "Nee. Badjassen en badslippers liggen voor je klaar, net als douchegel en shampoo."),
+    faq_last_minute('<a href="/reserveren">online agenda</a>'),
+]
+
 # --------------------------------------------------------------------------
 # Blog (/blog en /blog/<slug>)
 # --------------------------------------------------------------------------
@@ -512,6 +529,19 @@ PAGES = [
         image_alt="Finse sauna met sfeerverlichting",
         faq="reserveren",
         booking=True,
+    ),
+    # Plaatspagina (SEO-plan A13, 12/11/2026). Oude adressen rond Lommel en
+    # Bocholt wijzen hierheen (OLD_REDIRECTS).
+    dict(
+        key="pelt-lommel", src="pelt-lommel.html", out="privesauna-pelt-lommel.html",
+        path="/privesauna-pelt-lommel", crumb="Privésauna bij Pelt en Lommel",
+        title="Privésauna vlak bij Pelt, Lommel, Bree en Bocholt | Amakhosi",
+        description=(f"Privésauna in Hamont-Achel, vlak bij Pelt, Lommel, Bree en Bocholt. Finse sauna, "
+                     f"stoombad en whirlpool helemaal privé, vanaf €{WELLNESS[0]['price']} voor "
+                     f"{WELLNESS[0]['time']}."),
+        image=("6a84993bd1abe28fc98f8e6d.jpg", 2560, 1707),
+        image_alt="Whirlpool met warme verlichting en sfeerhaard bij Amakhosi in Hamont-Achel",
+        faq="pelt-lommel",
     ),
 ]
 
@@ -793,6 +823,38 @@ def deals_section():
         <p class="amk-deals__noot" data-amk-reveal>{DEALS_HEAD["more"]}</p>
       </div>
     </section>"""
+
+
+def deals_teaser():
+    """Korte vermelding van de lopende deals op de plaatspagina (SEO-plan A13).
+    Een deal boek je alleen via de knop op /koninklijke-deals: daarom hier
+    een link naar die pagina, nooit naar /reserveren?deal=..."""
+    if not DEALS_LIVE:
+        return ""
+    lead = DEALS_HEAD["lead"].format(" of ".join(d["lead"] for d in DEALS_LIVE))
+    cards = "".join(f"""
+          <article class="amk-card amk-spot" data-amk-tilt="4">
+            <span class="amk-card__icon">{icon(d["icon"])}</span>
+            <h3>{d["name"]}</h3>
+            <p>{d["meta"].format(price=d["price"])[:1].upper()}{d["meta"].format(price=d["price"])[1:]}.</p>
+          </article>""" for d in DEALS_LIVE)
+    return f"""
+    <section class="amk-section amk-section--textured amk-section--line" id="deals" aria-labelledby="amk-deals-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" data-amk-reveal>
+          <p class="amk-eyebrow">{DEALS_HEAD["eyebrow"]}</p>
+          <h2 class="amk-title" id="amk-deals-title" data-amk-split>Koninklijke <em>deals</em></h2>
+          <p class="amk-lead">{lead}</p>
+        </div>
+        <div class="amk-cards{ {1: ' amk-cards--one', 2: ' amk-cards--two'}.get(len(DEALS_LIVE), '')}" data-amk-stagger="0.08">{cards}
+        </div>
+        <div class="amk-prices__note" data-amk-reveal>
+          <span>Je boekt een deal via de knop bij de deal op de pagina Koninklijke deals.</span>
+          <a class="amk-link" href="/koninklijke-deals">Bekijk de deals {icon("arrow")}</a>
+        </div>
+      </div>
+    </section>
+"""
 
 
 # --------------------------------------------------------------------------
@@ -1291,6 +1353,8 @@ def render(text, page):
             return gift_link(token.split(":")[1])
         if token == "DEALS":
             return deals_section()
+        if token == "DEALS_TEASER":
+            return deals_teaser()
         if token == "BOOKING_URL":
             return html.escape(BOOKING_URL)
         if token == "RESERVE_HREF":
@@ -1485,8 +1549,9 @@ def build_sitemap():
 OLD_REDIRECTS = [
     ("/home", "/"),
     ("/privesauna-hamont-achel", "/"),
-    ("/privesauna-lommel", "/"),
-    ("/privesauna-bocholt-belgie", "/"),
+    # Lommel en Bocholt: naar de plaatspagina (SEO-plan A13, 12/11/2026)
+    ("/privesauna-lommel", "/privesauna-pelt-lommel"),
+    ("/privesauna-bocholt-belgie", "/privesauna-pelt-lommel"),
     ("/hello-world", "/"),
     ("/category/uncategorized", "/"),
     ("/index.php", "/"),
@@ -1496,12 +1561,10 @@ OLD_REDIRECTS = [
     ("/index.php/prijslijst", "/prijslijst"),
     ("/cookiebeleid-eu", "/privacybeleid"),
     # SEO-plan A3 (12/11/2026): nog 404 volgens Search Console en curl.
-    # Lommel, Bocholt en de algemene plaatsadressen voorlopig naar de home.
-    # Komt er een plaatspagina (A13, bv. /privesauna-pelt-lommel), laat dan
-    # /spa-lommel, /privesauna-lommel en /spa-bocholt-belgie (en
-    # /privesauna-bocholt-belgie hierboven) daarheen wijzen.
-    ("/spa-lommel", "/"),
-    ("/spa-bocholt-belgie", "/"),
+    # Lommel en Bocholt naar de plaatspagina (A13), de algemene
+    # plaatsadressen naar de home.
+    ("/spa-lommel", "/privesauna-pelt-lommel"),
+    ("/spa-bocholt-belgie", "/privesauna-pelt-lommel"),
     ("/spa-hamont-achel", "/"),
     ("/spa-belgie", "/"),
     ("/spa-vlaanderen", "/"),
