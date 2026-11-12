@@ -191,6 +191,40 @@ FAQ = {
     ],
 }
 
+
+def _of(items):
+    """'a, b of c'"""
+    return ", ".join(items[:-1]) + " of " + items[-1] if len(items) > 1 else items[0]
+
+
+def _van_tot(p):
+    """'20:00 – 10:00' -> 'van 20:00 tot 10:00'"""
+    start, end = p["time"].split(" – ")
+    return f"van {start} tot {end}"
+
+
+# /cadeaubon (SEO-plan A4, 12/11/2026): alleen feiten die al op de site staan.
+# Geldigheid en gedeeltelijk gebruik van de bon NIET vermelden: wacht op de klant.
+FAQ["cadeaubon"] = [
+    ("Voor welke bedragen bestaat de cadeaubon?",
+     "De waarde van de bon is de prijs van het arrangement dat je cadeau doet: "
+     + _of([f"€ {p['price']} ({p['time']})" for p in WELLNESS]
+           + [f"€ {p['price']} (overnachting {_van_tot(p)})" for p in NACHT]) + "."),
+    ("Hoe bestel ik een cadeaubon?",
+     "Kies op deze pagina het bedrag, vul je gegevens in en betaal veilig online. De bon komt per mail, "
+     "met een unieke code. Lukt het niet? Bel ons op " + PHONE_DISPLAY + "."),
+    ("Hoe wisselt de ontvanger de cadeaubon in?",
+     "De ontvanger belt naar " + PHONE_DISPLAY + " of mailt naar " + EMAIL + " en geeft de code van de bon "
+     "door. Amakhosi werkt op afspraak: de dag en het uur worden dan samen vastgelegd."),
+    ("Kan ik ook een overnachting cadeau doen?",
+     "Ja. Kies " + _of([f"{p['name']} ({_van_tot(p)}, € {p['price']})" for p in NACHT]) + ". De ontvangers "
+     "krijgen een aparte slaapsuite met eigen inloopdouche en gebruiken alle faciliteiten onbeperkt."),
+    ("Wat krijgt de ontvanger met de bon?",
+     "Een arrangement bij Amakhosi in Hamont-Achel, ideaal voor twee. Tijdens het arrangement is de volledige "
+     "wellness van hen alleen: Finse sauna, stoombad, whirlpool, inloopdouche en loungebed met sfeerhaard. "
+     "Frisdrank, koffie en thee en de privéparking met laadpaal zijn gratis."),
+]
+
 # --------------------------------------------------------------------------
 # Blog (/blog en /blog/<slug>)
 # --------------------------------------------------------------------------
@@ -439,7 +473,7 @@ LEGAL_PAGES = [
 if GIFTCARD_ID:
     PAGES.append(dict(
         key="cadeaubon", src="cadeaubon.html", out="cadeaubon.html",
-        path="/cadeaubon", crumb="Cadeaubon", lastmod="2026-10-12",
+        path="/cadeaubon", crumb="Cadeaubon", lastmod="2026-11-12", faq="cadeaubon",
         title="Cadeaubon privésauna & wellness | Amakhosi Hamont-Achel",
         description="Geef een cadeaubon van Amakhosi: een arrangement privéwellness of een overnachting voor twee in Hamont-Achel. Online bestellen en betalen, de bon komt per mail.",
         image=("6a84993b96d2b224d38addc6.jpg", 2560, 1707),

@@ -1,7 +1,7 @@
     <!-- =================================================================
          PAGINAHERO
          Cadeaubon: alleen wat zeker is. Geldigheid en voorwaarden van de bon
-         staan hier bewust NIET: [IN TE VULLEN DOOR PATRICK] (zie Notion-taak
+         staan hier bewust NIET: [IN TE VULLEN DOOR DE KLANT] (zie Notion-taak
          "Cadeaubon op amakhosi.be"). Pas toevoegen na zijn akkoord.
          ================================================================= -->
     <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
@@ -90,6 +90,35 @@
             </div>
           </div>
         </article>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FEESTDAGEN — Sinterklaas, kerst en Valentijn
+         ================================================================= -->
+    <section class="amk-section amk-section--textured amk-section--line" id="feestdagen" aria-labelledby="amk-feest-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" style="margin-bottom: 0;" data-amk-reveal>
+          <p class="amk-eyebrow">Cadeau-idee</p>
+          <h2 class="amk-title" id="amk-feest-title" data-amk-split>Voor Sinterklaas, kerst <em>en Valentijn</em></h2>
+          <p class="amk-lead">Geef tijd samen cadeau: een paar uur privéwellness of een overnachting bij Amakhosi, helemaal voor twee. Voor je partner, je ouders of een goede vriend(in).</p>
+          <p class="amk-lead">Twijfel je nog welke bon je kiest? In ons artikel over <a class="amk-inline-link" href="/blog/wellness-cadeaubon-voor-2">een wellness cadeaubon voor 2</a> lees je hoe je het juiste cadeau kiest en geeft.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FAQ — feiten van de site, geen geldigheid (FAQ["cadeaubon"] in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="faq" aria-labelledby="amk-faq-title">
+      <div class="amk-container amk-faq__grid">
+        <div class="amk-faq__aside" data-amk-reveal>
+          <p class="amk-eyebrow">Veelgestelde vragen</p>
+          <h2 class="amk-title" id="amk-faq-title">Alles over <em>de cadeaubon</em></h2>
+          <p>Staat je vraag er niet bij? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+        </div>
+        <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">{{FAQ:cadeaubon}}
+        </div>
       </div>
     </section>
 

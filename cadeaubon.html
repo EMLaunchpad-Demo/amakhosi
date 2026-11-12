@@ -171,7 +171,7 @@
     <!-- =================================================================
          PAGINAHERO
          Cadeaubon: alleen wat zeker is. Geldigheid en voorwaarden van de bon
-         staan hier bewust NIET: [IN TE VULLEN DOOR PATRICK] (zie Notion-taak
+         staan hier bewust NIET: [IN TE VULLEN DOOR DE KLANT] (zie Notion-taak
          "Cadeaubon op amakhosi.be"). Pas toevoegen na zijn akkoord.
          ================================================================= -->
     <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
@@ -295,6 +295,55 @@
             </div>
           </div>
         </article>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FEESTDAGEN — Sinterklaas, kerst en Valentijn
+         ================================================================= -->
+    <section class="amk-section amk-section--textured amk-section--line" id="feestdagen" aria-labelledby="amk-feest-title">
+      <div class="amk-container">
+        <div class="amk-head amk-head--center" style="margin-bottom: 0;" data-amk-reveal>
+          <p class="amk-eyebrow">Cadeau-idee</p>
+          <h2 class="amk-title" id="amk-feest-title" data-amk-split>Voor Sinterklaas, kerst <em>en Valentijn</em></h2>
+          <p class="amk-lead">Geef tijd samen cadeau: een paar uur privéwellness of een overnachting bij Amakhosi, helemaal voor twee. Voor je partner, je ouders of een goede vriend(in).</p>
+          <p class="amk-lead">Twijfel je nog welke bon je kiest? In ons artikel over <a class="amk-inline-link" href="/blog/wellness-cadeaubon-voor-2">een wellness cadeaubon voor 2</a> lees je hoe je het juiste cadeau kiest en geeft.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         FAQ — feiten van de site, geen geldigheid (FAQ["cadeaubon"] in build.py)
+         ================================================================= -->
+    <section class="amk-section amk-section--deep" id="faq" aria-labelledby="amk-faq-title">
+      <div class="amk-container amk-faq__grid">
+        <div class="amk-faq__aside" data-amk-reveal>
+          <p class="amk-eyebrow">Veelgestelde vragen</p>
+          <h2 class="amk-title" id="amk-faq-title">Alles over <em>de cadeaubon</em></h2>
+          <p>Staat je vraag er niet bij? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:+32469217550">+32 (0)469 217 550</a> of mail naar <a class="amk-inline-link" href="mailto:info@amakhosi.be">info@amakhosi.be</a>.</p>
+        </div>
+        <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">
+          <details class="amk-faq__item" open>
+            <summary>Voor welke bedragen bestaat de cadeaubon?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>De waarde van de bon is de prijs van het arrangement dat je cadeau doet: € 169 (3 uur), € 199 (4 uur), € 239 (5 uur), € 279 (6 uur), € 335 (overnachting van 20:00 tot 10:00) of € 399 (overnachting van 20:00 tot 12:00).</p></div></div>
+          </details>
+          <details class="amk-faq__item">
+            <summary>Hoe bestel ik een cadeaubon?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>Kies op deze pagina het bedrag, vul je gegevens in en betaal veilig online. De bon komt per mail, met een unieke code. Lukt het niet? Bel ons op +32 (0)469 217 550.</p></div></div>
+          </details>
+          <details class="amk-faq__item">
+            <summary>Hoe wisselt de ontvanger de cadeaubon in?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>De ontvanger belt naar +32 (0)469 217 550 of mailt naar info@amakhosi.be en geeft de code van de bon door. Amakhosi werkt op afspraak: de dag en het uur worden dan samen vastgelegd.</p></div></div>
+          </details>
+          <details class="amk-faq__item">
+            <summary>Kan ik ook een overnachting cadeau doen?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>Ja. Kies Kom overnachten (van 20:00 tot 10:00, € 335) of Slaap lekker uit (van 20:00 tot 12:00, € 399). De ontvangers krijgen een aparte slaapsuite met eigen inloopdouche en gebruiken alle faciliteiten onbeperkt.</p></div></div>
+          </details>
+          <details class="amk-faq__item">
+            <summary>Wat krijgt de ontvanger met de bon?<span class="amk-faq__toggle" aria-hidden="true"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-plus"/></svg></span></summary>
+            <div class="amk-faq__answer"><div><p>Een arrangement bij Amakhosi in Hamont-Achel, ideaal voor twee. Tijdens het arrangement is de volledige wellness van hen alleen: Finse sauna, stoombad, whirlpool, inloopdouche en loungebed met sfeerhaard. Frisdrank, koffie en thee en de privéparking met laadpaal zijn gratis.</p></div></div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -651,6 +700,52 @@
       "breadcrumb": {
         "@id": "https://amakhosi.be/cadeaubon#breadcrumb"
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://amakhosi.be/cadeaubon#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Voor welke bedragen bestaat de cadeaubon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "De waarde van de bon is de prijs van het arrangement dat je cadeau doet: € 169 (3 uur), € 199 (4 uur), € 239 (5 uur), € 279 (6 uur), € 335 (overnachting van 20:00 tot 10:00) of € 399 (overnachting van 20:00 tot 12:00)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hoe bestel ik een cadeaubon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Kies op deze pagina het bedrag, vul je gegevens in en betaal veilig online. De bon komt per mail, met een unieke code. Lukt het niet? Bel ons op +32 (0)469 217 550."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Hoe wisselt de ontvanger de cadeaubon in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "De ontvanger belt naar +32 (0)469 217 550 of mailt naar info@amakhosi.be en geeft de code van de bon door. Amakhosi werkt op afspraak: de dag en het uur worden dan samen vastgelegd."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Kan ik ook een overnachting cadeau doen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ja. Kies Kom overnachten (van 20:00 tot 10:00, € 335) of Slaap lekker uit (van 20:00 tot 12:00, € 399). De ontvangers krijgen een aparte slaapsuite met eigen inloopdouche en gebruiken alle faciliteiten onbeperkt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Wat krijgt de ontvanger met de bon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Een arrangement bij Amakhosi in Hamont-Achel, ideaal voor twee. Tijdens het arrangement is de volledige wellness van hen alleen: Finse sauna, stoombad, whirlpool, inloopdouche en loungebed met sfeerhaard. Frisdrank, koffie en thee en de privéparking met laadpaal zijn gratis."
+          }
+        }
+      ]
     }
   ]
 }
