@@ -213,7 +213,7 @@ BLOG = [
         description="Finse sauna, stoombad en een zeer ruime whirlpool voor jullie twee. Zo combineer je alles in je privésauna met jacuzzi in Hamont-Achel, vanaf €169.",
         h1="Privésauna met jacuzzi voor twee: sauna, stoombad en whirlpool combineren",
         crumb="Privésauna met jacuzzi", eyebrow="Wellness",
-        date="2026-11-16", modified="2026-11-16",
+        date="2026-11-12", modified="2026-11-12",
         image=("6a84993662d4d706d4110075.jpg", 2048, 1292),
         image_alt="Privé-wellnessruimte van Amakhosi met ronde whirlpool, zebramuur en doorkijk naar het stoombad",
         excerpt="Een privésauna met jacuzzi, alleen voor jullie twee: zo combineer je Finse sauna, stoombad en whirlpool en kies je hoeveel tijd je neemt.",
