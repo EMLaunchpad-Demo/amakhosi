@@ -95,6 +95,16 @@ prijslijst, reserveren), `OfferCatalog` (prijslijst) en `ImageGallery` (impressi
 
 Ook meegeleverd: `sitemap.xml` (met afbeeldingen) en `robots.txt`.
 
+- **lastmod in de sitemap** (SEO-plan A11, 12/11/2026): `build.py` vergelijkt elke gebouwde
+  pagina met de laatste commit. Is ze anders (of nieuw), dan krijgt ze de bouwdatum; anders de
+  datum van de laatste commit die ze wijzigde. Artikels houden hun `modified` uit `BLOG`.
+  Commit dus na elke build, anders schuift de datum mee.
+- **hasMap** wijst naar het geverifieerde Google-bedrijfsprofiel (`GOOGLE_PLACE_ID` in
+  `build.py`), **sameAs** naar Facebook, Instagram, De Groote Heide en Relaxy (`LISTINGS`).
+- **Favicon**: `favicon.ico` (16, 32, 48), `favicon-48.png`, `favicon-192.png` en
+  `apple-touch-icon.png` (180) in de hoofdmap. Gemaakt uit het logo: alleen het embleem
+  (giraf met kroon voor de zon), niet vervormd, gecentreerd op `#1d0000`.
+
 ## 4. Bestanden & bouwen
 
 | Bestand / map | Inhoud |

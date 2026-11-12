@@ -21,6 +21,7 @@ import html
 import json
 import math
 import re
+import subprocess
 import sys
 from datetime import date
 from pathlib import Path
@@ -37,6 +38,18 @@ EMAIL = "info@amakhosi.be"
 # Sociale media (meeting Patrick 31/10/2026, pagina's nagekeken op 5/11/2026): footer en sameAs
 FACEBOOK = "https://www.facebook.com/people/Amakhosi/61553652565496/"
 INSTAGRAM = "https://www.instagram.com/amakhosiwellness/"
+# Google-bedrijfsprofiel (hasMap): het geverifieerde profiel. Place-ID volgens
+# ons platform (googlePlacesId van het sub-account) en de Social Planner
+# (verified placeId), nagekeken op 12/11/2026 (SEO-plan A11). Vroeger stond
+# hier een andere plaats (ChIJqR5gKe8qx0cRj2TNlUwF8Rg), niet die van het profiel.
+GOOGLE_PLACE_ID = "ChIJ-a_MrUgrx0cRlx7zTQHKfGA"
+GOOGLE_MAPS = ("https://www.google.com/maps/search/?api=1&query=Amakhosi+Watertorenstraat+64+Hamont-Achel"
+               "&query_place_id=" + GOOGLE_PLACE_ID)
+# Vermeldingen van Amakhosi op andere sites (sameAs), beide 200 op 12/11/2026
+LISTINGS = [
+    "https://hamont-achel.degrooteheide.eu/nl/locaties/4132346291/b-b-amakhosi",
+    "https://www.relaxy.be/privesauna-luxe-wellness-amakhosi/prive-sauna-luxe-wellness-amakhosi",
+]
 
 # Navigatie: (sleutel, url, label)
 NAV = [
@@ -1051,8 +1064,8 @@ def business_node():
             "addressCountry": "BE",
         },
         "geo": {"@type": "GeoCoordinates", "latitude": 51.242986, "longitude": 5.533069},
-        "hasMap": "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=ChIJqR5gKe8qx0cRj2TNlUwF8Rg",
-        "sameAs": [FACEBOOK, INSTAGRAM],
+        "hasMap": GOOGLE_MAPS,
+        "sameAs": [FACEBOOK, INSTAGRAM] + LISTINGS,
         "areaServed": [{"@type": "City", "name": c} for c in AREAS],
         "amenityFeature": [
             {"@type": "LocationFeatureSpecification", "name": n, "value": True}
@@ -1238,7 +1251,12 @@ def head(page):
 
   <!-- ===== Gedeelde stijlen (absoluut pad, ook voor /blog/<slug>) ===== -->
   <link rel="stylesheet" href="/styles.css">
-  <link rel="icon" href="{LOGO}">
+
+  <!-- ===== Favicon: vierkant embleem uit het logo (SEO-plan A11) ===== -->
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 </head>"""
 
 
@@ -1386,8 +1404,38 @@ def build_page(page):
     return out
 
 
+# Wijzigingsdatum per gebouwde pagina (sleutel -> JJJJ-MM-DD), gevuld in __main__
+BUILT_LASTMOD = {}
+
+
+def _git(*args):
+    return subprocess.run(["git", *args], cwd=ROOT, capture_output=True)
+
+
+def changed_on(out, content):
+    """Wijzigingsdatum van een gebouwde pagina (SEO-plan A11): verschilt de
+    nieuwe pagina van de laatste commit (of is ze nieuw), dan de bouwdatum;
+    anders de datum van de laatste commit die de pagina wijzigde.
+    None als git niet beschikbaar is."""
+    try:
+        if _git("rev-parse", "--verify", "HEAD").returncode != 0:
+            return None
+        old = _git("show", f"HEAD:{out}")
+    except OSError:
+        return None
+    new = content.encode("utf-8").replace(b"\r\n", b"\n")
+    if old.returncode != 0 or old.stdout.replace(b"\r\n", b"\n") != new:
+        return PUBLISH_DATE.isoformat()
+    d = _git("log", "-1", "--format=%cs", "--", out).stdout.decode().strip()
+    return d or None
+
+
 def sitemap_lastmod(p):
-    lastmod = p.get("lastmod", "2026-10-07")
+    if p.get("article"):
+        # Artikels: de datum waarop de tekst het laatst gewijzigd werd (BLOG)
+        return p["lastmod"]
+    dates = [d for d in (p.get("lastmod"), BUILT_LASTMOD.get(p["key"])) if d]
+    lastmod = max(dates) if dates else "2026-10-07"
     if p["key"] == "home" and BLOG_LIVE:
         # De home toont de nieuwste artikels: wijzigt bij elk nieuw artikel.
         lastmod = max(lastmod, BLOG_LIVE[0]["date"])
@@ -1512,7 +1560,7 @@ def clean_blog():
 
 if __name__ == "__main__":
     for p in PAGES:
-        build_page(p)
+        BUILT_LASTMOD[p["key"]] = changed_on(p["out"], build_page(p))
         print("gebouwd:", p["out"])
     clean_blog()
     build_sitemap()
