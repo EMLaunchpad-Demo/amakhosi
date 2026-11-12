@@ -140,6 +140,12 @@ bestaande GHL-mediabibliotheek van Amakhosi.
 
 ## 5. In GoHighLevel plakken
 
+> **Sinds 12/11/2026 (SEO-plan A12):** de site draait op Cloudflare en `build.py` haalt alle
+> HTML-commentaar uit de gepubliceerde pagina's (niet uit `<script>` of `<style>`). De
+> markeringen `START/EINDE GHL-PLAKBLOK` staan dus niet meer in de `.html`-bestanden: het
+> plakblok is alles van `<div class="amk">` tot en met de bijhorende `</div>`. Interne notities
+> mogen gewoon als commentaar in `src/` blijven staan.
+
 **Eenmalig, voor de hele website** (*Sites → Websites → Amakhosi → Settings*):
 
 1. **Head tracking code**: plak de lettertype-regels uit de `<head>` van `index.html`

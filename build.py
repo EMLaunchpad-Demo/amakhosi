@@ -1349,6 +1349,21 @@ def toc(body):
     return "".join(f'\n            <li><a href="#{i}">{t}</a></li>' for i, t in items)
 
 
+def strip_comments(text):
+    """HTML-commentaar weghalen uit de gepubliceerde pagina (SEO-plan A12):
+    interne notities horen niet publiek. De inhoud van <script> en <style>
+    blijft onaangeroerd. Een regel met alleen commentaar verdwijnt helemaal."""
+    comment = r"<!--(?:(?!-->).)*-->"
+    parts = re.split(r"(<script\b.*?</script>|<style\b.*?</style>)", text, flags=re.S | re.I)
+    for i in range(0, len(parts), 2):
+        part = re.sub(r"^[ \t]*" + comment + r"[ \t]*\n", "", parts[i], flags=re.S | re.M)
+        part = re.sub(comment, "", part, flags=re.S)
+        parts[i] = re.sub(r"\n{3,}", "\n\n", part)
+    out = "".join(parts)
+    assert "<!--" not in re.sub(r"<script\b.*?</script>", "", out, flags=re.S | re.I), "commentaar niet weg"
+    return out
+
+
 def build_page(page):
     body = (SRC / "pages" / page["src"]).read_text(encoding="utf-8")
     if "{{TOC}}" in body:
@@ -1397,7 +1412,7 @@ def build_page(page):
 </body>
 </html>
 """
-    out = only_published(render(doc, page))
+    out = strip_comments(only_published(render(doc, page)))
     target = ROOT / page["out"]
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(out, encoding="utf-8")
