@@ -1219,6 +1219,23 @@ OLD_REDIRECTS = [
     ("/index.php/arrangementen", "/arrangementen"),
     ("/index.php/prijslijst", "/prijslijst"),
     ("/cookiebeleid-eu", "/privacybeleid"),
+    # SEO-plan A3 (12/11/2026): nog 404 volgens Search Console en curl.
+    # Lommel, Bocholt en de algemene plaatsadressen voorlopig naar de home.
+    # Komt er een plaatspagina (A13, bv. /privesauna-pelt-lommel), laat dan
+    # /spa-lommel, /privesauna-lommel en /spa-bocholt-belgie (en
+    # /privesauna-bocholt-belgie hierboven) daarheen wijzen.
+    ("/spa-lommel", "/"),
+    ("/spa-bocholt-belgie", "/"),
+    ("/spa-hamont-achel", "/"),
+    ("/spa-belgie", "/"),
+    ("/spa-vlaanderen", "/"),
+    ("/spa-budel", "/"),
+    ("/privesauna-belgie", "/"),
+    ("/privesauna-vlaanderen", "/"),
+    ("/privesauna-budel", "/"),
+    ("/index.php/reserveren", "/reserveren"),
+    ("/index.php/impressie", "/privesauna-wellness-impressie"),
+    ("/privacy-verklaring", "/privacybeleid"),
 ]
 
 
