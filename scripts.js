@@ -712,13 +712,15 @@
 
     /* ------------------------------------------------------------------
        18. Reserveren: met ?deal=... opent de agenda meteen op die deal;
-           de agenda begint net onder de header
+           de agenda begint net onder de header. Net als de iframe in
+           src/pages/reserveren.html zonder de eigen kop van ons platform
+           (showHeader=false): geen dubbel logo onder de header van de site.
        ------------------------------------------------------------------ */
     var deals = { winterdagen: 'koninklijke-winterdagen', uitslapen: 'koninklijk-uitslapen' };
     var deal = deals[new URLSearchParams(window.location.search).get('deal')];
     var agenda = doc.querySelector('.amk-booking__frame iframe');
     if (deal && agenda) {
-      agenda.src = 'https://api.leadconnectorhq.com/booking/amakhosi/sv/' + deal + '?heightMode=fixed&showHeader=true';
+      agenda.src = 'https://api.leadconnectorhq.com/booking/amakhosi/sv/' + deal + '?heightMode=fixed&showHeader=false';
     }
 
     // De agenda begint net onder de header (styles.css, .amk-booking). Op een

@@ -68,7 +68,7 @@ uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
 | Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
 | Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
 | Privésauna bij Pelt en Lommel | `/privesauna-pelt-lommel` | `privesauna-pelt-lommel.html` | Plaatspagina (SEO-plan A13): ligging en kaart, wat je krijgt, arrangementen en prijzen, lopende deals (link naar `/koninklijke-deals`), FAQ. Oude adressen over Lommel en Bocholt wijzen hierheen |
-| Reserveren | `/reserveren` | `reserveren.html` | Alleen het boekingssysteem van ons platform, meteen onder de header (sinds 16/11/2026, vraag Martijn). Geen paginahero, prijsoverzicht of FAQ meer; de H1 is visueel verborgen. De reserveerlinks op de pagina zelf gaan naar `#agenda` (niet herladen) |
+| Reserveren | `/reserveren` | `reserveren.html` | Alleen het boekingssysteem van ons platform, meteen onder de header (sinds 16/11/2026, vraag Martijn), zonder de eigen kop van ons platform (geen dubbel logo). Geen paginahero, prijsoverzicht of FAQ meer; de H1 is visueel verborgen. De reserveerlinks op de pagina zelf gaan naar `#agenda` (niet herladen) |
 | Algemene voorwaarden | `/algemene-voorwaarden` | `algemene-voorwaarden.html` | Ontwerp met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 | Privacybeleid | `/privacybeleid` | `privacybeleid.html` | Ontwerp (AVG/GDPR) met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 
@@ -203,8 +203,13 @@ De originele foto's en het logo staan in de GHL-mediabibliotheek van Amakhosi (`
 > script vlak voor de agenda onthoudt zo'n gemiste melding en toont de agenda dan zelf, en
 > `scripts.js` deel 18 toont ze na 6 s toch, als ze dan nog verborgen is.
 > De deal-knoppen (`/reserveren?deal=...`) openen via `scripts.js` deel 18 de deal-dienst
-> rechtstreeks (`booking/amakhosi/sv/<slug>`). De hoofdboekingspagina `booking/amakhosi`
-> toont alle openbare diensten, ook de deals: link er niet meer naar.
+> rechtstreeks (`booking/amakhosi/sv/<slug>`). De iframe en de deals laden zonder de eigen kop
+> van ons platform (`showHeader=false`, sinds 16/11/2026): het logo staat al in de header van de
+> site. Daarvoor staat in de CSS van ons platform (versie 3, `../ghl-boekingswidget/`) een regel
+> voor `.services-body-container.hidden-header` die de bovenmarge van 20 px weghaalt; zonder die
+> regel loopt de agenda op de gsm 20 px over. De directe link `BOOKING_URL` houdt de kop.
+> De hoofdboekingspagina `booking/amakhosi` toont alle openbare diensten, ook de deals: link er
+> niet meer naar.
 
 ## 6. Nog aan te vullen
 

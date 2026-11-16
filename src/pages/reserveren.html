@@ -4,7 +4,13 @@
          het boekingssysteem: wie de pagina opent, ziet meteen de agenda,
          net onder de header. Geen paginahero, overzicht of FAQ meer.
          De agenda is de boekingspagina "Amakhosi Reserveren" van ons
-         platform. De achtergrond rond de iframe is exact --amk-bg (#1d0000),
+         platform, zonder de eigen kop van ons platform (showHeader=false,
+         16/11/2026): het logo staat al in de header van de site, dus geen
+         dubbel logo. De CSS van ons platform (versie 3) haalt dan de
+         bovenmarge van 20 px weg die anders door de iframe heen valt (op de
+         gsm liep de agenda anders 20 px over). De directe link BOOKING_URL in
+         build.py houdt de kop.
+         De achtergrond rond de iframe is exact --amk-bg (#1d0000),
          net als die van het boekingssysteem: zie styles.css, .amk-booking.
          Geen scrolling="no" op de iframe: form_embed.js zet scrollen toch
          aan, en laadt dat script niet, dan kan je zo nog in de agenda scrollen
@@ -48,7 +54,7 @@
           <p class="amk-booking__noscript">De online agenda werkt alleen met JavaScript. Bel ons op <a class="amk-inline-link" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
         </noscript>
         <div class="amk-booking__frame">
-          <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
+          <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=false" title="Online reserveren bij Amakhosi" allow="payment" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
         </div>
       </div>
     </section>
