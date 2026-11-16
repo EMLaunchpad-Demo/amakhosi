@@ -223,6 +223,10 @@ FAQ = {
         ("Kan de champagne koud klaarstaan bij aankomst?",
          "Ja. De gekoelde fles champagne kan op verzoek koud geserveerd worden wanneer je aankomt."),
     ],
+    # Sinds 16/11/2026 niet meer getoond (vraag Martijn): /reserveren toont alleen
+    # nog het boekingssysteem. Bewaard zodat de vragen snel terug kunnen
+    # (faq="reserveren" bij de pagina en de FAQ-sectie uit commit 8695dca); pas dan
+    # de eerste vraag aan, de knop "Agenda op volledig scherm" bestaat niet meer.
     "reserveren": [
         ("Hoe werkt online reserveren?",
          "Kies in de agenda je arrangement, eventuele extra's, de datum en het tijdstip, en vul je gegevens in. Lukt het op je telefoon niet goed? Open de agenda dan op volledig scherm met de knop boven de agenda, of bel ons."),
@@ -556,7 +560,8 @@ PAGES = [
         description="Reserveer online je privésauna en wellness bij Amakhosi in Hamont-Achel. Kies je arrangement, datum en tijdstip, of bel ons op +32 (0)469 217 550.",
         image=("6a8435f545dbba232fa5362a.jpg", 2048, 1365),
         image_alt="Finse sauna met sfeerverlichting",
-        faq="reserveren",
+        # Sinds 16/11/2026 alleen het boekingssysteem: geen FAQ (en dus geen
+        # FAQPage) meer op deze pagina. De vragen staan nog in FAQ["reserveren"].
         booking=True,
     ),
     # Plaatspagina (SEO-plan A13, 12/11/2026). Oude adressen rond Lommel en
@@ -811,6 +816,11 @@ def responsive_images(text):
         text, n = re.subn(r'<link rel="preload" as="image" href="[^"]*" fetchpriority="high">',
                           f'<link rel="preload" as="image" imagesrcset="{srcset.group(1)}" '
                           f'imagesizes="{sizes}" fetchpriority="high">', text)
+        assert n == 1, "preload van het hoofdbeeld niet gevonden"
+    elif not hero:
+        # Pagina zonder hoofdbeeld (/reserveren sinds 16/11/2026): geen preload
+        # van een foto die nergens op de pagina staat.
+        text, n = re.subn(r'\n[ \t]*<link rel="preload" as="image" href="[^"]*" fetchpriority="high">', "", text)
         assert n == 1, "preload van het hoofdbeeld niet gevonden"
     # Komt er geen enkele foto meer uit de mediabibliotheek (JSON-LD telt niet
     # mee, dat laadt de browser niet), dan is de preconnect overbodig.

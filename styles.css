@@ -3011,12 +3011,6 @@ em .amk-w__i {
   color: var(--amk-sun-1);
 }
 
-.amk-summary__legal {
-  margin-top: 16px;
-  font-size: 0.85rem;
-  color: var(--amk-faint);
-}
-
 .amk-footer__legal a { color: var(--amk-muted) !important; }
 .amk-footer__legal a:hover { color: var(--amk-sun-2) !important; }
 
@@ -3259,12 +3253,9 @@ em .amk-w__i {
 
 
 /* --- Reserveren --- */
-.amk-booking__grid {
-  display: grid;
-  gap: 24px;
-  align-items: start;
-}
-
+/* Kader rond een iframe van ons platform. Sinds 16/11/2026 gebruikt alleen de
+   cadeaubon (/cadeaubon) het nog; /reserveren heeft een eigen opmaak zonder
+   kader (.amk-booking hieronder). */
 .amk-booking__frame {
   padding: clamp(10px, 2vw, 18px);
   border-radius: calc(var(--amk-radius-lg) + 8px);
@@ -3283,7 +3274,7 @@ em .amk-w__i {
   background: #fff;
 }
 
-/* Gsm: de agenda past precies op het scherm. Het betaalvenster van de agenda
+/* Gsm: de iframe past precies op het scherm. Het betaalvenster van ons platform
    staat vast binnen de iframe; is de iframe hoger dan het scherm, dan valt de
    knop "Betalen" buiten beeld en kan je er niet naartoe scrollen. */
 @media (max-width: 767.98px) {
@@ -3300,77 +3291,65 @@ em .amk-w__i {
 .amk:has(.amk-booking__frame) .amk-mobilebar,
 .amk:has(.amk-booking__frame) .amk-fab { display: none !important; }
 
-.amk-booking__top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px 16px;
-  padding: 4px 8px 12px;
+/* /reserveren: alleen het boekingssysteem (16/11/2026, vraag Martijn).
+   De agenda begint net onder de vaste header en vult het scherm eronder.
+   Geen kader in een kader: de achtergrond rond en achter de iframe is exact
+   --amk-bg (#1d0000), net als die van het boekingssysteem in ons platform.
+   --amk-booking-top is de hoogte van de header bovenaan de pagina. Op een
+   smalle gsm staat de topbalk op twee regels: scripts.js (deel 18) meet ze. */
+html:has(.amk-booking),
+.amk-booking {
+  --amk-booking-top: calc(var(--amk-topbar-real-h, var(--amk-topbar-h)) + var(--amk-nav-h));
 }
 
-.amk-booking__top .amk-booking__hint { padding: 0; }
+/* Bij elke stap scrolt het boekingssysteem zichzelf in beeld, en daarmee ook
+   de pagina. Met deze ruimte voor de header blijft de pagina dan bovenaan en
+   bedekt de header de agenda niet. Ook /reserveren#agenda opent bovenaan. */
+html:has(.amk-booking) { scroll-padding-top: var(--amk-booking-top); }
 
-.amk-booking__full { flex: none; }
-
-.amk-booking__phone {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 0 8px 14px;
-  padding: 12px 14px;
-  border-radius: var(--amk-radius-sm);
-  border: 1px solid var(--amk-line);
-  background: rgba(251, 178, 57, 0.06);
-  font-size: 0.88rem;
-  color: var(--amk-muted);
+.amk-booking {
+  padding-top: var(--amk-booking-top);
+  background-color: var(--amk-bg);
 }
 
-.amk-booking__phone .amk-icon { margin-top: 2px; color: var(--amk-sun-2); }
-.amk-booking__phone strong { color: var(--amk-text); }
-
-.amk-booking__hint {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 8px 14px;
-  font-size: 0.88rem;
-  color: var(--amk-muted);
+.amk-booking .amk-booking__frame {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--amk-bg);
+  box-shadow: none;
 }
 
-.amk-booking__hint .amk-icon { color: var(--amk-sun-2); }
-
-.amk-summary {
-  padding: 28px 26px;
-  border-radius: var(--amk-radius-lg);
-  background: var(--amk-surface);
-  border: 1px solid var(--amk-line);
+/* Computer: minstens het scherm onder de header. form_embed.js zet de hoogte
+   van de inhoud op de iframe (de eerste stap van de agenda is 900 px hoog);
+   is die hoger, dan scrol je de pagina. Het kader houdt de plaats ook vrij
+   terwijl form_embed.js de iframe nog verborgen houdt (laden). */
+.amk-booking .amk-booking__frame,
+.amk-booking .amk-booking__frame iframe {
+  min-height: calc(100vh - var(--amk-booking-top));
 }
 
-.amk-summary + .amk-summary { margin-top: 16px; }
-
-.amk-summary h2,
-.amk-summary h3 { font-size: 1.4rem; margin-bottom: 14px; }
-
-.amk-summary__row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px dashed var(--amk-line);
+.amk-booking .amk-booking__frame iframe {
+  border-radius: 0;
+  background: var(--amk-bg);
 }
 
-.amk-summary__row:last-child { border-bottom: 0; }
+/* Gsm en tablet: de agenda past precies in het scherm onder de header en je
+   scrolt in de iframe. Het betaalvenster staat vast binnen de iframe; is die
+   hoger dan het scherm, dan valt de knop "Betalen" buiten beeld en kan je er
+   niet naartoe. Ook liggend en op een tablet (aanraakscherm). */
+@media (max-width: 767.98px), (pointer: coarse) {
+  .amk-booking .amk-booking__frame,
+  .amk-booking .amk-booking__frame iframe {
+    min-height: 0;
+    height: calc(100vh - var(--amk-booking-top)) !important;
+    height: calc(100svh - var(--amk-booking-top)) !important;
+  }
+}
 
-.amk-summary__row span { color: var(--amk-muted); font-size: 0.93rem; }
-
-.amk-summary__row strong {
-  font-family: var(--amk-font-display);
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--amk-white);
-  white-space: nowrap;
+/* Gsm: de agenda over de volle breedte */
+@media (max-width: 767.98px) {
+  .amk-booking > .amk-container { padding-inline: 0; }
 }
 
 
@@ -3778,11 +3757,8 @@ em .amk-w__i {
 
   .amk-contact__grid { grid-template-columns: 1fr 1fr; gap: 72px; }
 
-  .amk-booking__grid { grid-template-columns: 1.55fr 1fr; gap: 32px; }
-
   .amk-legal { grid-template-columns: 260px 1fr; gap: 64px; }
   .amk-legal__toc { position: sticky; top: 110px; }
-  .amk-booking__aside { position: sticky; top: 110px; }
 
   .amk-mobilebar { display: none; }
 }

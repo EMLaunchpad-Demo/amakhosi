@@ -1,88 +1,20 @@
     <!-- =================================================================
-         PAGINAHERO
+         AGENDA
+         Sinds 16/11/2026 (vraag Martijn) staat op deze pagina alleen nog
+         het boekingssysteem: wie de pagina opent, ziet meteen de agenda,
+         net onder de header. Geen paginahero, overzicht of FAQ meer.
+         De agenda is de boekingspagina "Amakhosi Reserveren" van ons
+         platform. De achtergrond rond de iframe is exact --amk-bg (#1d0000),
+         net als die van het boekingssysteem: zie styles.css, .amk-booking.
+         Geen scrolling="no" op de iframe: form_embed.js zet scrollen toch
+         aan, en laadt dat script niet, dan kan je zo nog in de agenda scrollen
+         (anders valt op een gsm de onderkant van de agenda weg).
          ================================================================= -->
-    <section class="amk-pagehero amk-pagehero--compact" data-amk-hero aria-labelledby="amk-page-title">
-      <div class="amk-pagehero__bg" aria-hidden="true">
-        <img src="{{M}}6a8435f545dbba232fa5362a.jpg" sizes="@paginahero" alt="" width="2048" height="1365" fetchpriority="high" decoding="async" style="object-position: 60% 50%;">
-      </div>
+    <section class="amk-booking" id="agenda" aria-labelledby="amk-page-title">
+      <h1 class="amk-sr-only" id="amk-page-title">Reserveer je privésauna online</h1>
       <div class="amk-container">
-        <div class="amk-pagehero__inner">
-          {{BREADCRUMBS}}
-          <p class="amk-eyebrow">Reserveren</p>
-          <h1 class="amk-pagehero__title" id="amk-page-title" data-amk-split>Reserveer je <em>privésauna</em> online</h1>
-          <p class="amk-pagehero__slogan">Jouw koninklijke moment, helemaal privé</p>
-          <p class="amk-pagehero__lead">Kies hieronder je arrangement, datum en tijdstip, en de privésauna in Hamont-Achel is helemaal van jou. Liever persoonlijk? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a>.</p>
-          <div class="amk-btn-row">
-            <a class="amk-btn amk-btn--gold amk-btn--shine" href="#agenda" data-amk-magnetic>{{i:calendar}}Naar de agenda</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =================================================================
-         AGENDA + OVERZICHT
-         De agenda is de bestaande GHL-kalender van Amakhosi.
-         ================================================================= -->
-    <section class="amk-section amk-section--deep" id="agenda" aria-labelledby="amk-agenda-title">
-      <div class="amk-container amk-booking__grid">
-        <div class="amk-booking__frame" data-amk-reveal>
-          <h2 class="amk-sr-only" id="amk-agenda-title">Online agenda</h2>
-          <div class="amk-booking__top">
-            <p class="amk-booking__hint">{{i:lock}}Jouw wellness is tijdens je arrangement volledig privé.</p>
-            <a class="amk-btn amk-btn--ghost amk-btn--sm amk-booking__full" href="{{BOOKING_URL}}">{{i:calendar}}Agenda op volledig scherm</a>
-          </div>
-          <p class="amk-booking__phone">{{i:phone}}<span>Typ je gsm-nummer met landcode: <strong>+32 470 12 34 56</strong> (België) of <strong>+31 6 12345678</strong> (Nederland).</span></p>
-          <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" scrolling="no" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
-        </div>
-
-        <aside class="amk-booking__aside" data-amk-stagger="0.1" aria-label="Overzicht">
-          <div class="amk-summary">
-            <h3>Wellness</h3>
-            {{SUMMARY:wellness}}
-          </div>
-          <div class="amk-summary">
-            <h3>Overnachting</h3>
-            {{SUMMARY:nacht}}
-          </div>
-          <div class="amk-summary">
-            <h3>Goed om te weten</h3>
-            <ul class="amk-checks" style="margin: 0;">
-              <li>{{i:check}}Volledig privé, zonder gedeelde ruimtes</li>
-              <li>{{i:check}}Gratis frisdrank, koffie &amp; thee</li>
-              <li>{{i:check}}Gratis privéparking met laadpaal</li>
-              <li>{{i:check}}Extra's kies je mee in de agenda</li>
-              <li>{{i:check}}Planken minstens 1 dag vooraf bestellen</li>
-              <li>{{i:check}}Halal of vegetarisch mogelijk</li>
-            </ul>
-            <a class="amk-link" href="/arrangementen" style="margin-top: 18px;">Bekijk de extra's {{i:arrow}}</a>
-            <p class="amk-summary__legal">Bij het reserveren ga je akkoord met onze <a class="amk-inline-link" href="/algemene-voorwaarden">algemene voorwaarden</a> en ons <a class="amk-inline-link" href="/privacybeleid">privacybeleid</a>.</p>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- =================================================================
-         FAQ
-         ================================================================= -->
-    <section class="amk-section amk-section--line" id="faq" aria-labelledby="amk-faq-title">
-      <div class="amk-container amk-faq__grid">
-        <div class="amk-faq__aside" data-amk-reveal>
-          <p class="amk-eyebrow">Veelgestelde vragen</p>
-          <h2 class="amk-title" id="amk-faq-title">Over <em>reserveren</em></h2>
-          <p>Lukt het niet online of heb je een speciale wens? Bel ons op <a class="amk-inline-link amk-nowrap" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
-          <ul class="amk-contact__info">
-            <li>
-              <span class="amk-icon-wrap">{{i:pin}}</span>
-              <div><small>Adres</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Watertorenstraat+64+3930+Hamont-Achel" target="_blank" rel="noopener">Watertorenstraat 64, 3930 Hamont-Achel</a></div>
-            </li>
-            <li>
-              <span class="amk-icon-wrap">{{i:clock}}</span>
-              <div><small>Openingstijden</small><span>Op afspraak</span></div>
-            </li>
-          </ul>
-          <p style="margin-top: 22px;">Kom je uit de buurt van Pelt, Lommel, Bree of Bocholt? Lees meer over <a class="amk-inline-link" href="/privesauna-pelt-lommel">je privésauna vlak bij Pelt en Lommel</a>.</p>
-        </div>
-        <div class="amk-faq__list" data-amk-accordion data-amk-stagger="0.06">{{FAQ:reserveren}}
+        <div class="amk-booking__frame">
+          <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
         </div>
       </div>
     </section>

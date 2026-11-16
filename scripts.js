@@ -19,7 +19,7 @@
    15. Mobiele CTA-balk + vaste reserveerknop rechtsonder
    16. Terug naar boven + jaartal
    17. Cadeaubon: checkout laden als ze in beeld komt
-   18. Reserveren: agenda meteen op een deal (?deal=...)
+   18. Reserveren: agenda meteen op een deal (?deal=...), net onder de header
    ========================================================================== */
 (function () {
   'use strict';
@@ -711,16 +711,27 @@
     });
 
     /* ------------------------------------------------------------------
-       18. Reserveren: met ?deal=... opent de agenda meteen op die deal
+       18. Reserveren: met ?deal=... opent de agenda meteen op die deal;
+           de agenda begint net onder de header
        ------------------------------------------------------------------ */
     var deals = { winterdagen: 'koninklijke-winterdagen', uitslapen: 'koninklijk-uitslapen' };
     var deal = deals[new URLSearchParams(window.location.search).get('deal')];
     var agenda = doc.querySelector('.amk-booking__frame iframe');
     if (deal && agenda) {
-      var dealUrl = 'https://api.leadconnectorhq.com/booking/amakhosi/sv/' + deal;
-      agenda.src = dealUrl + '?heightMode=fixed&showHeader=true';
-      var full = doc.querySelector('.amk-booking__full');
-      if (full) full.href = dealUrl + '?showHeader=true';
+      agenda.src = 'https://api.leadconnectorhq.com/booking/amakhosi/sv/' + deal + '?heightMode=fixed&showHeader=true';
+    }
+
+    // De agenda begint net onder de header (styles.css, .amk-booking). Op een
+    // smalle gsm staat de topbalk op twee regels: meet haar echte hoogte, ook
+    // na het laden van het lettertype en bij draaien of schalen.
+    var topbarLink = doc.querySelector('.amk-booking') && doc.querySelector('.amk-topbar a');
+    if (topbarLink) {
+      var setTopbar = function () {
+        root.style.setProperty('--amk-topbar-real-h', topbarLink.getBoundingClientRect().height + 'px');
+      };
+      setTopbar();
+      if ('ResizeObserver' in window) new ResizeObserver(setTopbar).observe(topbarLink);
+      else window.addEventListener('resize', setTopbar);
     }
 
     // Start

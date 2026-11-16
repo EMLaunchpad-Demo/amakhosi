@@ -68,7 +68,7 @@ uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
 | Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
 | Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
 | Privésauna bij Pelt en Lommel | `/privesauna-pelt-lommel` | `privesauna-pelt-lommel.html` | Plaatspagina (SEO-plan A13): ligging en kaart, wat je krijgt, arrangementen en prijzen, lopende deals (link naar `/koninklijke-deals`), FAQ. Oude adressen over Lommel en Bocholt wijzen hierheen |
-| Reserveren | `/reserveren` | `reserveren.html` | De bestaande GHL-agenda in de nieuwe stijl, prijsoverzicht, goed om te weten, FAQ |
+| Reserveren | `/reserveren` | `reserveren.html` | Alleen het boekingssysteem van ons platform, meteen onder de header (sinds 16/11/2026, vraag Martijn). Geen paginahero, prijsoverzicht of FAQ meer; de H1 is visueel verborgen |
 | Algemene voorwaarden | `/algemene-voorwaarden` | `algemene-voorwaarden.html` | Ontwerp met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 | Privacybeleid | `/privacybeleid` | `privacybeleid.html` | Ontwerp (AVG/GDPR) met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 
@@ -97,7 +97,8 @@ Per pagina:
 **Gestructureerde data (JSON-LD)** op elke pagina, automatisch uit dezelfde gegevens als de
 pagina zelf: `DaySpa` (adres, geo, kaart, voorzieningen, prijsklasse, alle 5 arrangementen
 als `Offer`), `WebSite`, `WebPage`, `BreadcrumbList`, plus `FAQPage` (home, arrangementen,
-prijslijst, reserveren), `OfferCatalog` (prijslijst) en `ImageGallery` (impressie).
+prijslijst; sinds 16/11/2026 niet meer op reserveren), `OfferCatalog` (prijslijst) en
+`ImageGallery` (impressie).
 
 Ook meegeleverd: `sitemap.xml` (met afbeeldingen) en `robots.txt`.
 
@@ -234,9 +235,11 @@ Deze punten zitten in de GHL-instellingen van de agenda en e-mails, niet in de w
   de namen gelijk zetten, bv. *(5 uur)* en *(6 uur)* i.p.v. *(5 uurtjes)*.
 
 De website toont sinds deze versie dezelfde namen, prijzen (inclusief **Extra long stay, 6 uur,
-€ 279**) en extra's als de agenda, de juiste duur van de overnachtingen (14 en 16 uur), een
-vaste **Reserveer**-knop rechtsonder op de computer, een knop **Agenda op volledig scherm**
-(handig op telefoons, ook voor de betaalpagina) en een tip voor Nederlandse telefoonnummers.
+€ 279**) en extra's als de agenda, de juiste duur van de overnachtingen (14 en 16 uur) en een
+vaste **Reserveer**-knop rechtsonder op de computer. De knop **Agenda op volledig scherm** en de
+tip voor Nederlandse telefoonnummers staan sinds 16/11/2026 niet meer op `/reserveren`: die
+pagina toont alleen nog het boekingssysteem. Op een gsm (en op een tablet) past de agenda precies
+in het scherm onder de header, zodat de knop "Betalen" altijd bereikbaar blijft.
 
 ## 8. Giraffepatroon als afbeelding
 
