@@ -3296,15 +3296,26 @@ em .amk-w__i {
    Geen kader in een kader: de achtergrond rond en achter de iframe is exact
    --amk-bg (#1d0000), net als die van het boekingssysteem in ons platform.
    --amk-booking-top is de hoogte van de header bovenaan de pagina. Op een
-   smalle gsm staat de topbalk op twee regels: scripts.js (deel 18) meet ze. */
-html:has(.amk-booking),
-.amk-booking {
+   smalle gsm staat de topbalk op twee regels: scripts.js (deel 18) meet ze.
+   --amk-booking-vh is de schermhoogte: 100svh als de browser dat kent,
+   anders 100vh.
+   Bewust op :root en zonder :has(): een browser die :has() niet kent, laat
+   de hele regel vallen (de agenda kwam dan onder de header). En een tweede
+   height-regel als terugval werkt niet met var(): die wint altijd en wordt
+   zonder svh 'auto' (een iframe van 150 px). */
+:root {
   --amk-booking-top: calc(var(--amk-topbar-real-h, var(--amk-topbar-h)) + var(--amk-nav-h));
+  --amk-booking-vh: 100vh;
+}
+
+@supports (height: 100svh) {
+  :root { --amk-booking-vh: 100svh; }
 }
 
 /* Bij elke stap scrolt het boekingssysteem zichzelf in beeld, en daarmee ook
    de pagina. Met deze ruimte voor de header blijft de pagina dan bovenaan en
-   bedekt de header de agenda niet. Ook /reserveren#agenda opent bovenaan. */
+   bedekt de header de agenda niet. Ook /reserveren#agenda opent bovenaan.
+   Zonder :has() valt alleen deze extra weg. */
 html:has(.amk-booking) { scroll-padding-top: var(--amk-booking-top); }
 
 .amk-booking {
@@ -3342,14 +3353,28 @@ html:has(.amk-booking) { scroll-padding-top: var(--amk-booking-top); }
   .amk-booking .amk-booking__frame,
   .amk-booking .amk-booking__frame iframe {
     min-height: 0;
-    height: calc(100vh - var(--amk-booking-top)) !important;
-    height: calc(100svh - var(--amk-booking-top)) !important;
+    height: calc(var(--amk-booking-vh) - var(--amk-booking-top)) !important;
   }
 }
 
-/* Gsm: de agenda over de volle breedte */
-@media (max-width: 767.98px) {
+/* Liggende gsm (laag aanraakscherm): op deze pagina geen topbalk "Koninklijke
+   deals", zodat de agenda 38 px meer plaats krijgt. scripts.js (deel 18) meet
+   dan 0 px; de 0px hieronder geldt als scripts.js niet laadt. Kent een
+   browser :has() niet, dan blijft de topbalk staan en klopt de hoogte ook. */
+@media (max-height: 500px) and (pointer: coarse) {
+  html:has(.amk-booking) { --amk-topbar-real-h: 0px; }
+  html:has(.amk-booking) .amk-topbar { display: none; }
+}
+
+/* Gsm, ook liggend: de agenda over de volle breedte */
+@media (max-width: 767.98px), (max-height: 500px) and (pointer: coarse) {
   .amk-booking > .amk-container { padding-inline: 0; }
+}
+
+/* Alleen zonder JavaScript zichtbaar (noscript) */
+.amk-booking__noscript {
+  padding: 20px var(--amk-gutter);
+  text-align: center;
 }
 
 

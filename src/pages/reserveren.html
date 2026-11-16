@@ -9,10 +9,44 @@
          Geen scrolling="no" op de iframe: form_embed.js zet scrollen toch
          aan, en laadt dat script niet, dan kan je zo nog in de agenda scrollen
          (anders valt op een gsm de onderkant van de agenda weg).
+
+         form_embed.js (hoogte van de agenda) laadt async: een traag script
+         houdt zo de pagina niet tegen. Het script verbergt de iframe en toont
+         ze pas als het boekingssysteem zich meldt ("fetch-query-params").
+         Kwam die melding al voor het script er was, dan bleef de agenda
+         voorgoed verborgen (gezien op 16/11/2026). Het kleine script hieronder
+         onthoudt zo'n gemiste melding en toont de agenda dan zelf, zodra
+         form_embed.js geladen is. scripts.js (deel 18) heeft nog een vangnet
+         na 6 s. build.py laat de reserveerlinks op deze pagina naar #agenda
+         gaan (niet herladen). De noscript-regel zie je alleen zonder
+         JavaScript (dan werkt het boekingssysteem niet).
          ================================================================= -->
+    <script>
+      (function () {
+        var klaar = false, gemist = false;
+        addEventListener("message", function (e) {
+          if (!klaar && e.data && e.data[0] === "fetch-query-params") gemist = true;
+        });
+        function toon() {
+          var f = document.querySelector(".amk-booking iframe");
+          if (!f || f.style.visibility !== "hidden") return;
+          ["opacity", "visibility", "pointer-events", "position", "left"].forEach(function (p) { f.style.removeProperty(p); });
+        }
+        window.amkEmbedGeladen = function () {
+          klaar = true;
+          if (!gemist) return;
+          if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", toon);
+          else toon();
+        };
+      })();
+    </script>
+    <script async src="https://link.msgsndr.com/js/form_embed.js" onload="window.amkEmbedGeladen &amp;&amp; amkEmbedGeladen()"></script>
     <section class="amk-booking" id="agenda" aria-labelledby="amk-page-title">
       <h1 class="amk-sr-only" id="amk-page-title">Reserveer je privésauna online</h1>
       <div class="amk-container">
+        <noscript>
+          <p class="amk-booking__noscript">De online agenda werkt alleen met JavaScript. Bel ons op <a class="amk-inline-link" href="tel:{{TEL}}">{{PHONE}}</a> of mail naar <a class="amk-inline-link" href="mailto:{{EMAIL}}">{{EMAIL}}</a>.</p>
+        </noscript>
         <div class="amk-booking__frame">
           <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
         </div>

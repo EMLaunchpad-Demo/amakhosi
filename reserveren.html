@@ -121,7 +121,7 @@
             <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-phone"/></svg><span class="amk-nav__phone-num">+32 (0)469 217 550</span>
           </a>
           <a class="amk-icon-btn amk-nav__call" href="tel:+32469217550" aria-label="Bel Amakhosi: +32 (0)469 217 550"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-phone"/></svg></a>
-          <a class="amk-btn amk-btn--gold amk-btn--sm amk-nav__cta" href="/reserveren" data-amk-magnetic>
+          <a class="amk-btn amk-btn--gold amk-btn--sm amk-nav__cta" href="#agenda" data-amk-magnetic>
             <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer
           </a>
           <button class="amk-menu-btn" type="button" aria-expanded="false" aria-controls="amk-menu" aria-label="Menu openen" data-amk-menu-btn>
@@ -143,20 +143,43 @@
         <li><a href="/koninklijke-deals"><span class="amk-menu__num">05</span>Koninklijke deals<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/cadeaubon"><span class="amk-menu__num">06</span>Cadeaubon<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         <li><a href="/blog"><span class="amk-menu__num">07</span>Blog<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
-        <li><a href="/reserveren" aria-current="page"><span class="amk-menu__num">08</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+        <li><a href="#agenda" aria-current="page"><span class="amk-menu__num">08</span>Reserveren<svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
       </ul>
     </nav>
     <div class="amk-menu__footer">
-      <a class="amk-btn amk-btn--gold amk-btn--block" href="/reserveren"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer jouw moment</a>
+      <a class="amk-btn amk-btn--gold amk-btn--block" href="#agenda"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-calendar"/></svg>Reserveer jouw moment</a>
       <a class="amk-btn amk-btn--ghost amk-btn--block" href="tel:+32469217550"><svg class="amk-icon" aria-hidden="true"><use href="#amk-i-phone"/></svg>+32 (0)469 217 550</a>
       <p class="amk-menu__meta">Watertorenstraat 64, 3930 Hamont-Achel · Op afspraak</p>
     </div>
   </div>
 
   <main id="amk-main">
+    <script>
+      (function () {
+        var klaar = false, gemist = false;
+        addEventListener("message", function (e) {
+          if (!klaar && e.data && e.data[0] === "fetch-query-params") gemist = true;
+        });
+        function toon() {
+          var f = document.querySelector(".amk-booking iframe");
+          if (!f || f.style.visibility !== "hidden") return;
+          ["opacity", "visibility", "pointer-events", "position", "left"].forEach(function (p) { f.style.removeProperty(p); });
+        }
+        window.amkEmbedGeladen = function () {
+          klaar = true;
+          if (!gemist) return;
+          if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", toon);
+          else toon();
+        };
+      })();
+    </script>
+    <script async src="https://link.msgsndr.com/js/form_embed.js" onload="window.amkEmbedGeladen &amp;&amp; amkEmbedGeladen()"></script>
     <section class="amk-booking" id="agenda" aria-labelledby="amk-page-title">
       <h1 class="amk-sr-only" id="amk-page-title">Reserveer je privésauna online</h1>
       <div class="amk-container">
+        <noscript>
+          <p class="amk-booking__noscript">De online agenda werkt alleen met JavaScript. Bel ons op <a class="amk-inline-link" href="tel:+32469217550">+32 (0)469 217 550</a> of mail naar <a class="amk-inline-link" href="mailto:info@amakhosi.be">info@amakhosi.be</a>.</p>
+        </noscript>
         <div class="amk-booking__frame">
           <iframe src="https://api.leadconnectorhq.com/booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L?heightMode=fixed&amp;showHeader=true" title="Online reserveren bij Amakhosi" allow="payment" id="4jpwBFxC0goDq4tb5x6L_1793297206779"></iframe>
         </div>
@@ -179,7 +202,7 @@
           <li><a href="/prijslijst">Prijslijst</a></li>
           <li><a href="/koninklijke-deals">Koninklijke deals</a></li><li><a href="/cadeaubon">Cadeaubon</a></li>
           <li><a href="/blog">Blog</a></li>
-          <li><a href="/reserveren">Online reserveren</a></li>
+          <li><a href="#agenda">Online reserveren</a></li>
         </ul>
       </div>
       <div>
@@ -196,7 +219,7 @@
         <h2>Openingstijden</h2>
         <ul>
           <li>Op afspraak, reserveren is nodig</li>
-          <li><a class="amk-link" href="/reserveren">Reserveer online <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
+          <li><a class="amk-link" href="#agenda">Reserveer online <svg class="amk-icon" aria-hidden="true"><use href="#amk-i-arrow"/></svg></a></li>
         </ul>
         <h2 style="margin-top: 28px;">Volg ons</h2>
         <div class="amk-btn-row">
@@ -497,7 +520,6 @@
   ]
 }
   </script>
-  <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
 </div>
 

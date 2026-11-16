@@ -1645,9 +1645,12 @@ def build_page(page):
     body = (SRC / "pages" / page["src"]).read_text(encoding="utf-8")
     if "{{TOC}}" in body:
         body = body.replace("{{TOC}}", toc(body))
-    booking_script = ""
     if page.get("booking"):
-        booking_script = '\n  <script src="https://link.msgsndr.com/js/form_embed.js"></script>'
+        # form_embed.js staat sinds 16/11/2026 in de paginabron zelf, async en
+        # met een opvang voor een gemiste melding (zie src/pages/reserveren.html).
+        # Eén keer per pagina (kennis hoofdstuk 04).
+        n = body.count('src="https://link.msgsndr.com/js/form_embed.js"')
+        assert n == 1, page["src"] + ": het script form_embed.js moet er precies één keer in staan"
     doc = f"""<!DOCTYPE html>
 <html lang="nl-BE">
 {head(page)}
@@ -1678,7 +1681,7 @@ def build_page(page):
   <!-- Gestructureerde data voor Google -->
   <script type="application/ld+json">
 {jsonld(page)}
-  </script>{booking_script}
+  </script>
 
 </div>
 <!-- =====================================================================
@@ -1690,6 +1693,10 @@ def build_page(page):
 </html>
 """
     out = strip_comments(responsive_images(only_published(render(doc, page))))
+    if page.get("booking"):
+        # Op de pagina met de agenda zelf gaan de reserveerlinks (header, menu,
+        # footer) naar #agenda: herladen zou de keuzes in de agenda wissen.
+        out = out.replace(f'href="{page["path"]}"', 'href="#agenda"')
     target = ROOT / page["out"]
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(out, encoding="utf-8")

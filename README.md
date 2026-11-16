@@ -68,7 +68,7 @@ uitgeschakeld bij *verminderde beweging* in het besturingssysteem.
 | Prijslijst | `/prijslijst` | `prijslijst.html` | Wellness- en overnachtingsprijzen, vergelijkingstabel, extra's, FAQ |
 | Koninklijke deals | `/koninklijke-deals` | `koninklijke-deals.html` | Deal-kaarten (in te vullen), altijd inbegrepen, contact + kaart |
 | Privésauna bij Pelt en Lommel | `/privesauna-pelt-lommel` | `privesauna-pelt-lommel.html` | Plaatspagina (SEO-plan A13): ligging en kaart, wat je krijgt, arrangementen en prijzen, lopende deals (link naar `/koninklijke-deals`), FAQ. Oude adressen over Lommel en Bocholt wijzen hierheen |
-| Reserveren | `/reserveren` | `reserveren.html` | Alleen het boekingssysteem van ons platform, meteen onder de header (sinds 16/11/2026, vraag Martijn). Geen paginahero, prijsoverzicht of FAQ meer; de H1 is visueel verborgen |
+| Reserveren | `/reserveren` | `reserveren.html` | Alleen het boekingssysteem van ons platform, meteen onder de header (sinds 16/11/2026, vraag Martijn). Geen paginahero, prijsoverzicht of FAQ meer; de H1 is visueel verborgen. De reserveerlinks op de pagina zelf gaan naar `#agenda` (niet herladen) |
 | Algemene voorwaarden | `/algemene-voorwaarden` | `algemene-voorwaarden.html` | Ontwerp met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 | Privacybeleid | `/privacybeleid` | `privacybeleid.html` | Ontwerp (AVG/GDPR) met inhoudsopgave; gemarkeerde stukken nog in te vullen |
 
@@ -197,7 +197,11 @@ De originele foto's en het logo staan in de GHL-mediabibliotheek van Amakhosi (`
 
 > Op de pagina **Reserveren** staat de GHL-boekingspagina *Amakhosi Reserveren*
 > (`booking/amakhosi/bp/4jpwBFxC0goDq4tb5x6L`, alleen de 6 gewone diensten, sinds 29/10/2026)
-> al in de code, inclusief het script dat de hoogte van de agenda automatisch aanpast.
+> al in de code, inclusief het script dat de hoogte van de agenda automatisch aanpast
+> (`form_embed.js`, async). Dat script toont de iframe pas als het boekingssysteem zich
+> meldt; kwam die melding al voor het script er was, dan bleef de agenda verborgen. Een klein
+> script vlak voor de agenda onthoudt zo'n gemiste melding en toont de agenda dan zelf, en
+> `scripts.js` deel 18 toont ze na 6 s toch, als ze dan nog verborgen is.
 > De deal-knoppen (`/reserveren?deal=...`) openen via `scripts.js` deel 18 de deal-dienst
 > rechtstreeks (`booking/amakhosi/sv/<slug>`). De hoofdboekingspagina `booking/amakhosi`
 > toont alle openbare diensten, ook de deals: link er niet meer naar.
@@ -239,7 +243,8 @@ De website toont sinds deze versie dezelfde namen, prijzen (inclusief **Extra lo
 vaste **Reserveer**-knop rechtsonder op de computer. De knop **Agenda op volledig scherm** en de
 tip voor Nederlandse telefoonnummers staan sinds 16/11/2026 niet meer op `/reserveren`: die
 pagina toont alleen nog het boekingssysteem. Op een gsm (en op een tablet) past de agenda precies
-in het scherm onder de header, zodat de knop "Betalen" altijd bereikbaar blijft.
+in het scherm onder de header, zodat de knop "Betalen" altijd bereikbaar blijft. Op een liggende
+gsm valt daar de topbalk *Koninklijke deals* weg, zodat de agenda meer plaats heeft.
 
 ## 8. Giraffepatroon als afbeelding
 

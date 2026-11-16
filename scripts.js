@@ -723,7 +723,8 @@
 
     // De agenda begint net onder de header (styles.css, .amk-booking). Op een
     // smalle gsm staat de topbalk op twee regels: meet haar echte hoogte, ook
-    // na het laden van het lettertype en bij draaien of schalen.
+    // na het laden van het lettertype en bij draaien of schalen. Op een
+    // liggende gsm is de topbalk verborgen: dan is ze 0 px.
     var topbarLink = doc.querySelector('.amk-booking') && doc.querySelector('.amk-topbar a');
     if (topbarLink) {
       var setTopbar = function () {
@@ -731,7 +732,20 @@
       };
       setTopbar();
       if ('ResizeObserver' in window) new ResizeObserver(setTopbar).observe(topbarLink);
-      else window.addEventListener('resize', setTopbar);
+      window.addEventListener('resize', setTopbar);
+    }
+
+    // Laatste vangnet (naast de opvang in src/pages/reserveren.html):
+    // form_embed.js verbergt de agenda tot het boekingssysteem zich meldt.
+    // Blijft ze na 6 s toch verborgen, toon ze dan zelf, zoals bij Bambine.
+    // Komt de melding later, dan verandert er niets.
+    if (agenda && doc.querySelector('.amk-booking')) {
+      window.setTimeout(function () {
+        if (agenda.style.visibility !== 'hidden') return;
+        ['opacity', 'visibility', 'pointer-events', 'position', 'left'].forEach(function (p) {
+          agenda.style.removeProperty(p);
+        });
+      }, 6000);
     }
 
     // Start
