@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://amakhosi.be/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-wellnessruimte-whirlpool-1920.webp</image:loc></image:image>
@@ -59,31 +59,31 @@
   </url>
   <url>
     <loc>https://amakhosi.be/blog</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-muurschildering-slaapsuite-1920.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://amakhosi.be/blog/privesauna-met-overnachting-limburg</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://amakhosi.be/blog/wellness-cadeaubon-voor-2</loc>
+    <lastmod>2026-11-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-slaapsuite-1920.webp</image:loc></image:image>
+    <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-champagne-sfeerhaard-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/blog/privesauna-met-jacuzzi</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-wellnessruimte-whirlpool-1920.webp</image:loc></image:image>
   </url>
   <url>
-    <loc>https://amakhosi.be/blog/wellness-cadeaubon-voor-2</loc>
-    <lastmod>2026-11-02</lastmod>
+    <loc>https://amakhosi.be/blog/privesauna-met-overnachting-limburg</loc>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-champagne-sfeerhaard-1920.webp</image:loc></image:image>
+    <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-slaapsuite-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/blog/privesauna-in-de-winter</loc>
