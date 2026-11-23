@@ -278,13 +278,14 @@ FAQ["cadeaubon"] = [
 ]
 
 # SEO-plan A8 (12/11/2026): extra vragen op de home en /reserveren, alleen met
-# bevestigde feiten. Meeting 31/10/2026: badjassen en badslippers liggen klaar,
-# douchegel en shampoo ook; last minute boeken mag. NIET vermelden zolang de
-# klant het niet bevestigt: handdoeken, het maximum aantal personen, openingsuren
-# en de geldigheid van de cadeaubon.
+# bevestigde feiten. Meeting 31/10/2026: badjassen liggen klaar, douchegel en
+# shampoo ook; last minute boeken mag. Mail Patrick 15/11/2026: geen badslippers,
+# wel handdoeken (aangepast 23/11/2026). NIET vermelden zolang de klant het niet
+# bevestigt: badslippers, het maximum aantal personen, openingsuren en de
+# geldigheid van de cadeaubon.
 FAQ_KLAAR = (
-    "Liggen er badjassen en badslippers klaar?",
-    "Ja. Badjassen en badslippers liggen voor je klaar, net als douchegel en shampoo.")
+    "Liggen er badjassen en handdoeken klaar?",
+    "Ja. Badjassen en handdoeken liggen voor je klaar, net als douchegel en shampoo.")
 
 
 def faq_last_minute(agenda):
@@ -331,8 +332,8 @@ FAQ["pelt-lommel"] = [
     ("Is de wellness echt alleen voor ons?",
      "Ja. Tijdens je arrangement heb je de Finse sauna, het stoombad, de whirlpool, de inloopdouche en de "
      "lounge voor jezelf. Er zijn geen gedeelde ruimtes en geen andere gasten."),
-    ("Moet ik een badjas of badslippers meebrengen?",
-     "Nee. Badjassen en badslippers liggen voor je klaar, net als douchegel en shampoo."),
+    ("Moet ik een badjas of handdoeken meebrengen?",
+     "Nee. Badjassen en handdoeken liggen voor je klaar, net als douchegel en shampoo."),
     faq_last_minute('<a href="/reserveren">online agenda</a>'),
 ]
 

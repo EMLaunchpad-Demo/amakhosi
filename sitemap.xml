@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://amakhosi.be/</loc>
-    <lastmod>2026-11-20</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-wellnessruimte-whirlpool-1920.webp</image:loc></image:image>
@@ -45,7 +45,7 @@
   </url>
   <url>
     <loc>https://amakhosi.be/privesauna-pelt-lommel</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-whirlpool-sfeerhaard-1920.webp</image:loc></image:image>
