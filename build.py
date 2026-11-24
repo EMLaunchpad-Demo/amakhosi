@@ -32,6 +32,11 @@ SRC = ROOT / "src"
 SITE = "https://amakhosi.be"
 MEDIA = "https://assets.cdn.filesafe.space/8mwRjKt9TFTVWGHrrl0R/media/"
 LOGO = MEDIA + "6a8428d4acc26e1326c1092e.png"
+# Logo voor de gestructureerde data (AMAS-9, 24/11/2026): een eigen PNG op de
+# site, zodat het logo in Google niet afhangt van de mediabibliotheek. Google
+# aanvaardt geen SVG en wil minstens 112x112 px. Gemaakt uit
+# assets/foto/amakhosi-logo-1096.webp (zelfde beeld als LOGO).
+LOGO_SCHEMA = SITE + "/assets/foto/amakhosi-logo-480.png"
 
 # Foto's (SEO-plan A15, 12/11/2026). De originelen in de mediabibliotheek
 # (MEDIA) wegen tot 2,1 MB. beelden.py maakt er verkleinde WebP-versies van in
@@ -631,6 +636,19 @@ if BLOG_LIVE:
             article=_a, reserve_href=_a.get("reserve_href"),
         ))
 PAGES += LEGAL_PAGES
+
+# 404-pagina (AMAS-5, 24/11/2026). Staat bewust niet in PAGES: geen sitemap,
+# geen redirects, noindex. Cloudflare toont ze bij elk onbekend adres dankzij
+# "not_found_handling": "404-page" in wrangler.jsonc. Alle links in
+# src/pages/404.html zijn absoluut (/...), want de pagina kan op elk pad staan.
+NOT_FOUND_PAGE = dict(
+    key="404", src="404.html", out="404.html", path="/404", crumb="Pagina niet gevonden",
+    noindex=True,
+    title="Pagina niet gevonden | Amakhosi Hamont-Achel",
+    description="Deze pagina bestaat niet (meer). Ga naar de home, bekijk de arrangementen of reserveer je privésauna bij Amakhosi in Hamont-Achel.",
+    image=("6a8435f545dbba232fa5362a.jpg", 2048, 1365),
+    image_alt="Finse sauna van Amakhosi",
+)
 
 GALLERY = [
     ("6a84993662d4d706d4110075.jpg", 2048, 1292, "Wellnessruimte met whirlpool, zebramuur en doorkijk naar het stoombad"),
@@ -1286,21 +1304,21 @@ def offers():
     for p in WELLNESS:
         out.append({
             "@type": "Offer",
-            "name": f"{p['name']} — {p['time']} privéwellness",
+            "name": f"{p['name']}: {p['time']} privéwellness",
             "price": str(p["price"]),
             "priceCurrency": "EUR",
             "url": SITE + "/prijslijst",
             "availability": "https://schema.org/InStock",
             "itemOffered": {
                 "@type": "Service",
-                "name": f"Privésauna & wellness — {p['time']}",
+                "name": f"Privésauna & wellness: {p['time']}",
                 "description": p["desc"] + " Volledig privé: Finse sauna, stoombad, whirlpool, inloopdouche en lounge.",
             },
         })
     for p in NACHT:
         out.append({
             "@type": "Offer",
-            "name": f"{p['name']} — overnachting {p['time'].replace(' – ', '-')} ({p['hours']} uur)",
+            "name": f"{p['name']}: overnachting {p['time'].replace(' – ', '-')} ({p['hours']} uur)",
             "price": str(p["price"]),
             "priceCurrency": "EUR",
             "url": SITE + "/prijslijst",
@@ -1325,7 +1343,7 @@ def business_node():
         "url": SITE + "/",
         "telephone": PHONE_TEL,
         "email": EMAIL,
-        "logo": LOGO,
+        "logo": LOGO_SCHEMA,
         "image": [absoluut(foto_groot(f)[0]) for f in (
             "6a84993662d4d706d4110075.jpg", "6a84993b96d2b224d38addc6.jpg",
             "6a8435f545dbba232fa5362a.jpg", "6a849936b71315ed5245054d.jpg")],
@@ -1481,6 +1499,15 @@ def head(page):
         og_article = (f'\n  <meta property="article:published_time" content="{iso_time(a["date"])}">'
                       f'\n  <meta property="article:modified_time" content="{iso_time(a["modified"])}">'
                       f'\n  <meta property="article:section" content="{esc(a["eyebrow"])}">')
+    if page.get("noindex"):
+        # 404-pagina (AMAS-5): niet indexeren, geen canonical of hreflang
+        # (ze wordt op elk onbekend adres getoond).
+        seo = '<meta name="robots" content="noindex, follow">'
+    else:
+        seo = (f'<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">'
+               f'\n  <link rel="canonical" href="{url}">'
+               f'\n  <link rel="alternate" hreflang="nl-BE" href="{url}">'
+               f'\n  <link rel="alternate" hreflang="x-default" href="{url}">')
     return f"""<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -1488,10 +1515,7 @@ def head(page):
   <!-- ===== SEO ===== -->
   <title>{esc(page["title"])}</title>
   <meta name="description" content="{esc(page["description"])}">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="{url}">
-  <link rel="alternate" hreflang="nl-BE" href="{url}">
-  <link rel="alternate" hreflang="x-default" href="{url}">
+  {seo}
   <meta name="author" content="{BLOG_AUTHOR_NAME + ', gastvrouw van Amakhosi' if page.get('article') else 'Amakhosi'}">
   <meta name="theme-color" content="#1d0000">
   <meta name="format-detection" content="telephone=yes">
@@ -1654,6 +1678,12 @@ def build_page(page):
         # Eén keer per pagina (kennis hoofdstuk 04).
         n = body.count('src="https://link.msgsndr.com/js/form_embed.js"')
         assert n == 1, page["src"] + ": het script form_embed.js moet er precies één keer in staan"
+    # De 404-pagina (noindex) krijgt geen gestructureerde data.
+    ld_block = "" if page.get("noindex") else f"""  <!-- Gestructureerde data voor Google -->
+  <script type="application/ld+json">
+{jsonld(page)}
+  </script>
+"""
     doc = f"""<!DOCTYPE html>
 <html lang="nl-BE">
 {head(page)}
@@ -1681,11 +1711,7 @@ def build_page(page):
 
 {{{{PARTIAL:mobilebar}}}}
 
-  <!-- Gestructureerde data voor Google -->
-  <script type="application/ld+json">
-{jsonld(page)}
-  </script>
-
+{ld_block}
 </div>
 <!-- =====================================================================
      EINDE GHL-PLAKBLOK
@@ -1771,6 +1797,8 @@ def build_sitemap():
 # slash op het einde. Doel is altijd een pagina uit de sitemap (geen ketens).
 OLD_REDIRECTS = [
     ("/home", "/"),
+    # AMAS-5 (24/11/2026): /contact gaf een lege 404; de home heeft id="contact".
+    ("/contact", "/#contact"),
     ("/privesauna-hamont-achel", "/"),
     # Lommel en Bocholt: naar de plaatspagina (SEO-plan A13, 12/11/2026)
     ("/privesauna-lommel", "/privesauna-pelt-lommel"),
@@ -1838,6 +1866,26 @@ def build_redirects():
     (ROOT / "_redirects").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def build_headers():
+    """_headers voor Cloudflare (AMAS-6, 24/11/2026): browsercache.
+
+    Foto's en favicons 30 dagen: hun namen hebben geen hash, dus wie een foto
+    vervangt, geeft ze een nieuwe naam. CSS en JS 1 dag. HTML houdt de
+    standaard van Cloudflare (altijd opnieuw nakijken). Niet in .assetsignore
+    zetten: Cloudflare leest het bestand en serveert het zelf niet.
+    """
+    lang = "public, max-age=2592000"
+    dag = "public, max-age=86400"
+    regels = [("/assets/*", lang)]
+    regels += [(f"/{n}", lang) for n in
+               ("favicon.ico", "favicon-48.png", "favicon-192.png", "apple-touch-icon.png")]
+    regels += [("/styles.css", dag), ("/scripts.js", dag)]
+    lines = ["# Gegenereerd door build.py: niet met de hand aanpassen."]
+    for pad, waarde in regels:
+        lines += [pad, f"  Cache-Control: {waarde}"]
+    (ROOT / "_headers").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def clean_blog():
     """Blogpagina's die (nog) niet gepubliceerd zijn weghalen, bv. na een
     build met --voorbeeld, zodat ze niet per ongeluk online komen."""
@@ -1868,6 +1916,10 @@ if __name__ == "__main__":
     print("gebouwd: sitemap.xml")
     build_redirects()
     print("gebouwd: _redirects")
+    build_page(NOT_FOUND_PAGE)
+    print("gebouwd: 404.html")
+    build_headers()
+    print("gebouwd: _headers")
     later = [a for a in BLOG if a["slug"] not in BLOG_SLUGS_LIVE]
     print(f"blog: {len(BLOG_LIVE)} gepubliceerd" + (", later: " + ", ".join(
         f'{a["slug"]} ({a["date"]})' for a in later) if later else ""))

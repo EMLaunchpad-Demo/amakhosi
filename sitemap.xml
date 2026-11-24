@@ -3,63 +3,63 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://amakhosi.be/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-wellnessruimte-whirlpool-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/privesauna-wellness-impressie</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-lounge-loungebed-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/arrangementen</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-champagne-sfeerhaard-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/prijslijst</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-whirlpool-sfeerhaard-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/koninklijke-deals</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-loungebed-rozenblaadjes-1024.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/reserveren</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-finse-sauna-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/privesauna-pelt-lommel</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-whirlpool-sfeerhaard-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/cadeaubon</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-lounge-loungebed-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/blog</loc>
-    <lastmod>2026-11-20</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-muurschildering-slaapsuite-1920.webp</image:loc></image:image>
@@ -94,14 +94,14 @@
   </url>
   <url>
     <loc>https://amakhosi.be/algemene-voorwaarden</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-finse-sauna-1920.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://amakhosi.be/privacybeleid</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <image:image><image:loc>https://amakhosi.be/assets/foto/amakhosi-stoombad-mozaiek-1620.webp</image:loc></image:image>

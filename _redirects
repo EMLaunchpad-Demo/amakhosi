@@ -34,6 +34,8 @@
 # 3. Oude adressen (WordPress/GHL) naar de best passende huidige pagina.
 /home / 301
 /home/ / 301
+/contact /#contact 301
+/contact/ /#contact 301
 /privesauna-hamont-achel / 301
 /privesauna-hamont-achel/ / 301
 /privesauna-lommel /privesauna-pelt-lommel 301
