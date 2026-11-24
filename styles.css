@@ -2856,6 +2856,10 @@ em .amk-w__i {
 
 .amk-legal {
   display: grid;
+  /* minmax(0, 1fr): anders maakt de tabel (min-width 520px) in het
+     privacybeleid de kolom op gsm 522px breed en valt de tekst rechts weg
+     (24/11/2026). */
+  grid-template-columns: minmax(0, 1fr);
   gap: 40px;
   align-items: start;
 }
@@ -2933,6 +2937,7 @@ em .amk-w__i {
   color: var(--amk-sun-2);
   text-decoration: underline;
   text-underline-offset: 3px;
+  overflow-wrap: anywhere; /* lange adressen breken af op een smalle gsm */
 }
 
 .amk-legal__card {
@@ -3782,7 +3787,7 @@ html:has(.amk-booking) { scroll-padding-top: var(--amk-booking-top); }
 
   .amk-contact__grid { grid-template-columns: 1fr 1fr; gap: 72px; }
 
-  .amk-legal { grid-template-columns: 260px 1fr; gap: 64px; }
+  .amk-legal { grid-template-columns: 260px minmax(0, 1fr); gap: 64px; }
   .amk-legal__toc { position: sticky; top: 110px; }
 
   .amk-mobilebar { display: none; }
