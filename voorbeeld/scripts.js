@@ -20,7 +20,7 @@
    16. Terug naar boven + jaartal
    17. Cadeaubon: checkout laden als ze in beeld komt
    18. Reserveren: agenda meteen op een deal (?deal=...), net onder de header
-   19. Herovideo op de homepagina (pas na het laden, als blob)
+   19. Video in de welkomboog op de homepagina (pas als ze in beeld komt, als blob)
    ========================================================================== */
 (function () {
   'use strict';
@@ -298,7 +298,7 @@
           speed: parseFloat(el.getAttribute('data-amk-parallax')) || 0.1,
           // Foto's binnen een kader hebben maar een kleine reserve-rand:
           // daar blijft de verschuiving binnen 5% van de hoogte (geen lege randen)
-          framed: el.tagName === 'IMG' || el.classList.contains('amk-tile__img'),
+          framed: el.tagName === 'IMG' || el.tagName === 'VIDEO' || el.classList.contains('amk-tile__img'),
           shift: 0,
           active: true
         };
@@ -752,49 +752,53 @@
     }
 
     /* ------------------------------------------------------------------
-       19. Herovideo op de homepagina (25/11/2026)
-       Laadt pas na de pagina, zodat de foto (LCP) eerst komt. Niet bij
-       verminderde beweging of databesparing: dan blijft de foto staan.
-       De video wordt eerst volledig opgehaald en als blob afgespeeld:
-       Cloudflare (Workers static assets) beantwoordt geen Range-verzoeken,
-       en zonder blob speelt Safari een video dan niet af.
-       Liggend scherm: de brede versie; staand (gsm): de staande versie.
-       Buiten beeld pauzeert ze.
+       19. Video in de welkomboog op de homepagina (25/11/2026)
+       Laadt pas als de sectie bijna in beeld komt. Niet bij verminderde
+       beweging of databesparing: dan blijft de foto staan. De video wordt
+       eerst volledig opgehaald en als blob afgespeeld: Cloudflare
+       (Workers static assets) beantwoordt geen Range-verzoeken, en zonder
+       blob speelt Safari een video dan niet af. Buiten beeld pauzeert ze.
        ------------------------------------------------------------------ */
-    var heroVideo = doc.querySelector('[data-amk-hero-video]');
+    var archVideo = doc.querySelector('[data-amk-arch-video]');
     var saveData = !!(navigator.connection && navigator.connection.saveData);
-    if (heroVideo && !reduceMotion && !saveData && window.fetch && window.URL && URL.createObjectURL) {
-      var playHeroVideo = function () {
-        var p = heroVideo.play();
+    if (archVideo && !reduceMotion && !saveData && window.fetch && window.URL && URL.createObjectURL &&
+        'IntersectionObserver' in window) {
+      var archLoaded = false;
+      var archVisible = false;
+      var playArchVideo = function () {
+        var p = archVideo.play();
         if (p && p.catch) p.catch(function () {});
       };
-      var startHeroVideo = function () {
-        var staand = mq('(max-aspect-ratio: 1/1)');
-        fetch(heroVideo.getAttribute(staand ? 'data-src-staand' : 'data-src-breed'))
+      var loadArchVideo = function () {
+        archLoaded = true;
+        fetch(archVideo.getAttribute('data-src'))
           .then(function (r) {
             if (!r.ok) throw new Error('video ' + r.status);
             return r.blob();
           })
           .then(function (blob) {
-            heroVideo.addEventListener('playing', function () {
-              heroVideo.classList.add('is-playing');
+            archVideo.addEventListener('playing', function () {
+              archVideo.classList.add('is-playing');
             });
-            heroVideo.muted = true;
-            heroVideo.src = URL.createObjectURL(blob);
-            playHeroVideo();
-            if ('IntersectionObserver' in window) {
-              new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                  if (entry.isIntersecting) playHeroVideo();
-                  else heroVideo.pause();
-                });
-              }).observe(heroVideo);
-            }
+            archVideo.muted = true;
+            archVideo.src = URL.createObjectURL(blob);
+            if (archVisible) playArchVideo();
           })
           .catch(function () {});
       };
-      if (doc.readyState === 'complete') startHeroVideo();
-      else window.addEventListener('load', startHeroVideo);
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !archLoaded) loadArchVideo();
+        });
+      }, { rootMargin: '400px 0px' }).observe(archVideo);
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          archVisible = entry.isIntersecting;
+          if (!archVideo.src) return;
+          if (archVisible) playArchVideo();
+          else archVideo.pause();
+        });
+      }).observe(archVideo);
     }
 
     // Start
