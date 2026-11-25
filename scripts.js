@@ -20,6 +20,7 @@
    16. Terug naar boven + jaartal
    17. Cadeaubon: checkout laden als ze in beeld komt
    18. Reserveren: agenda meteen op een deal (?deal=...), net onder de header
+   19. Herovideo op de homepagina (pas na het laden, als blob)
    ========================================================================== */
 (function () {
   'use strict';
@@ -748,6 +749,52 @@
           agenda.style.removeProperty(p);
         });
       }, 6000);
+    }
+
+    /* ------------------------------------------------------------------
+       19. Herovideo op de homepagina (25/11/2026)
+       Laadt pas na de pagina, zodat de foto (LCP) eerst komt. Niet bij
+       verminderde beweging of databesparing: dan blijft de foto staan.
+       De video wordt eerst volledig opgehaald en als blob afgespeeld:
+       Cloudflare (Workers static assets) beantwoordt geen Range-verzoeken,
+       en zonder blob speelt Safari een video dan niet af.
+       Liggend scherm: de brede versie; staand (gsm): de staande versie.
+       Buiten beeld pauzeert ze.
+       ------------------------------------------------------------------ */
+    var heroVideo = doc.querySelector('[data-amk-hero-video]');
+    var saveData = !!(navigator.connection && navigator.connection.saveData);
+    if (heroVideo && !reduceMotion && !saveData && window.fetch && window.URL && URL.createObjectURL) {
+      var playHeroVideo = function () {
+        var p = heroVideo.play();
+        if (p && p.catch) p.catch(function () {});
+      };
+      var startHeroVideo = function () {
+        var staand = mq('(max-aspect-ratio: 1/1)');
+        fetch(heroVideo.getAttribute(staand ? 'data-src-staand' : 'data-src-breed'))
+          .then(function (r) {
+            if (!r.ok) throw new Error('video ' + r.status);
+            return r.blob();
+          })
+          .then(function (blob) {
+            heroVideo.addEventListener('playing', function () {
+              heroVideo.classList.add('is-playing');
+            });
+            heroVideo.muted = true;
+            heroVideo.src = URL.createObjectURL(blob);
+            playHeroVideo();
+            if ('IntersectionObserver' in window) {
+              new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                  if (entry.isIntersecting) playHeroVideo();
+                  else heroVideo.pause();
+                });
+              }).observe(heroVideo);
+            }
+          })
+          .catch(function () {});
+      };
+      if (doc.readyState === 'complete') startHeroVideo();
+      else window.addEventListener('load', startHeroVideo);
     }
 
     // Start

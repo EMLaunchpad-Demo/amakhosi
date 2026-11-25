@@ -1,7 +1,15 @@
     <!-- =================================================================
          HERO
          ================================================================= -->
-    <section class="amk-hero" data-amk-hero data-amk-light aria-labelledby="amk-hero-title">
+    <!-- Herovideo over het volledige scherm (Martijn, 25/11/2026): video 2 van Patrick, zonder het logo op het einde.
+         Breed voor liggende schermen, staand (9:16, uitgesneden op het onderwerp) voor gsm's. scripts.js (deel 19)
+         laadt ze pas na de pagina; tot dan, en bij verminderde beweging of databesparing, blijft de foto staan. -->
+    <section class="amk-hero amk-hero--video" data-amk-hero data-amk-light aria-labelledby="amk-hero-title">
+      <div class="amk-hero__bg">
+        <img src="{{M}}6a84993662d4d706d4110075.jpg" sizes="@paginahero" alt="De privé-wellnessruimte van Amakhosi met ronde whirlpool, zebramuur en warme verlichting" width="2048" height="1292" fetchpriority="high" decoding="async" style="object-position: 22% 50%;">
+        <video class="amk-hero__video" data-amk-hero-video data-src-breed="/assets/video/amakhosi-hero-breed.mp4" data-src-staand="/assets/video/amakhosi-hero-staand.mp4" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback aria-hidden="true" tabindex="-1"></video>
+      </div>
+      <div class="amk-hero__shade" aria-hidden="true"></div>
       <div class="amk-hero__light" aria-hidden="true"></div>
       <div class="amk-embers" data-amk-embers="18" aria-hidden="true"></div>
 
@@ -27,28 +35,6 @@
               <li><span class="amk-icon-wrap">{{i:clock}}</span><span>Vanaf € 169<small>3 uur wellness</small></span></li>
               <li><span class="amk-icon-wrap">{{i:plug}}</span><span>Gratis privéparking<small>Met laadpaal</small></span></li>
             </ul>
-          </div>
-
-          <div class="amk-hero__media">
-            <div class="amk-hero__sun" aria-hidden="true"></div>
-            <div class="amk-hero__outline" aria-hidden="true"></div>
-            <div class="amk-arch amk-hero__arch">
-              <img src="{{M}}6a84993662d4d706d4110075.jpg" sizes="@hero" alt="De privé-wellnessruimte van Amakhosi met ronde whirlpool, zebramuur en warme verlichting" width="2048" height="1292" fetchpriority="high" decoding="async" style="object-position: 22% 50%;" data-amk-parallax="-0.05">
-            </div>
-            <div class="amk-hero__inset" data-amk-parallax="0.08">
-              <img src="{{M}}6a8435f545dbba232fa5362a.jpg" sizes="@inzet" alt="Finse sauna met sfeerverlichting onder de banken" width="2048" height="1365" decoding="async" style="object-position: 70% 50%;">
-            </div>
-            <div class="amk-hero__ring" data-amk-parallax="0.12" aria-hidden="true">
-              <svg class="amk-ring-text" viewBox="0 0 100 100">
-                <defs><path id="amk-ring-path" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0"/></defs>
-                <text><textPath href="#amk-ring-path" textLength="232" lengthAdjust="spacing">Koninklijk genieten ✦ Helemaal privé ✦</textPath></text>
-              </svg>
-              {{i:crown}}
-            </div>
-            <div class="amk-hero__badge" data-amk-parallax="-0.06">
-              <strong>{{i:crown}}Amakhosi</strong>
-              betekent “koningen” in het Zulu. Zo voel jij je bij ons.
-            </div>
           </div>
 
         </div>

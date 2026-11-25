@@ -1139,6 +1139,68 @@ em .amk-w__i {
 
 .amk-hero__arch img { scale: 1.12; }
 
+/* Herovideo over het volledige scherm (25/11/2026). De foto ligt eronder en blijft
+   staan tot de video speelt (scripts.js, deel 19). Op gsm dekt de video het eerste
+   scherm en vloeit ze daaronder over in de achtergrond. */
+.amk-hero--video::before { display: none; }
+
+.amk-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  overflow: hidden;
+  background: var(--amk-bg);
+}
+
+.amk-hero__bg img,
+.amk-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.amk-hero__bg img { animation: amk-kenburns-slow 18s var(--amk-ease) both; }
+
+.amk-hero__video {
+  opacity: 0;
+  transition: opacity 1.2s var(--amk-ease);
+  pointer-events: none;
+}
+
+.amk-hero__video.is-playing { opacity: 1; }
+
+.amk-hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(29, 0, 0, 0.74) 0%, rgba(29, 0, 0, 0.5) 24%, rgba(29, 0, 0, 0.6) 55%, rgba(29, 0, 0, 0.9) 82%, var(--amk-bg) 100%);
+}
+
+.amk-hero--video .amk-hero__headline,
+.amk-hero--video .amk-hero__text { text-shadow: 0 2px 22px rgba(20, 0, 0, 0.55); }
+
+.amk-hero--video .amk-hero__text { color: rgba(251, 238, 224, 0.88); }
+
+@media (max-width: 999.98px) {
+  .amk-hero__bg,
+  .amk-hero__shade {
+    bottom: auto;
+    height: 100vh;
+    height: 100svh;
+  }
+}
+
+@media (min-width: 1000px) {
+  .amk-hero__shade {
+    background:
+      linear-gradient(90deg, rgba(29, 0, 0, 0.9) 0%, rgba(29, 0, 0, 0.72) 34%, rgba(29, 0, 0, 0.28) 62%, rgba(29, 0, 0, 0.1) 100%),
+      linear-gradient(180deg, rgba(29, 0, 0, 0.55) 0%, rgba(29, 0, 0, 0) 22%, rgba(29, 0, 0, 0) 70%, var(--amk-bg) 100%);
+  }
+}
+
 .amk-hero__outline {
   position: absolute;
   inset: -14px -14px calc(8% - 14px) -14px;
